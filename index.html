@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>İKARUS Kritik Tasarım Raporu</title>
+<meta name="description" content="İKARUS takımının TEKNOFEST 2026 Savaşan İHA Yarışması Kritik Tasarım Raporu: hava aracı tasarımı, otonom kilitlenme, kamikaze görevi, haberleşme ve testler.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230e1a2b%27/%3E%3Cpath d=%27M5 17h22M16 9v15M11 25h10%27 stroke=%27%23f05a1a%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Saira+Condensed:wght@600;700&display=swap">
+<script>try{var t=localStorage.getItem('ikarus-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#top"><b>İKARUS</b><span>SAVAŞAN İHA · KTR 2026</span></a>
+  <div class="spacer"></div>
+  <button class="iconbtn" id="tocBtn" aria-expanded="false" aria-controls="toc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>İçindekiler
+  </button>
+  <button class="iconbtn" id="themeBtn" aria-label="Tema değiştir" title="Tema değiştir">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+  </button>
+  <div class="progress" id="progress"></div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow">TEKNOFEST · Savaşan İHA Yarışması 2026 · Kritik Tasarım Raporu</p>
+      <h1>İKARUS</h1>
+      <p class="lede">Kalkıştan inişe tam otonom çalışan, YOLO tabanlı rakip tespiti, kamikaze görevi ve hava savunma kaçınmasını tek platformda birleştiren sabit kanatlı savaşan İHA.</p>
+      <p class="ids"><span>TAKIM ID <b>942168</b></span><span>BAŞVURU ID <b>5017231</b></span><span>YIL <b>2026</b></span></p>
+    </div>
+    <figure class="hero-figure">
+      <img src="/img/kaplamali.webp" width="1219" height="666" alt="Hava aracının kaplamalı üç boyutlu tasarımı">
+      <span class="dim span">2000 mm</span>
+    </figure>
+  </div>
+  <dl class="specs" aria-label="Temel performans değerleri">
+    <div class="spec"><dt>Kanat açıklığı</dt><dd>2000<small>mm</small></dd></div>
+    <div class="spec"><dt>MTOW</dt><dd>6500<small>g</small></dd></div>
+    <div class="spec"><dt>Seyir hızı</dt><dd>20<small>m/s</small></dd></div>
+    <div class="spec"><dt>Stall hızı</dt><dd>10.45<small>m/s</small></dd></div>
+    <div class="spec"><dt>Uçuş süresi</dt><dd>~29<small>dk</small></dd></div>
+    <div class="spec"><dt>İtki / Ağırlık</dt><dd>~1.3</dd></div>
+  </dl>
+</section>
+
+<div class="shell">
+  <nav class="toc" id="toc" aria-label="İçindekiler">
+    <div class="toc-title">İçindekiler</div>
+    <ol>
+      <li><a href="#s1"><span class="n">1</span>Temel Sistem Özeti</a>
+        <ol><li><a href="#s1-1"><span class="n">1.1</span>Sistem Tanımı</a></li><li><a href="#s1-2"><span class="n">1.2</span>Nihai Performans</a></li></ol></li>
+      <li><a href="#s2"><span class="n">2</span>Organizasyon Özeti</a>
+        <ol><li><a href="#s2-1"><span class="n">2.1</span>Takım Organizasyonu</a></li><li><a href="#s2-2"><span class="n">2.2</span>Zaman Akışı ve Bütçe</a></li></ol></li>
+      <li><a href="#s3"><span class="n">3</span>Detaylı Tasarım Özeti</a>
+        <ol><li><a href="#s3-1"><span class="n">3.1</span>Üç Boyutlu Tasarım</a></li><li><a href="#s3-2"><span class="n">3.2</span>Performans Özeti</a></li><li><a href="#s3-3"><span class="n">3.3</span>Sistem Mimarisi</a></li><li><a href="#s3-4"><span class="n">3.4</span>Ağırlık Dağılımı</a></li></ol></li>
+      <li><a href="#s4"><span class="n">4</span>Otonom Görevler</a>
+        <ol><li><a href="#s4-1"><span class="n">4.1</span>Otonom Kilitlenme</a></li><li><a href="#s4-2"><span class="n">4.2</span>Kamikaze Görevi</a></li></ol></li>
+      <li><a href="#s5"><span class="n">5</span>Hava Savunma Sistemi</a></li>
+      <li><a href="#s6"><span class="n">6</span>YKİ, Haberleşme ve Arayüz</a>
+        <ol><li><a href="#s6-1"><span class="n">6.1</span>Haberleşme Mimarisi</a></li><li><a href="#s6-2"><span class="n">6.2</span>Donanımlar</a></li><li><a href="#s6-3"><span class="n">6.3</span>YKİ Tasarımı</a></li></ol></li>
+      <li><a href="#s7"><span class="n">7</span>Hava Aracı Entegrasyonu</a>
+        <ol><li><a href="#s7-1"><span class="n">7.1</span>Yapısal ve Mekanik</a></li><li><a href="#s7-2"><span class="n">7.2</span>Elektronik</a></li></ol></li>
+      <li><a href="#s8"><span class="n">8</span>Test ve Simülasyon</a>
+        <ol><li><a href="#s8-1"><span class="n">8.1</span>Alt Sistem Testleri</a></li><li><a href="#s8-2"><span class="n">8.2</span>Uçuş Kontrol Listesi</a></li><li><a href="#s8-3"><span class="n">8.3</span>Görev Testleri</a></li></ol></li>
+      <li><a href="#s9"><span class="n">9</span>Güvenlik</a></li>
+      <li><a href="#s10"><span class="n">10</span>Referanslar</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+<!-- ================= 1 ================= -->
+<section class="section" id="s1">
+  <div class="sec-head"><span class="n">1</span><h2>Temel Sistem Özeti</h2></div>
+  <h3 id="s1-1"><span class="n">1.1</span>Sistem Tanımı</h3>
+  <div class="prose">
+    <p>TEKNOFEST Savaşan İHA Yarışması için geliştirilen platform; kalkıştan inişe tam otonom operasyon, YOLO tabanlı rakip tespiti, kamikaze görevi ve stratejik kaçınma algoritmalarını bütünleşik sunan hava savunma ve taarruz sistemidir.</p>
+    <p>Görev bilgisayarı <strong>Jetson Orin NX</strong> yüksek seviyeli otonom kararları (hedef tespiti, rota planlama, angajman) üstlenirken; <strong>Orange Cube/Pixhawk</strong> otopilot katmanlı PID döngüleriyle düşük seviyeli kararlılığı yürütür. İkisi arasındaki haberleşme UART üzerinden MAVLink v2 ile sağlanır. YKİ görev parametrelerini yükler ve uçuşu izler; RFD900x 868 MHz FHSS üzerinden kesintisiz telemetri sağlar. Yarışma sunucusu modülü konum, kilitlenme ve görev verilerini JSON/REST üzerinden yönetim merkezine iletir.</p>
+  </div>
+
+  <h3 id="s1-2"><span class="n">1.2</span>Sistem Nihai Performans Özellikleri</h3>
+  <div class="table-wrap">
+    <table>
+      <caption>Tablo 1 · Nihai Performans Tablosu</caption>
+      <thead><tr><th>Parametre</th><th>Birim</th><th class="num">Değer</th></tr></thead>
+      <tbody>
+        <tr><td>Kanat Açıklığı</td><td class="mono">mm</td><td class="num">2000</td></tr>
+        <tr><td>Kanat Alanı</td><td class="mono">m²</td><td class="num">0.7</td></tr>
+        <tr><td>Gövde Uzunluğu</td><td class="mono">mm</td><td class="num">1350</td></tr>
+        <tr><td>MTOW (Kalkış Ağırlığı)</td><td class="mono">g</td><td class="num">6500</td></tr>
+        <tr><td>Seyir Hızı</td><td class="mono">m/s</td><td class="num">20</td></tr>
+        <tr><td>Stall Hızı</td><td class="mono">m/s</td><td class="num">10.45</td></tr>
+        <tr><td>Kanat Yüklemesi</td><td class="mono">N/m²</td><td class="num">43.52</td></tr>
+        <tr><td>Açıklık Oranı (AR)</td><td class="mono">–</td><td class="num">5.71</td></tr>
+        <tr><td>Motor &amp; Pervane</td><td class="mono">–</td><td class="num">T-Motor AT4125 &amp; Gemfan 16×8</td></tr>
+        <tr><td>Batarya Kapasitesi</td><td class="mono">mAh</td><td class="num">30000 (6S)</td></tr>
+        <tr><td>İtki / Ağırlık Oranı</td><td class="mono">–</td><td class="num">~1.3</td></tr>
+        <tr><td>Ön Kamera</td><td class="mono">–</td><td class="num">Arducam AR0234 (60° lens)</td></tr>
+        <tr><td>Tahmini Uçuş Süresi</td><td class="mono">dk</td><td class="num">29</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 2 ================= -->
+<section class="section" id="s2">
+  <div class="sec-head"><span class="n">2</span><h2>Organizasyon Özeti</h2></div>
+  <h3 id="s2-1"><span class="n">2.1</span>Takım Organizasyonu</h3>
+  <div class="org" role="figure" aria-label="Şekil 1. Takım Organizasyon Şeması">
+    <div class="org-top"><div class="org-card"><h5>Takım Kaptanı</h5>Genel koordinasyon, ekipler arası iletişim, görev dağılımı ve takımın resmî temsilini yürütmek.</div></div>
+    <div class="org-link"></div>
+    <div class="org-row">
+      <div class="org-card"><h5>Yazılım Birimi</h5>Görüntü işleme, otonom hareket ve uçuş algoritmalarının geliştirilmesi, simülasyon ortamlarının (ROS, PX4, Gazebo) kurulması ve sistem entegrasyonu.</div>
+      <div class="org-card"><h5>Donanım Birimi</h5>Güç dağıtımı, itki kontrolü, elektronik bağlantılar, yer istasyonu haberleşme protokolleri ve uçuş kontrol kartı tasarım/doğrulama çalışmaları.</div>
+      <div class="org-card"><h5>Mekanik Birimi</h5>İHA aerodinamik tasarımı, kanat profili seçimi, yapısal analizler (FEA/CFD), üretim planlaması ve malzeme araştırması.</div>
+      <div class="org-card"><h5>Sponsorluk ve İletişim</h5>Sponsorluk süreçleri, zaman/süreç planlaması, birimler arası görev takibi ve dış iletişim faaliyetleri.</div>
+    </div>
+  </div>
+  <p class="note">Şekil 1. Takım Organizasyon Şeması</p>
+
+  <h3 id="s2-2"><span class="n">2.2</span>Zaman Akış Çizelgesi ve Bütçe</h3>
+  <figure class="fig">
+    <button class="zoom" data-cap="Şekil 2. Proje Zaman Akış Çizelgesi"><img src="/img/gantt.webp" width="945" height="549" alt="Proje iş paketleri Gantt çizelgesi" loading="lazy"></button>
+    <figcaption><b>Şekil 2.</b>Proje Zaman Akış Çizelgesi</figcaption>
+  </figure>
+  <div class="prose">
+    <p>Projenin tahmini bütçesi ile gerçekleşen bütçesi arasında, dışsal faktörlere ve malzeme temininde yaşanan zorluklara bağlı olarak bazı farklar oluşmuştur. Eski malzeme listesinin toplam maliyeti <strong class="mono">317.283,03 TL</strong> olarak hesaplanmıştır. Aşağıdaki güncel malzemelerle değiştirilerek toplam yeni proje maliyeti <strong class="mono">288.566,00 TL</strong> olarak belirlenmiştir.</p>
+  </div>
+  <div class="lab" id="budget">
+    <div class="lab-head"><span class="lab-tag">Bütçe</span><h4>Güncellenen malzemeler</h4></div>
+    <div class="lab-body">
+      <div class="readouts">
+        <div class="readout"><div class="k">Eski toplam</div><div class="v num">317.283<small>TL</small></div></div>
+        <div class="readout"><div class="k">Yeni toplam</div><div class="v num">288.566<small>TL</small></div></div>
+        <div class="readout"><div class="k">Fark</div><div class="v num" style="color:var(--ok)">−28.717<small>TL</small></div><div class="d">%9,1 daha düşük</div></div>
+        <div class="readout"><div class="k">Listelenen kalemler</div><div class="v num" id="budgetSum">–</div></div>
+      </div>
+      <div class="bars" id="budgetBars"></div>
+    </div>
+    <div class="lab-foot">Kalemler raporda verilen fiyatlardır; servo satırı 5 adet × 4.199,90 TL toplamıdır.</div>
+  </div>
+</section>
+
+<!-- ================= 3 ================= -->
+<section class="section" id="s3">
+  <div class="sec-head"><span class="n">3</span><h2>Detaylı Tasarım Özeti</h2></div>
+  <h3 id="s3-1"><span class="n">3.1</span>Hava Aracının Üç Boyutlu Tasarımı</h3>
+  <div class="prose"><p>Aracın kanat iç yapısının da gösterildiği üç boyutlu tasarımı aşağıdaki şekillerdedir.</p></div>
+  <figure class="fig">
+    <div class="fig-grid" style="--cols:2">
+      <button class="zoom" data-cap="Şekil 3. İskelet Tasarımı"><img src="/img/iskelet.webp" width="1315" height="848" alt="İskelet tasarımı" loading="lazy"><span class="sub">Şekil 3 · İskelet</span></button>
+      <button class="zoom" data-cap="Şekil 4. Kaplamalı Tasarım"><img src="/img/kaplamali.webp" width="1219" height="666" alt="Kaplamalı tasarım" loading="lazy"><span class="sub">Şekil 4 · Kaplamalı</span></button>
+      <button class="zoom" data-cap="Şekil 5. Üstten Görünüm"><img src="/img/ustten.webp" width="1289" height="851" alt="Üstten görünüm" loading="lazy"><span class="sub">Şekil 5 · Üstten</span></button>
+      <button class="zoom" data-cap="Şekil 6. Gövde İçi Yerleşim Planı"><img src="/img/yerlesim.webp" width="1109" height="910" alt="Gövde içi yerleşim planı" loading="lazy"><span class="sub">Şekil 6 · Yerleşim</span></button>
+    </div>
+    <figcaption><b>Şekil 3–6.</b>İskelet tasarımı, kaplamalı tasarım, üstten görünüm ve gövde içi yerleşim planı. Görsele tıklayarak büyütün.</figcaption>
+  </figure>
+  <div class="prose">
+    <p>Sigorta yerleşimi, bataryadan gelen ana hat gerilimi ile ana motora giden 90A ESC arasındadır. Alt sistem yerleşimleri Şekil 6’dadır.</p>
+    <p>Perspektif karışıklıklarını önlemek amacıyla belirtmek gerekir: telemetri modülü aracın gövdesinin üst kısmında, arka tarafta ve antenleri dışa dönük olacak şekilde konumlandırılmıştır.</p>
+  </div>
+
+  <h3 id="s3-2"><span class="n">3.2</span>Hava Aracı Performans Özeti</h3>
+  <h4><span class="n">3.2.1</span>Uçuş Süresi Hesaplamaları</h4>
+  <div class="prose">
+    <p>Uçuş süresi, sistemin bataryadan çektiği toplam akımla <span class="tex">t = \dfrac{C_{\text{batarya}}}{\bar I}\cdot 60</span> bağıntısıyla hesaplanır. Bileşenlerin ortalama akımları: otopilot 0.3 A, yapay zekâ bilgisayarı 1.25 A, telemetri 0.8 A, Herelink 0.33 A, UBEC 0.28 A, ana motor ~60 A. Stabil uçuşta toplam akım 62.96 A olup uçuş süresi <strong>28.59 dakika</strong>; pik değerlerde toplam akım 84.7 A için süre <strong>21.33 dakika</strong> olarak hesaplanmıştır.</p>
+  </div>
+  <div class="lab" id="flight">
+    <div class="lab-head"><span class="lab-tag">Hesap</span><h4>Uçuş süresi hesaplayıcı</h4>
+      <div class="seg" role="group" aria-label="Senaryo"><button type="button" data-preset="cruise" aria-pressed="true">Stabil seyir</button><button type="button" data-preset="peak" aria-pressed="false">Pik</button></div>
+    </div>
+    <div class="lab-body lab-cols">
+      <div class="controls">
+        <div class="comp" id="flightComps"></div>
+        <div class="ctrl"><label for="motorA"><span>Ana motor akımı</span> <output id="motorAOut">60 A</output></label><input type="range" id="motorA" min="20" max="90" step="0.01" value="60"></div>
+        <div class="ctrl"><label for="capMah"><span>Batarya kapasitesi</span> <output id="capOut">30000 mAh</output></label><input type="range" id="capMah" min="10000" max="40000" step="500" value="30000"></div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div class="readouts">
+          <div class="readout"><div class="k">Toplam akım</div><div class="v" id="ftI">–</div></div>
+          <div class="readout"><div class="k">Uçuş süresi</div><div class="v" id="ftT" style="color:var(--accent-ink)">–</div></div>
+        </div>
+        <div>
+          <div class="note" style="margin-bottom:6px">Akım dağılımı</div>
+          <div class="stackbar" id="ftBar"></div>
+          <div class="legend" id="ftLegend" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="lab-foot">Hesap raporun formülünü kullanır. Pik senaryosu raporda verilen 84.7 A toplam akımı yeniden üretir; bu akımla formül 21.25 dk verir (raporda 21.33 dk).</div>
+  </div>
+
+  <h4><span class="n">3.2.2</span>Yapısal Analiz</h4>
+  <figure class="fig">
+    <div class="fig-grid" style="--cols:2">
+      <button class="zoom" data-cap="Şekil 7 (sol). 67 N lift kuvveti altında kanat yapısı toplam deformasyon analizi"><img src="/img/fea-kanat.webp" width="1126" height="652" alt="Kanat yapısı statik analiz" loading="lazy"><span class="sub">Sol · Kanat</span></button>
+      <button class="zoom" data-cap="Şekil 7 (sağ). Ahşap rib eşdeğer gerilme analizi"><img src="/img/fea-rib.webp" width="1113" height="636" alt="Rib gerilme analizi" loading="lazy"><span class="sub">Sağ · Rib</span></button>
+    </div>
+    <figcaption><b>Şekil 7.</b>Analiz çıktıları (ANSYS Static Structural)</figcaption>
+  </figure>
+  <div class="prose">
+    <p>Şekil 7-Sol, 67 N lift kuvvetine yönelik analizde kanat yapısının stres seviyesinin malzeme akma dayanımının altında kaldığını göstermektedir. Şekil 7-Sağ, kanat birim hücreleri olan ahşap riblerin 15 MPa’ya kadar kalıcı deformasyon olmadan yüklere dayandığını göstermektedir. Güvenlik katsayısının <strong>1.5</strong> olması mekanik altyapının sağlamlığını doğrular.</p>
+  </div>
+
+  <h4><span class="n">3.2.3</span>Akış Analizi ve Kanat Profili Seçimi</h4>
+  <figure class="fig">
+    <div class="fig-grid" style="--cols:2">
+      <button class="zoom" data-cap="Şekil 8. Statik basınç dağılımı"><img src="/img/cfd-basinc.webp" width="1066" height="393" alt="CFD statik basınç" loading="lazy"><span class="sub">Statik basınç</span></button>
+      <button class="zoom" data-cap="Şekil 8. Hız büyüklüğü dağılımı"><img src="/img/cfd-hiz.webp" width="1523" height="546" alt="CFD hız dağılımı" loading="lazy"><span class="sub">Hız büyüklüğü</span></button>
+    </div>
+    <div class="fig-grid" style="--cols:3;margin-top:10px">
+      <button class="zoom" data-cap="Şekil 8. Sürükleme katsayısı yakınsaması"><img src="/img/cfd-cd.webp" width="1400" height="488" alt="Sürükleme katsayısı yakınsaması" loading="lazy"><span class="sub">C<sub>D</sub></span></button>
+      <button class="zoom" data-cap="Şekil 8. Kaldırma katsayısı yakınsaması"><img src="/img/cfd-cl.webp" width="1400" height="486" alt="Kaldırma katsayısı yakınsaması" loading="lazy"><span class="sub">C<sub>L</sub></span></button>
+      <button class="zoom" data-cap="Şekil 8. Kuvvet yakınsaması"><img src="/img/cfd-kuvvet.webp" width="1400" height="499" alt="Kuvvet yakınsaması" loading="lazy"><span class="sub">Kuvvet</span></button>
+    </div>
+    <figcaption><b>Şekil 8.</b>İHA modeline ait CFD analiz sonuçları (ANSYS)</figcaption>
+  </figure>
+  <div class="prose">
+    <p>Kabul edilen 20 m/s seyir hızında gerçekleştirilen HAD analizleri, tasarımın aerodinamik açıdan verimli ve kararlı olduğunu göstermektedir. Hücum kenarlarında beklenen durma noktaları oluşurken kanat üst yüzeylerindeki düşük basınç profili kaldırma kuvveti üretimini destekler; gövde arkasında ciddi akış ayrılması gözlenmemiştir. Çözüm 100. iterasyondan itibaren yakınsamış, sürükleme 0.008 ve toplam sürükleme kuvveti 0.36 N seviyelerinde stabilize olarak modelin düşük dirençli formunu doğrulamıştır.</p>
+    <p>İt dalaşı manevraları ve enerji verimliliği göz önünde bulundurularak üç profil (NACA 2412, NACA 4412, Clark Y) XFLR5 ile incelenmiştir. Analizler 20 m/s seyir hızı ve 0.35 m ortalama veter üzerinden hesaplanan <span class="tex">Re = 470\,000</span> değerinde yürütülmüştür.</p>
+  </div>
+  <figure class="fig" style="max-width:680px">
+    <button class="zoom" data-cap="Şekil 9. XFLR5 Kanat Profili Analizleri (NACA 2412, NACA 4412, Clark Y)"><img src="/img/xflr5.webp" width="750" height="499" alt="XFLR5 kanat profili analizleri" loading="lazy"></button>
+    <figcaption><b>Şekil 9.</b>XFLR5 Kanat Profili Analizleri</figcaption>
+  </figure>
+  <div class="prose">
+    <p>Bu veriler ışığında sert manevralara en iyi tepkiyi verirken batarya tüketimini makul tutan <strong>NACA 2412</strong> profili ana kanat tasarımı olarak belirlenmiştir. Kanat profilinin daha iyi lift sağlayabilmesi için <strong>5°</strong> geliş açısı (angle of incidence) verilmiştir.</p>
+  </div>
+  <figure class="fig" style="max-width:320px">
+    <button class="zoom" data-cap="Şekil 10. Geliş açısının gösterimi"><img src="/img/gelis-acisi.webp" width="900" height="1200" alt="Kanat geliş açısı" loading="lazy"></button>
+    <figcaption><b>Şekil 10.</b>Geliş açısının gösterimi</figcaption>
+  </figure>
+
+  <h3 id="s3-3"><span class="n">3.3</span>Nihai Sistem Mimarisi ve Alt Sistemler Özeti</h3>
+  <h4><span class="n">3.3.1</span>Sistem Mimarisi</h4>
+  <div class="prose"><p>Nihai sistem mimarisi, kullanılan tüm malzemelerin marka-model bilgisi ve tüm veri aktarım yolları gösterilerek aşağıda verilmiştir.</p></div>
+  <figure class="fig" style="max-width:640px">
+    <button class="zoom" data-cap="Şekil 11. Nihai Sistem Mimarisi"><img src="/img/mimari.webp" width="1107" height="1180" alt="Nihai sistem mimarisi bağlantı şeması" loading="lazy"></button>
+    <figcaption><b>Şekil 11.</b>Nihai Sistem Mimarisi</figcaption>
+  </figure>
+  <h4><span class="n">3.3.2</span>Alt Sistemlerin Teknik Özellikleri ve Uyumluluğu</h4>
+  <div class="prose">
+    <p>Alt bileşenler performans ve entegrasyon kriterleri göz önüne alınarak seçilmiştir. Uçuş kontrolü için Pixhawk tabanlı kontrolcü tercih edilmiştir; farklı haberleşme arayüzlerini desteklemesi ve PX4 ile uyumu nedeniyle ana kontrol birimidir.</p>
+    <p>Görüntü işleme ve otonom görevler için Jetson tabanlı bilgisayar kullanılmış; yüksek işlem gücüyle gerçek zamanlı görüntü işleme yürütür. Pixhawk-Jetson iletişimi MAVLink üzerinden sağlanır.</p>
+    <p>Güç dağıtımında kararlılık için Pixhawk power module ile beslenirken servo motorlar harici UBEC ile beslenir; voltaj dalgalanmalarının etkisi azaltılmıştır.</p>
+  </div>
+  <h4><span class="n">3.3.3</span>RF Haberleşme Sistemi ve Frekans Seçimi</h4>
+  <div class="prose">
+    <p>Haberleşme güvenilirliği için iki farklı RF hattı kullanılmıştır. Komuta kontrol ve görüntü aktarımı, düşük gecikmeli video ve kontrol sağlayan <strong>2.4 GHz Herelink</strong> ile yapılır. Telemetri için 868/915 MHz bandında çalışan, uzun menzil ve yüksek kararlılık sağlayan <strong>RFD900</strong> modülü kullanılmıştır. Farklı frekans bantları frekans çakışmasını önler ve iki ayrı hat ile yedeklilik sağlar.</p>
+  </div>
+
+  <h3 id="s3-4"><span class="n">3.4</span>Hava Aracı Ağırlık Dağılımı</h3>
+  <div class="prose"><p>Ağırlık merkezinin hesaplanmasında referans noktası olarak Şekil 3’teki mavi nokta belirlenmiştir. Alt sistemlerin bu referans noktasına göre uzaklıkları aşağıdadır. Grafikteki noktaların alanı bileşen ağırlığıyla orantılıdır; bir noktanın veya satırın üzerine gelerek bileşeni vurgulayın.</p></div>
+  <div class="lab" id="cg">
+    <div class="lab-head"><span class="lab-tag">Yerleşim</span><h4>Alt sistem konumları</h4>
+      <div class="seg" role="group" aria-label="Görünüm"><button type="button" data-view="top" aria-pressed="true">Üstten (X–Z)</button><button type="button" data-view="side" aria-pressed="false">Yandan (X–Y)</button></div>
+    </div>
+    <div class="lab-body">
+      <div id="cgPlot"></div>
+      <div class="readouts">
+        <div class="readout"><div class="k">Listelenen kütle</div><div class="v" id="cgMass">–</div></div>
+        <div class="readout"><div class="k">Bu bileşenlerin ortak AM'si (X, Y, Z)</div><div class="v" id="cgXYZ" style="font-size:1.2rem">–</div><div class="d">referans noktasına göre, mm</div></div>
+        <div class="readout"><div class="k">Uçağın AM'si (sol kanat ucuna göre)</div><div class="v" style="font-size:1.2rem">15.33, −0.66, −997.22</div><div class="d">raporda hesaplanan, mm</div></div>
+      </div>
+    </div>
+    <div class="lab-foot">Ortak AM yalnızca tablodaki alt sistemleri kapsar; gövde, kanat ve kaplama yapısı dahil değildir.</div>
+  </div>
+  <div class="table-wrap">
+    <table id="cgTable">
+      <caption>Tablo 2 · Alt Sistemlerin Ağırlık Merkezine Uzaklık Tablosu (sütun başlığına tıklayarak sıralayın)</caption>
+      <thead><tr>
+        <th aria-sort="none"><button type="button" data-k="name">Parça Adı</button></th>
+        <th class="num" aria-sort="none"><button type="button" data-k="w">Ağırlık (g)</button></th>
+        <th class="num" aria-sort="none"><button type="button" data-k="x">X (mm)</button></th>
+        <th class="num" aria-sort="none"><button type="button" data-k="y">Y (mm)</button></th>
+        <th class="num" aria-sort="none"><button type="button" data-k="z">Z (mm)</button></th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 4 ================= -->
+<section class="section" id="s4">
+  <div class="sec-head"><span class="n">4</span><h2>Otonom Görevler</h2></div>
+  <h3 id="s4-1"><span class="n">4.1</span>Otonom Kilitlenme</h3>
+  <div class="prose"><p>Otonom kilitlenme; rakip İHA'nın algılanması, yasaklı alanlardan kaçınılması, güvenlik ön elemesi, hedef seçimi, rota üretimi, görsel takip ve kilitlenme bilgisinin sunucuya aktarılmasından oluşan bütünleşik bir görev hattıdır. Aşağıdaki aşamalara tıklayarak her birinin özetini görün.</p></div>
+
+  <div class="lab" id="pipeline">
+    <div class="lab-head"><span class="lab-tag">Görev hattı</span><h4>Kilitlenme zinciri</h4></div>
+    <div class="lab-body">
+      <div class="pipe" role="tablist" aria-label="Kilitlenme aşamaları"></div>
+      <div class="pipe-detail" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <figure class="fig">
+    <button class="zoom" data-cap="Şekil 12. Otonom Kilitlenme Algoritma Şeması"><img src="/img/kilitlenme-akis.webp" width="1357" height="535" alt="Otonom kilitlenme algoritma akış şeması" loading="lazy"></button>
+    <figcaption><b>Şekil 12.</b>Otonom Kilitlenme Algoritma Şeması</figcaption>
+  </figure>
+
+  <h4 id="s4-1-1"><span class="n">4.1.1</span>Sunucu Veri Akışı ve Veri Parçalama</h4>
+  <div class="prose"><p>Yarışma sunucusu ile haberleşme HTTP/REST üzerinden 1 Hz yürütülür. Her çevrimde rakip durumları, HSS bilgisi ve görev parametreleri JSON’dan ayrıştırılır; WGS84 koordinatları yerel ENU’ya çevrilir, eski/NaN/sınır dışı örnekler IMM-EKF öncesi elenir. 200 ms zaman aşımı aşılırsa son geçerli kestirimle görev sürdürülür.</p></div>
+
+  <h4 id="s4-1-2"><span class="n">4.1.2</span>İdeal Hedef Seçimi</h4>
+  <div class="prose"><p>İdeal hedef seçiminde her rakip için sunucu verisi ve IMM-EKF <a class="cite" href="#ref4">[4]</a> kısa vadeli konum/yönelim/belirsizlik tahmini birlikte kullanılır. Yasaklı alandaki, HSS’ye gireceği öngörülen, son başarıyla kilitlenilen veya belirsizliği eşik üstü adaylar elenir; kalanlarda yaklaşma açısı, tahmini mesafe ve kestirim belirsizliğinden oluşan maliyet en küçüklenir.</p></div>
+  <div class="eq">
+    <span class="tex" data-display>M(x,t)=\frac{\displaystyle\sum_{k=1}^{H}\lambda^{k-1}\left[\omega_{\psi}\,\frac{1-\cos(\Delta\psi_{x,k})}{2}+\omega_{d}\,\log\!\left(1+\frac{d_{x,k}}{d_{0}}\right)+\omega_{u}\,\frac{\sigma_{x,k}}{\sigma_{x,k}+\sigma_{0}}\right]}{\displaystyle\sum_{k=1}^{H}\lambda^{k-1}}</span>
+    <dl>
+      <dt><span class="tex">H</span></dt><dd>İleri bakılan tahmin ufku</dd>
+      <dt><span class="tex">\lambda</span></dt><dd>Zaman indirgeme katsayısı</dd>
+      <dt><span class="tex">\Delta\psi_{x,k}</span></dt><dd>Açı farkı</dd>
+      <dt><span class="tex">d_{x,k},\ d_0</span></dt><dd>Ego ile hedef arasındaki mesafe ve normalizasyon</dd>
+      <dt><span class="tex">\sigma_{x,k},\ \sigma_0</span></dt><dd>IMM-EKF belirsizlik ölçüsü ve normalizasyon</dd>
+    </dl>
+  </div>
+
+  <h4 id="s4-1-3"><span class="n">4.1.3</span>Hedefe Yaklaşılması İçin İdeal Rotanın Çıkarılması</h4>
+  <div class="prose"><p>Yarışma alanı; yasaklı bölgeler, rakip tahminleri ve görev hedefi ile ağırlıklandırılmış grid haritaya dönüştürülür. Yasaklı alanlar geçilemez, IMM-EKF rakip tahminleri zaman bağımlı risk maliyetidir; A* <a class="cite" href="#ref3">[3]</a> global yol üretir, MPPI/PX4 bu yolu sabit kanat kısıtlarıyla uygulanabilir komutlara çevirir.</p></div>
+  <figure class="fig" style="max-width:620px">
+    <button class="zoom" data-cap="Şekil 13. Üretilen Sentez Metodun Mimarisi"><img src="/img/sentez-mimari.webp" width="840" height="550" alt="Sentez metodun mimarisi" loading="lazy"></button>
+    <figcaption><b>Şekil 13.</b>Üretilen Sentez Metodun Mimarisi</figcaption>
+  </figure>
+  <div class="prose">
+    <p>APF <a class="cite" href="#ref2">[2]</a> ile grid haritaya dönüşüm iki parametre üzerinden yürütülür (loss ve danger rate); bir hücrenin statik ağırlığı aşağıdaki bağıntıyla hesaplanır. <span class="tex">L(r,c)</span> ve <span class="tex">D(r,c)</span> sırasıyla <span class="tex">(r,c)</span> hücresinin loss ve danger rate değerleridir. Yasaklı alanlar planlayıcının çekirdek maliyetine gömülür: alan içi hücreler geçilemez, çevresi yüksek loss değerli güvenlik tamponu, tampon dışı bölge ise sıfıra sönümlenen maliyet olarak modellenir.</p>
+  </div>
+  <div class="eq eq-stack">
+    <span class="tex" data-display>W_{\text{static}}(r,c)=L(r,c)\times D(r,c)</span>
+    <span class="tex" data-display>d_z(r,c)=\sqrt{(r-r_z)^2+(c-c_z)^2}\qquad L(r,c)\leftarrow\max\big(L(r,c),\,L_{\text{zone}}(r,c)\big)</span>
+    <dl>
+      <dt><span class="tex">R_s</span></dt><dd>Tampon bölgesi yarıçapı</dd>
+      <dt><span class="tex">B</span></dt><dd>Sınır kayıp sabiti</dd>
+    </dl>
+  </div>
+  <div class="prose">
+    <p>Rakiplerden kaçınma ve hedef takibi için zaman bağımlı dinamik bir risk metriği tanımlanmıştır; metrik, rakip İHA'ların tahmin edilen rotalarındaki konum ve açı bilgilerini birlikte değerlendirir. Ego ve rakip hareket vektörleri <span class="tex">h_{\text{ego}}</span> ve <span class="tex">h_j(\tau)</span> ile tanımlanır. Vektör benzerliği için kırpılmış kosinüs benzerliği ve <span class="tex">d^{\infty}_j</span> mesafe ölçüsü kullanılır.</p>
+  </div>
+  <div class="eq eq-stack">
+    <span class="tex" data-display>h_{\text{ego}}=(r_{\text{next}}-r_{\text{cur}},\ c_{\text{next}}-c_{\text{cur}})\qquad \operatorname{cos\_sim}(a,b)=\max\!\left(0,\ \min\!\left(1,\ \frac{a\cdot b}{\lVert a\rVert\,\lVert b\rVert}\right)\right)</span>
+    <span class="tex" data-display>d^{\infty}_j(\tau)=\max\big(\lvert r_{\text{next}}-r_j(\tau)\rvert,\ \lvert c_{\text{next}}-c_j(\tau)\rvert\big)</span>
+  </div>
+  <div class="prose"><p>Buradan zaman bağımlı çarpanlar şu şekilde hesaplanır:</p></div>
+  <div class="eq eq-stack">
+    <span class="tex" data-display>F_{j,\text{danger}}(\tau)=1+\gamma_r\times\operatorname{cos\_sim}\big(h_{\text{ego}},h_j(\tau)\big)\,s_j(\tau)</span>
+    <span class="tex" data-display>F_{j,\text{loss}}(\tau)=1+\gamma_{\omega}\,s_j(\tau)</span>
+    <span class="tex" data-display>F_{f,\text{follow}}(\tau)=1-\gamma_f\times\operatorname{cos\_sim}\big(h_{\text{ego}},h_f(\tau)\big)\,s_f(\tau)</span>
+    <dl>
+      <dt><span class="tex">h_j</span></dt><dd>j. İHA'nın hareket yönü; <span class="tex">h_j(t)</span>: t anındaki değeri</dd>
+      <dt><span class="tex">\gamma_r,\ \gamma_\omega,\ \gamma_f</span></dt><dd>Risk, ağırlık ve takip kazançları</dd>
+    </dl>
+  </div>
+  <div class="prose"><p>Risk terimleri etkin olduğunda (<span class="tex">F_{\text{rival-loss}}(\tau)>1</span> veya <span class="tex">F_{\text{rival-danger}}(\tau)>1</span>) takip terimi devre dışı bırakılır (<span class="tex">F_{\text{follow}}(\tau)\leftarrow 1</span>) ve efektif ağırlık aşağıdaki ifadeyle hesaplanır. Uygulanan alt sınır kırpması sayesinde yasaklı alan ve çarpışma riski terimleri hedef takip etkisi tarafından bastırılamaz.</p></div>
+  <div class="eq eq-stack">
+    <span class="tex" data-display>W_{\text{eff}}(\tau)=W_{\text{static}}\cdot F_{\text{rival-loss}}(\tau)\cdot F_{\text{rival-danger}}(\tau)\cdot F_{\text{follow}}(\tau)</span>
+    <span class="tex" data-display>W_{\text{eff}}(\tau)\leftarrow\max\big(1,\ W_{\text{eff}}(\tau)\big)</span>
+  </div>
+
+  <div class="lab" id="astar">
+    <div class="lab-head"><span class="lab-tag">Simülasyon</span><h4>Grid harita + A* rota</h4>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn" type="button" id="astarRand">Rastgele HSS</button><button class="btn" type="button" id="astarClear">Temizle</button></div>
+    </div>
+    <div class="lab-body">
+      <canvas id="astarCanvas" aria-label="Grid harita üzerinde A* rota simülasyonu"></canvas>
+      <div class="lab-cols" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+        <div class="ctrl"><label for="astarRs"><span>Tampon yarıçapı R<sub>s</sub></span> <output id="astarRsOut"></output></label><input type="range" id="astarRs" min="0" max="8" step="1" value="4"></div>
+        <div class="ctrl"><label for="astarB"><span>Sınır kayıp sabiti B</span> <output id="astarBOut"></output></label><input type="range" id="astarB" min="0" max="20" step="1" value="8"></div>
+      </div>
+      <div class="readouts">
+        <div class="readout"><div class="k">Rota durumu</div><div class="v" id="astarState" style="font-size:1.1rem">–</div></div>
+        <div class="readout"><div class="k">Rota uzunluğu</div><div class="v" id="astarLen">–</div></div>
+        <div class="readout"><div class="k">HSS'ye en yakın geçiş</div><div class="v" id="astarClr">–</div></div>
+      </div>
+    </div>
+    <div class="lab-foot">Haritaya dokunarak HSS bölgesi ekleyin, bir HSS'nin içine dokunarak kaldırın. Bu, raporun APF + A* yaklaşımının tarayıcıda çalışan basitleştirilmiş bir modelidir; rakip risk terimleri ve MPPI dahil değildir.</div>
+  </div>
+
+  <figure class="fig" style="max-width:560px">
+    <button class="zoom" data-cap="Şekil 14. Geliştirilen Sentez Metod ile Yapılan Deney Sonuçları"><img src="/img/sentez-deney.webp" width="1600" height="1600" alt="Sentez metod deney sonuçları" loading="lazy"></button>
+    <figcaption><b>Şekil 14.</b>Geliştirilen Sentez Metod ile Yapılan Deney Sonuçları</figcaption>
+  </figure>
+
+  <h4 id="s4-1-4"><span class="n">4.1.4</span>İdeal Rotanın Yerel Planlayıcı İle Uygulanması</h4>
+  <div class="prose"><p>Global rota, sabit kanatlı İHA'nın dönüş yarıçapı, yatış, hız ve tırmanma sınırları nedeniyle doğrudan uygulanmaz <a class="cite" href="#ref5">[5]</a>; yerel planlayıcıda kinematik/dinamik olarak uygulanabilir referanslara çevrilir. MPPI <a class="cite" href="#ref1">[1]</a>, doğrusal olmayan dinamiklerle uyumu, rota-HSS-rakip riski-enerji terimlerini aynı maliyette birleştirebilmesi ve GPU paralelliği nedeniyle seçilmiştir.</p></div>
+  <div class="cards3" role="table" aria-label="Tablo 3. Alternatif Yerel Planlayıcıların Karşılaştırması">
+    <div class="pcard pick"><h5>MPPI <span class="chip ok">Seçilen</span></h5><p>Nonlineer sabit kanatlı dinamiklerle iyi çalışır; çok terimli maliyetleri optimize eder; gerektiğinde ideal rotadan sapabilir.</p></div>
+    <div class="pcard"><h5>MPC</h5><p>Model tabanlı ve deterministik; iyi parametre ayarıyla sabit kanat dinamiklerini iyi yansıtır. Çoklu rakip ve değişken parametre sayısı arttıkça çözüm ve hesaplama maliyeti artar.</p></div>
+    <div class="pcard"><h5>TEB</h5><p>Rotayı zaman boyutuyla optimize eder ve yumuşatma uygular. Ancak sabit kanat dinamikleriyle doğrudan uyumlu değildir; çok rakipli ortamlara MPPI kadar uygun değildir.</p></div>
+  </div>
+  <p class="note">Tablo 3. Alternatif Yerel Planlayıcıların Karşılaştırması</p>
+
+  <h4 id="s4-1-5"><span class="n">4.1.5</span>Düşük Seviyeli Kontrol ve PID Döngüleri</h4>
+  <div class="prose"><p>MPPI'nin ürettiği hız, yönelim ve irtifa referansları Pixhawk üzerindeki PX4 sabit kanat yığınına aktarılır. Dış kademe açı hatasını açısal hız referansına, iç kademe açısal hız hatasını PWM çıkışına dönüştürerek rotaya sadakat, bozucu bastırma ve uçuş zarfı limitleri korunur.</p></div>
+
+  <h4 id="s4-1-6"><span class="n">4.1.6</span>Görüntü İşleme ve Otonom Rakibe Kilitlenme</h4>
+  <div class="prose"><p>Otonom kilitlenmede kamera görüntüleri kullanılarak rakip İHA'nın tespit ve takibi amaçlanır. Nesne tespiti için derin öğrenme modelleri doğruluk, çıkarım gecikmesi, bellek ve gerçek zamanlı çalışma açısından karşılaştırılmış; doğruluk-hız dengesi nedeniyle Contrastive Learning ailesinde SimCLR <a class="cite" href="#ref7">[7]</a> ile eğitilen <strong>YOLO11s</strong> seçilmiştir. Açık kaynaklardan derlenen, farklı görünüm, mesafe, bakış açısı ve arka planı kapsayan ~10.000 görüntülük veri seti hazırlanıp eğitim/doğrulama/test alt kümelerine bölünerek model boyutları mAP50, mAP50-95, FPS ve bellek kullanımı üzerinden karşılaştırılmıştır.</p></div>
+  <figure class="fig">
+    <button class="zoom" data-cap="Şekil 15. Eğitilen Modellerin Performans Metrikleri"><img src="/img/model-metrik.webp" width="1800" height="1215" alt="Eğitilen modellerin performans metrikleri" loading="lazy"></button>
+    <figcaption><b>Şekil 15.</b>Eğitilen Modellerin Performans Metrikleri</figcaption>
+  </figure>
+  <div class="prose"><p>Tek kare tespitleri hedef sürekliliği için yetersiz olduğundan takip katmanında ByteTrack <a class="cite" href="#ref6">[6]</a> kullanılır. Düşük güven skorlu tespitleri eşleştirmeye dahil ederek kopmaları azaltır; Re-ID tabanlı yöntemlerin uzak/küçük hedeflerdeki ek maliyetini oluşturmadan gerçek zamanlı ID sürekliliği sağlar.</p></div>
+
+  <h4 id="s4-1-7"><span class="n">4.1.7</span>Visual Servoing ve Görüntü Tabanlı Kontrol</h4>
+  <div class="prose">
+    <p>Son fazda, sınırlayıcı kutu merkez konumu, sabit kanatlı uçuşa uyarlanmış image-based visual servoing (IBVS) ile tutum referanslarına dönüştürülerek iç döngü kontrolcülerine beslenir. Tespit edilen merkez koordinatı <span class="tex">(u,v)</span>, imge merkezi <span class="tex">(u_c,v_c)</span> ve imge çözünürlüğü <span class="tex">(W,H)</span> olmak üzere normalize piksel hatası tanımlanır.</p>
+    <p>Sabit kanatlı bir hava aracı saf yan kayma (sideslip) ile yatay manevra yapamadığından, yatay piksel hatası “bank-to-turn” prensibiyle yaw eksenine değil yatış (roll) komutuna eşlenir. Mesafe kontrolü, sınırlayıcı kutu alanı <span class="tex">A_{\text{bbox}}</span> ile yürütülür: alan büyüyorsa hedefe yaklaşılıyor, küçülüyorsa uzaklaşılıyordur. Hedef alan eşiği <span class="tex">A_{\text{ref}}</span> olmak üzere itki referansı aşağıdaki bağıntıyla belirlenir; bu sayede kilitlenme dörtgeni içinde kararlı bir takip mesafesi korunur.</p>
+  </div>
+  <div class="eq eq-stack">
+    <span class="tex" data-display>e_x=\frac{u-u_c}{W/2}\qquad e_y=\frac{v-v_c}{H/2}</span>
+    <span class="tex" data-display>\phi_{\text{cmd}}=-\lambda_x e_x-k_{d,x}\dot e_x\qquad \theta_{\text{cmd}}=\theta_{\text{trim}}-\lambda_y e_y-k_{d,y}\dot e_y</span>
+    <span class="tex" data-display>T_{\text{cmd}}=T_{\text{trim}}+k_T\,(A_{\text{ref}}-A_{\text{bbox}})</span>
+  </div>
+  <div class="prose"><p>Hedef kısa süreliğine imge düzleminden çıkarsa dış döngü son piksel hatası türeviyle yaklaşık 1 saniyelik ileri-besleme üretir. Bu pencere ByteTrack yeniden eşleştirmesi için ayrılır; eşleştirme sağlanamazsa sistem serbest uçuşa dönerek arama döngüsünü başlatır.</p></div>
+
+  <div class="lab" id="ibvs">
+    <div class="lab-head"><span class="lab-tag">Simülasyon</span><h4>IBVS ve kilitlenme dörtgeni</h4></div>
+    <div class="lab-body">
+      <canvas id="ibvsCanvas" aria-label="Kamera görüntüsü üzerinde sürüklenebilir hedef kutusu"></canvas>
+      <div class="ctrl" style="max-width:420px"><label for="ibvsSize"><span>Hedef kutu genişliği</span> <output id="ibvsSizeOut"></output></label><input type="range" id="ibvsSize" min="2" max="30" step="0.5" value="9"></div>
+      <div class="readouts">
+        <div class="readout"><div class="k">e<sub>x</sub> / e<sub>y</sub></div><div class="v" id="ibE">–</div></div>
+        <div class="readout"><div class="k">φ<sub>cmd</sub> (yatış)</div><div class="v" id="ibPhi">–</div></div>
+        <div class="readout"><div class="k">θ<sub>cmd</sub> (yunuslama)</div><div class="v" id="ibTheta">–</div></div>
+        <div class="readout"><div class="k">T<sub>cmd</sub> (itki)</div><div class="v" id="ibT">–</div></div>
+        <div class="readout"><div class="k">Kilitlenme</div><div class="v" id="ibLock" style="font-size:1.1rem">–</div></div>
+      </div>
+    </div>
+    <div class="lab-foot">Hedef kutusunu sürükleyin. 1280×720 görüntüde kutu kilitlenme bölgesinin içinde ve en az %5 boyutundayken 4 saniyelik sayaç işler. Kazançlar raporda verilmediği için örnek değerlerdir (λ<sub>x</sub>=35°, λ<sub>y</sub>=15°, θ<sub>trim</sub>=2°, T<sub>trim</sub>=%55); kilitlenme bölgesi gösterim amaçlıdır.</div>
+  </div>
+
+  <h3 id="s4-2"><span class="n">4.2</span>Kamikaze Görevi</h3>
+  <div class="prose"><p>Bu görevde sabit kanatlı İHA, hedef koordinatına otonom olarak intikal etmekte, uygun geometrik koşullar sağlandığında dalışa geçmekte ve QR kod tespitini gerçekleştirerek güvenli şekilde pas geçmektedir. Sistem, sabit eşiklere dayalı bir yapı yerine tamamen gerçek zamanlı (dinamik) parametrelerle çalışan bir mimari üzerine kurulmuştur. QR kod tespitinde Jetson’un sınırlı işlem gücünden dolayı önce kareleri yakalayıp sonra değerlendiren bir yaklaşım tercih edilmiştir.</p></div>
+
+  <div class="lab" id="kamikaze">
+    <div class="lab-head"><span class="lab-tag">Profil</span><h4>Kamikaze görev profili</h4></div>
+    <div class="lab-body">
+      <div id="kkPlot" style="overflow-x:auto"></div>
+      <div class="lab-cols" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+        <div class="ctrl"><label for="kkH"><span>Yaklaşma irtifası h</span> <output id="kkHOut"></output></label><input type="range" id="kkH" min="60" max="150" step="5" value="120"></div>
+        <div class="ctrl"><label for="kkTh"><span>Dalış açısı θ<sub>act</sub></span> <output id="kkThOut"></output></label><input type="range" id="kkTh" min="25" max="70" step="1" value="45"></div>
+        <div class="ctrl"><label for="kkV"><span>Hava hızı v</span> <output id="kkVOut"></output></label><input type="range" id="kkV" min="14" max="30" step="1" value="20"></div>
+        <div class="ctrl"><label for="kkLag"><span>Tutum gecikmesi t<sub>lag</sub></span> <output id="kkLagOut"></output></label><input type="range" id="kkLag" min="0" max="2" step="0.1" value="0.5"></div>
+      </div>
+      <div class="readouts">
+        <div class="readout"><div class="k">Tetik mesafesi d<sub>trigger</sub></div><div class="v" id="kkD">–</div></div>
+        <div class="readout"><div class="k">Teorik dalış sonu hızı v<sub>t</sub></div><div class="v" id="kkVt">–</div><div class="d">sürüklemesiz</div></div>
+        <div class="readout"><div class="k">Pull-up G yükü</div><div class="v" id="kkG">–</div><div class="d" id="kkGd"></div></div>
+        <div class="readout"><div class="k">Emniyet katsayısı (5G)</div><div class="v" id="kkSF">–</div></div>
+      </div>
+    </div>
+    <div class="lab-foot">Dikey eksen yatay eksene göre büyütülmüştür. t<sub>lag</sub> raporda sayısal olarak verilmediğinden 0.5 s örnek değeriyle başlar. G yükü, raporda belirtilen hava direnci dahil dalış sonu hızı (≈35 m/s) ile hesaplanır.</div>
+  </div>
+
+  <figure class="fig" style="max-width:720px">
+    <button class="zoom" data-cap="Şekil 16. Kamikaze Görevi Akış Şeması"><img src="/img/kamikaze-akis.webp" width="1370" height="1174" alt="Kamikaze görevi akış şeması" loading="lazy"></button>
+    <figcaption><b>Şekil 16.</b>Kamikaze Görevi Akış Şeması</figcaption>
+  </figure>
+
+  <h4 id="s4-2-1"><span class="n">4.2.1</span>Hedefe Yaklaşma (İntikal Fazı)</h4>
+  <div class="prose">
+    <p>İHA, vuruş hassasiyetini artırmak için doğrudan hedefe yönelmek yerine hedefin <strong>600 m</strong> gerisindeki dinamik hazırlık noktası (IP) üzerinden stratejik rota izler. Bu koridor; GPS yatay sapmalarının yönelme kontrolcüsünde yarattığı açısal gürültüyü minimize etmek ve kontrolcünün hedef hat üzerine oturması için gerekli yerleşme süresini (settling time) sağlamak amacıyla seçilmiştir.</p>
+    <p>İntikal süreci Seyir ve Yaklaşma olmak üzere iki aşamadan oluşur. Seyir aşamasında <strong>150 m</strong> yükseklikte, uçağın anlık konumuna göre güncellenen dinamik yön açısı (bearing) hesaplanarak hazırlık noktasına gidilir; bu hesaplama hazırlık noktasını hedefin tam arkasında ve yaklaşma hattıyla aynı hizada tutarak manevra alanını her saniye yeniden optimize eder. Yaklaşma aşamasında <strong>120 m</strong> yükseklikte hedefe son yaklaşma safhasına geçilir. Rüzgâr kaynaklı rota sapmaları, anlık yönelme verileriyle sürekli güncellenen açı hesaplamaları sayesinde dengelenir. Böylece İHA, dalış öncesinde hedefle doğrusal hatta hizalanarak yüksek vuruş kararlılığı sağlar.</p>
+  </div>
+  <h4 id="s4-2-2"><span class="n">4.2.2</span>Dalış Fazı</h4>
+  <div class="prose"><p>İHA’nın dalışa geçiş kararı sabit bir mesafe eşiğine bağlı olarak değil, uçuş sırasında anlık ölçülen parametrelere dayanan dinamik bir tetikleme modeli ile belirlenir. Bu model, hava aracının mevcut irtifası, hava hızı ve tutum gecikmesini dikkate alarak dalışın optimum noktada başlatılmasını sağlar.</p></div>
+  <div class="eq">
+    <span class="tex" data-display>d_{\text{trigger}}=\frac{h}{\tan\theta_{\text{act}}}+v\cdot t_{\text{lag}}</span>
+    <dl>
+      <dt><span class="tex">h</span></dt><dd>Anlık irtifa (AGL)</dd>
+      <dt><span class="tex">\theta_{\text{act}}</span></dt><dd>Gerçek dalış açısı</dd>
+      <dt><span class="tex">v</span></dt><dd>Hava hızı</dd>
+      <dt><span class="tex">t_{\text{lag}}</span></dt><dd>Tutum değişimine bağlı gecikme süresi</dd>
+    </dl>
+  </div>
+  <div class="prose">
+    <p>Bu formül iki temel fiziksel bileşeni modeller: (i) belirli bir dalış açısı ile hedefe ulaşmak için gereken yatay mesafe ve (ii) dalış komutunun uygulanması sırasında oluşan gecikmeden kaynaklı ek yatay ilerleme.</p>
+    <p>Dalış fazı, <strong>45°</strong> sabit dikilme açısı ve tam itki ile gerçekleştirilir. Hedefe kilitlenme sürecinde rüzgâr kaynaklı yanal sürüklenmeler, her kontrol döngüsünde güncellenen yaw komutlarıyla telafi edilir. Hedefe olan mesafe <strong>30 metreye</strong> düştüğünde, veri gürültüsünden doğabilecek açısal sapmaları azaltmak için kilitli yaw değerine yumuşak geçiş uygulanır. Bu adaptif kontrol yapısı, kritik safhada yönelim kararlılığı ve vuruş hassasiyetini artırarak uçuş güvenliğini destekler.</p>
+  </div>
+  <h4 id="s4-2-3"><span class="n">4.2.3</span>Pas Geçme (Pull-up Fazı)</h4>
+  <div class="prose"><p>Pas geçme (pull-up) safhası, İHA'nın <strong>15 metre</strong> güvenlik tabanının altına düşmesi veya görevin tamamlanması durumunda tetiklenir. Uçak %100 itki ve 25° nose-up komutlarıyla hızlı tırmanışa geçer; <strong>60 m</strong> yüksekliğe ulaşıldığında manevra tamamlanmış sayılır. Operasyonel döngüyü sürdürmek için İHA otonom olarak intikal hazırlık noktasına (IP, 600 m geride) yönelir ve yeniden dalış rotasına oturur.</p></div>
+  <h4 id="s4-2-4"><span class="n">4.2.4</span>QR Kod Takibi ve Görüntü İşleme</h4>
+  <div class="prose"><p>QR tanımlama mekanizması, işlemci yükünü minimize edip FPS'i maksimize etmek için hiyerarşik bir mimariyle yapılandırılmıştır. Piksel bütünlüğünü korumak adına ağır filtreler yerine ham veri katmanlarına odaklanılmış; hesaplama maliyeti yüksek olan CLAHE filtresi yalnızca <strong>30–70 metre</strong> irtifa aralığında koşullu olarak devreye alınmıştır. Karelerin doğruluğu, her okumayı oy kabul eden dinamik oylama sistemiyle denetlenerek kodun en az iki farklı karede onaylanması şartı getirilmiştir. Bu yaklaşım, anlık gürültüleri filtreleyerek terminal safhada hatasız ve yüksek hızlı bir veri akışı sağlar.</p></div>
+
+  <h4 id="s4-2-5"><span class="n">4.2.5</span>Mühendislik Analizi ve Sistem Limitleri</h4>
+  <div class="prose"><p>İHA'nın görev döngüsünde maruz kaldığı fiziksel etkiler ve donanım limitleri analitik formüllerle incelenmiştir.</p></div>
+  <h4><span class="n">4.2.5.1</span>Aerodinamik ve Azami Hız Analizi</h4>
+  <div class="prose"><p>Dalış fazı boyunca 45° dalış açısı ve tam itki kombinasyonuyla İHA, yerçekimi ivmesinin etkisiyle hızlanır. Hava direnci ihmal edildiğinde ulaşılabilecek teorik terminal hız için aşağıdaki denklem kullanılmıştır. Hesaplarda seyir hızı <span class="tex">v_0=20</span> m/s, <span class="tex">g=9.81\ \text{m/s}^2</span>, dalış yüksekliği <span class="tex">dh=105</span> m, dalış açısı <span class="tex">\theta=45^\circ</span> alınmıştır. Hesaplanan teorik hız ~43 m/s olup; hava direnci ve gövde sürüklemesi dahil edildiğinde dalış sonu hızı <strong>35–38 m/s</strong> olarak stabilize olmaktadır.</p></div>
+  <div class="eq"><span class="tex" data-display>v_t=\sqrt{v_0^{2}+2\cdot g\cdot dh\cdot\sin\theta}</span></div>
+  <h4><span class="n">4.2.5.2</span>Yapısal Dayanım ve G-Yükü Analizi</h4>
+  <div class="prose"><p>Dalışın sonlanarak pull-up manevrasına geçildiği safhada İHA dikey düzlemde toplam 70° (1.22 rad) yön değiştirir. Bu manevrada oluşan G yükü aşağıdaki gibi ifade edilir. Manevra yarıçapı, uçağın hızı ve manevra süresine (<span class="tex">dt\approx1.5</span> s) bağlı olarak <span class="tex">R=v\cdot dt/d\alpha</span> ile <strong>43 m</strong> hesaplanmıştır.</p></div>
+  <div class="eq eq-stack">
+    <span class="tex" data-display>G_{\max}=1+\frac{v^{2}}{g\cdot R}=1+\frac{35^{2}}{9.81\cdot 43}\cong 3.9\,G</span>
+    <span class="tex" data-display>\text{Emniyet Katsayısı}=\frac{\text{Yapısal Kapasite}}{\text{Maksimum Yük}}=\frac{5\,G}{3.9\,G}\approx 1.28</span>
+  </div>
+  <div class="prose"><p>Gövde dayanımı ANSYS Statik Yapısal Analiz ile doğrulanarak gövde <strong>+5G / −2G</strong> yüklere dayanacak şekilde üretilmiştir. Operasyonel senaryodaki maksimum yük 3.9G’dir.</p></div>
+  <h4><span class="n">4.2.5.3</span>Optik Tespit Hassasiyeti (PPM Hesabı)</h4>
+  <div class="prose"><p>Yüksek hızlı dalışta görüntü kaymasını önleyen Global Shutter kamera modülü kullanılmaktadır. 2 m × 2 m QR hedefin kaç piksel hassasiyetle görüldüğü, 85° yatay görüş açısı üzerinden aşağıdaki bağıntı ile hesaplanmıştır (hedef boyutu 2 m, yatay çözünürlük 1200 px, FOV 85°).</p></div>
+  <div class="eq"><span class="tex" data-display>\text{Piksel Sayısı}=\frac{\text{Hedef Boyutu}\times\text{Yatay Çözünürlük}}{2\times\text{Mesafe}\times\tan\!\left(\frac{FOV}{2}\right)}</span></div>
+  <div class="lab" id="ppm">
+    <div class="lab-head"><span class="lab-tag">Hesap</span><h4>QR piksel yoğunluğu</h4>
+      <div class="seg" role="group" aria-label="Yatay görüş açısı"><button type="button" data-fov="85" aria-pressed="true">FOV 85°</button><button type="button" data-fov="60" aria-pressed="false">FOV 60°</button></div>
+    </div>
+    <div class="lab-body lab-cols">
+      <div class="controls">
+        <div class="ctrl"><label for="ppmD"><span>Mesafe (irtifa)</span> <output id="ppmDOut"></output></label><input type="range" id="ppmD" min="10" max="150" step="1" value="70"></div>
+        <div style="display:flex;gap:14px;align-items:center"><svg id="ppmSvg" viewBox="0 0 120 120" role="img" aria-label="QR kodun sensördeki piksel görünümü" style="width:132px;flex:none;border:1px solid var(--line);border-radius:4px;background:#fff"></svg><p class="note" id="ppmNote">Sensörün QR koda ayırdığı piksellerle yeniden örneklenmiş görünüm.</p></div>
+      </div>
+      <div class="readouts">
+        <div class="readout"><div class="k">QR genişliği</div><div class="v" id="ppmPx">–</div></div>
+        <div class="readout"><div class="k">Okunabilirlik</div><div class="v" id="ppmOk" style="font-size:1.1rem">–</div><div class="d">≥ ~19 px eşiği, rapordaki 70 m sonucuna göre</div></div>
+        <div class="readout"><div class="k">CLAHE filtresi</div><div class="v" id="ppmClahe" style="font-size:1.1rem">–</div><div class="d">30–70 m aralığında etkin</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="prose"><p>PPM hesapları, hedefin sensör üzerinde yeterli piksel yoğunluğuna (~19 piksel) ulaşmasıyla kameranın 70 m irtifadan itibaren QR kodu hatasız okuyabildiğini doğrular. Böylece yüksek hızlarda optik veri kaybı yaşanmaz ve çözümlenen QR içerikleri yarışma sunucusuna HTTP POST ile JSON formatında aktarılır.</p></div>
+</section>
+
+<!-- ================= 5 ================= -->
+<section class="section" id="s5">
+  <div class="sec-head"><span class="n">5</span><h2>Hava Savunma Sistemi</h2></div>
+  <div class="prose">
+    <p>Hava savunma sistemi, tüm görev modları üzerinde öncelikli çalışan bağımsız güvenlik katmanıdır ve Bölüm <a href="#s4-1-2">4.1.2</a>–<a href="#s4-1-3">4.1.3</a>'teki grid harita ve yerel planlayıcı altyapısını ortak kullanır. HSS alanı geçilemez hücre, çevresi konum hatası, gecikme, rüzgâr ve minimum dönüş yarıçapına göre yüksek maliyetli tampon olarak modellenir.</p>
+    <p>Anlık konumla birlikte IMM-EKF kısa vadeli hareket tahmini de kontrol edilir; rota tamponla kesişirse görev askıya alınır ve kaçınma modu yeni rota üretir. Güvenli rota yoksa İHA HSS dışında <strong>loiter</strong> davranışına geçer ve durum YKİ'ye bildirilir. Bu davranışı <a href="#astar">4.1.3'teki grid harita simülasyonunda</a> HSS bölgeleri ekleyerek deneyebilirsiniz.</p>
+  </div>
+</section>
+
+<!-- ================= 6 ================= -->
+<section class="section" id="s6">
+  <div class="sec-head"><span class="n">6</span><h2>Yer Kontrol İstasyonu, Haberleşme ve Kullanıcı Arayüzü</h2></div>
+  <h3 id="s6-1"><span class="n">6.1</span>Haberleşme Sistemi Mimarisi</h3>
+  <div class="prose"><p>Sistem telemetri, görüntü aktarımı, otonom yönetim ve manuel kontrol süreçlerini kapsayan hibrit bir mimari üzerine inşa edilmiştir. İHA kontrol hiyerarşisi iki ana birimden oluşur: otonom görevleri (YOLO nesne tespiti, ByteTrack takibi, rota planlama) yürüten Jetson Orin NX ve bu kararları fiziksel uçuş hareketlerine dönüştüren Orange Cube otopilot. İki birim UART üzerinden MAVLink protokolü ile entegre edilmiştir; YKİ bu hiyerarşinin dışında, yalnızca izleme ve komut iletimi rolünü üstlenir.</p></div>
+
+  <div class="lab comms" id="comms">
+    <div class="lab-head"><span class="lab-tag">Ağ</span><h4>Bağlantı haritası</h4>
+      <div class="legend"><span><i style="background:var(--sky)"></i>868/900 MHz</span><span><i style="background:var(--accent)"></i>2.4 GHz</span><span><i style="background:var(--muted)"></i>Kablolu</span></div>
+    </div>
+    <div class="lab-body">
+      <div style="overflow-x:auto"><svg id="commsSvg" viewBox="0 0 760 330" role="group" aria-label="Haberleşme bağlantıları şeması" style="min-width:560px"></svg></div>
+      <div id="commsDetail" class="pipe-detail" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table id="commsTable">
+      <caption>Tablo 4 · Haberleşme Sistemi Bağlantı Özeti (satıra tıklayarak şemada vurgulayın)</caption>
+      <thead><tr><th>Bağlantı</th><th>Donanım</th><th>Frekans / Protokol</th><th>Yön</th><th>Amaç</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h3 id="s6-2"><span class="n">6.2</span>Haberleşme Donanımları ve Teknik Özellikler</h3>
+  <h4><span class="n">6.2.1</span>Ana Telemetri Bağlantısı (RFD900x Plus)</h4>
+  <div class="prose"><p>RFD900x Plus, Türkiye ICTA tescilli, 868 MHz FHSS bandında çalışan uzun menzilli telemetri modemidir (maks. 1 W / 30 dBm, açık alanda ~40 km menzil). FHSS ile 868 MHz bandı içinde otomatik kanal atlama yapan cihaza komisyon tarafından bildirilecek telemetri ID'si yüklenecektir. Video alıcı-verici elektroniği (Herelink Air Unit) müsabaka sırasında çadırda kapalı tutulacak; bu husus uçuş öncesi kontrol listesine eklenmiştir. Telemetri akışı MAVLink v2 üzerinden çift yönlü işler. İHA→YKİ yönünde uçuş verisi sürekli iletilir; YKİ bu akışı pymavlink ile dinleyerek arayüzü gerçek zamanlı günceller. YKİ→İHA yönünde uçuş modu değişikliği, Jetson'da hesaplanan otonom hedef koordinatı ve acil durdurma komutları gönderilir.</p></div>
+  <h4><span class="n">6.2.2</span>Görüntü Aktarımı ve Manuel Yedekleme (Herelink v1.1)</h4>
+  <div class="prose">
+    <p>İHA ile YKİ arasındaki yüksek bant genişliği gerektiren dijital veri aktarımı Herelink v1.1 sistemiyle (2.4 GHz) gerçekleştirilir.</p>
+    <p><strong>Görüntü aktarımı:</strong> Kamera akışı H.264 kodlanarak UDP/RTSP üzerinden iletilir; uçtan uca gecikme &lt;70 ms, çözünürlük 1280×720, kare hızı 30 FPS'dir. Akış, CameraWidget modülü tarafından OpenCV ile yakalanıp PyQt5 arayüzünde doğrudan görüntü olarak yansıtılır. YOLO11s çıkarım sonuçları TCP soket ile entegre edilir; kilitlenme dörtgeni <span class="mono">#FF0000</span> (BGR: 0,0,255) renk kodu ve ≤3 piksel çizgi kalınlığıyla her kareye işlenir, sunucu saati sağ üst köşeye ms hassasiyetinde yazılır.</p>
+    <p><strong>Yedek RC kanalı:</strong> Otonom arıza veya iletişim kaybı durumunda Herelink kumanda kolu girdileri S.Bus protokolüyle doğrudan Orange Cube'un RC girişine iletilerek operatörün manuel devralmasını (override/failsafe) güvence altına alır.</p>
+  </div>
+  <h4><span class="n">6.2.3</span>Yarışma Sunucusu Haberleşmesi (REST API)</h4>
+  <div class="prose"><p>Python asyncio/aiohttp tabanlı asenkron mimari, ağ gecikmelerinin uçuş döngüsünü bloklamasını önler. GET tarafında rakip İHA verileri 1 Hz’de çekilir, &gt;1000 ms gecikmeli kayıtlar filtrelenir ve doğrulanmış veriler TCP soketi üzerinden Jetson’a iletilir. Telemetri, Orange Cube’dan MAVLink <span class="mono">GLOBAL_POSITION_INT</span> ile ham olarak okunur; Jetson üzerinde interpolasyon, ekstrapolasyon veya tamponlama yapılmaz. POST tarafında uçuş verileri ve görev durumu 1–2 Hz’de <span class="mono">/api/telemetri_gonder</span> uç noktasına gönderilir, kilitlenme sonrası <span class="mono">/api/kilitlenme_bilgisi</span> raporlanır. Bağlantı kopmalarında sunucu tarafı son geçerli veriyi, Jetson tarafı ise kuyruğu korur. Gecikme 1 s’yi aşarsa sistem kilitlenme durumuna göre takip veya arama moduna geçer; kritik paketler ≤2 s içinde iletilmek üzere öncelikli kuyruğa alınır.</p></div>
+
+  <h3 id="s6-3"><span class="n">6.3</span>Kullanıcı Arayüzü (YKİ) Tasarımı</h3>
+  <div class="prose"><p>Ekip tarafından Python/PyQt5 ile geliştirilen arayüz, QMainWindow tabanlı çok sekmeli bir mimariye sahiptir. Arayüzün üst kısmındaki sabit <strong>“ACİL MANUEL”</strong> butonu, Jetson'dan bağımsız olarak otopilot kontrolünü anında devralır.</p></div>
+  <div class="lab" id="yki">
+    <div class="lab-head"><span class="lab-tag">Tablo 5</span><h4>Yer Kontrol İstasyonu sekmeleri</h4></div>
+    <div class="lab-body">
+      <div class="tabs" role="tablist" aria-label="YKİ sekmeleri"></div>
+      <div id="ykiPanel" role="tabpanel"></div>
+    </div>
+  </div>
+  <figure class="fig">
+    <button class="zoom" data-cap="Şekil 17. YKİ Harita Sekmesi"><img src="/img/yki.webp" width="1502" height="1030" alt="YKİ arayüzü harita sekmesi" loading="lazy"></button>
+    <figcaption><b>Şekil 17.</b>YKİ Harita Sekmesi</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 7 ================= -->
+<section class="section" id="s7">
+  <div class="sec-head"><span class="n">7</span><h2>Hava Aracı Entegrasyonu</h2></div>
+  <h3 id="s7-1"><span class="n">7.1</span>Yapısal ve Mekanik Entegrasyon</h3>
+  <div class="prose">
+    <p>Üretilen insansız hava aracı, hafiflik, dayanım ve üretim kolaylığı göz önünde bulundurularak modüler bir yapı yaklaşımı ile tasarlanmıştır. Hava aracı; ana gövde, sağ ve sol kanat olmak üzere temel bileşenlere ayrılmıştır. Tüm yapısal elemanların üretiminde ağırlık optimizasyonu sağlamak amacıyla <strong>balsa</strong> tercih edilmiştir. Gövde ve kanat yapılarında kullanılan balsa parçalar, yüksek hassasiyet ve tekrarlanabilirlik için <strong>lazer kesim</strong> ile üretilmiştir; böylece parçalar arası toleranslar minimize edilmiş, montaj hızlanmış ve yapısal doğruluk artırılmıştır.</p>
+    <p>Kanat yapısında ana taşıyıcı eleman olarak <strong>karbon fiber borular</strong> kullanılmıştır. Bu borular kanat boyunca yük taşıma görevini üstlenir ve yüksek mukavemet/ağırlık oranı sayesinde yapıya rijitlik kazandırır. Kanat profilleri karbon fiber borular üzerine sıkı geçme (interference fit) ile yerleştirilmiş, böylece ek bağlantı elemanına ihtiyaç duyulmadan sağlam bir birleşim elde edilmiştir. Profillerin ileri-geri serbestlik derecesini kısmak için ribler arası destek parçası kullanılmıştır. Aynı şekilde karbon fiber borular gövde içindeki yuvalarına da sıkı geçme ile entegre edilmiştir; kanat-gövde bağlantısı hafif ve titreşime dayanıklıdır. Birleşim bölgelerindeki boşluklar minimize edilerek aerodinamik yüzey sürekliliği korunmuştur.</p>
+    <p>Gövde yapısı, lazer kesim balsa parçaların geçme (interlocking) geometrilerle bir araya getirilmesi ve ardından ahşap tutkalıyla sabitlenmesiyle oluşturulmuştur. Geçme bağlantılar yük aktarımını yüzeysel değil hacimsel olarak gerçekleştirdiğinden gövde rijitliği önemli ölçüde artmıştır.</p>
+  </div>
+  <figure class="fig">
+    <div class="fig-grid tall" style="--cols:3">
+      <button class="zoom" data-cap="Şekil 18. Gövde yapısı"><img src="/img/govde-yapi.webp" width="900" height="1200" alt="Gövde yapısı" loading="lazy"><span class="sub">Gövde</span></button>
+      <button class="zoom" data-cap="Şekil 18. Servonun ailerona bağlantısı"><img src="/img/aileron.webp" width="900" height="1200" alt="Servonun ailerona bağlantısı" loading="lazy"><span class="sub">Aileron</span></button>
+      <button class="zoom" data-cap="Şekil 18. İniş takımları"><img src="/img/inis-takimi.webp" width="732" height="619" alt="İniş takımları" loading="lazy"><span class="sub">İniş takımı</span></button>
+    </div>
+    <figcaption><b>Şekil 18.</b>Gövde yapısı, servonun ailerona bağlantısı ve iniş takımları</figcaption>
+  </figure>
+  <div class="prose">
+    <p>İniş takımları, gövde altındaki takviye bölgelerine cıvata-somun bağlantısıyla sabitlenmiştir. Bu bağlantı, iniş darbe yüklerinin gövdeye güvenle aktarılmasını sağlar ve bakım/değişim için sökülebilir bir yapı sunar.</p>
+    <p>Kanat kök bölgesinde eğilme momentleri daha yüksek olduğundan bu bölgede daha sık aralıklı ve daha fazla sayıda rib kullanılmıştır. Kanat ucuna doğru yükler azaldığından profil yoğunluğu kademeli olarak düşürülmüştür; böylece gereksiz ağırlık artışı önlenirken kritik bölgelerde yeterli dayanım korunmuştur.</p>
+    <p>Motor, gövde ön kısmındaki yuvasına titreşim etkileri göz önünde bulundurularak sabitlenmiştir. Elektronik ve itki sistemi elemanları ağırlık merkezi dikkate alınarak gövde içine cıvata-somun ile yerleştirilmiştir. Kablo düzeni sade tutulmuştur. Bakım ve entegrasyonu kolaylaştırmak için üst kısma menteşeli bir kapak eklenmiştir. Servo monte edilip filmin altından boşluk açılarak tel ile ailerona bağlanmıştır.</p>
+  </div>
+  <figure class="fig">
+    <div class="fig-grid tall" style="--cols:3">
+      <button class="zoom" data-cap="Şekil 19. Pervane ve motorun yerleşimi"><img src="/img/motor-1.webp" width="675" height="1200" alt="Pervane ve motorun yerleşimi" loading="lazy"><span class="sub">Motor</span></button>
+      <button class="zoom" data-cap="Şekil 19. Motorun balsa plakaya montajı"><img src="/img/motor-2.webp" width="675" height="1200" alt="Motor montajı" loading="lazy"><span class="sub">Motor yuvası</span></button>
+      <button class="zoom" data-cap="Şekil 19. Kanadın kaplanma hali"><img src="/img/kanat-kaplama.webp" width="970" height="767" alt="Kanat kaplama" loading="lazy"><span class="sub">Kaplama</span></button>
+    </div>
+    <figcaption><b>Şekil 19.</b>Pervane ve motorun yerleşimi ve kanadın kaplanma hali. Motor geçmeli balsa plakaya cıvata ve somunlarla yerleştirilmiş, kablo bağlantısı alttan sağlanmıştır. Kanat ısı duyarlı film ile gerilip ısı uygulanarak kaplanmıştır.</figcaption>
+  </figure>
+
+  <h3 id="s7-2"><span class="n">7.2</span>Elektronik Entegrasyon</h3>
+  <div class="prose">
+    <p>Güç dağıtımını merkezi ve güvenli şekilde sağlamak için bir güç dağıtım kartı (GDB) kullanılmıştır. GDB doğrudan bataryaya bağlanmış, 12 V ve 5 V regüle hatlar bu kart üzerinden elde edilmiştir. Servo beslemesi için kullanılan UBEC aynı güç hattına paralel entegre edilmiştir. Otopilot beslemesinde daha kararlı bir yapı için batarya ile GDB arasında ayrı bir hat oluşturulmuş ve Orange Cube bu hat üzerinden beslenmiştir. Jetson Orin NX, GDB’nin 12 V regüle çıkışından beslenmiştir.</p>
+    <p>Otopilot ile Jetson arasında MAVLink tabanlı UART bağlantısı kurulmuştur. GPS modülü, uydu görüşünün açık olacağı şekilde platformun üst kısmına yerleştirilmiştir. ESC’ye GDB üzerinden güç verilmiş, kontrol sinyalleri otopilottan sağlanmıştır. Servolar UBEC’ten beslenmiş, sinyal bağlantıları otopilot üzerinden yapılmıştır. Uzun menzil telemetri için RFD900x modülü otopilot ile entegre edilmiş ve uygun anten yerleşimi yapılmıştır.</p>
+    <p>Sponsorların KTR başarısına bağlı bütçe desteği taahhüt etmesi üzerine, mevcut görseller takım üyelerinin çevrelerinden temin edilen bileşenlerle hazırlanmıştır. Bu bileşenlerin bir kısmı (yapay zekâ bilgisayarı, otopilot, servolar) nihai uçakta da kullanılacak, diğerleri (GDB, ESC, telemetri, ana motor) KTR sonrasında değiştirilecektir. Nihai sistemin <a href="#s3-3">3.3.1’deki mimariye</a> uygun olması hedeflenmektedir.</p>
+  </div>
+  <figure class="fig">
+    <div class="fig-grid tall" style="--cols:3">
+      <button class="zoom" data-cap="Şekil 20. Donanım entegrasyonu ve servo bağlantıları"><img src="/img/ent-donanim.webp" width="732" height="1300" alt="Donanım entegrasyonu" loading="lazy"><span class="sub">Donanım</span></button>
+      <button class="zoom" data-cap="Şekil 20. Güç dağıtım kartı"><img src="/img/ent-gdb.webp" width="732" height="1300" alt="Güç dağıtım kartı" loading="lazy"><span class="sub">GDB</span></button>
+      <button class="zoom" data-cap="Şekil 20. ESC montajı ve UBEC bağlantıları"><img src="/img/ent-esc.webp" width="732" height="1300" alt="ESC montajı" loading="lazy"><span class="sub">ESC · UBEC</span></button>
+    </div>
+    <figcaption><b>Şekil 20.</b>Donanım entegrasyonu, servo bağlantıları, güç dağıtım kartı, ESC montajı ve UBEC bağlantıları</figcaption>
+  </figure>
+  <figure class="fig">
+    <div class="fig-grid tall" style="--cols:3">
+      <button class="zoom" data-cap="Şekil 21. Bilgisayar ve otopilot arası JST-GH kablosu ile entegrasyon"><img src="/img/ent-jstgh.webp" width="732" height="1300" alt="JST-GH entegrasyonu" loading="lazy"><span class="sub">JST-GH</span></button>
+      <button class="zoom" data-cap="Şekil 21. Telemetri entegrasyonu"><img src="/img/ent-telemetri.webp" width="732" height="1300" alt="Telemetri entegrasyonu" loading="lazy"><span class="sub">Telemetri</span></button>
+      <button class="zoom" data-cap="Şekil 21. GPS yerleşimi ve sisteme entegrasyonu"><img src="/img/ent-gps.webp" width="975" height="1300" alt="GPS yerleşimi" loading="lazy"><span class="sub">GPS</span></button>
+    </div>
+    <figcaption><b>Şekil 21.</b>Bilgisayar ve otopilot arası JST-GH kablosu ile entegrasyon, telemetri entegrasyonu, GPS yerleşimi</figcaption>
+  </figure>
+  <figure class="fig">
+    <div class="fig-grid tall" style="--cols:4">
+      <button class="zoom" data-cap="Şekil 22. Ana motor montajı"><img src="/img/motor-2.webp" width="675" height="1200" alt="Ana motor" loading="lazy"></button>
+      <button class="zoom" data-cap="Şekil 22. Ana motor ve pervane"><img src="/img/motor-1.webp" width="675" height="1200" alt="Ana motor ve pervane" loading="lazy"></button>
+      <button class="zoom" data-cap="Şekil 22. Servo montajı"><img src="/img/servo-1.webp" width="900" height="1200" alt="Servo montajı" loading="lazy"></button>
+      <button class="zoom" data-cap="Şekil 22. Kuyruk servo montajı"><img src="/img/servo-2.webp" width="900" height="1200" alt="Kuyruk servo montajı" loading="lazy"></button>
+    </div>
+    <figcaption><b>Şekil 22.</b>Ana motor ve servoların monte görüntüleri</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 8 ================= -->
+<section class="section" id="s8">
+  <div class="sec-head"><span class="n">8</span><h2>Test ve Simülasyon</h2></div>
+  <h3 id="s8-1"><span class="n">8.1</span>Alt Sistem Testleri</h3>
+  <div class="tests">
+    <div class="test"><header><h5>8.1.1 Kaynak ve bellek</h5><span class="chip ok">Tamamlandı</span></header><p>Jetson Orin NX üzerinde YOLO11s ve alternatifleri; CPU/GPU, bellek, çıkarım kararlılığı.</p></div>
+    <div class="test"><header><h5>8.1.2 Isıl kararlılık ve güç</h5><span class="chip ok">Tamamlandı</span></header><p>En yüksek görev yükünde uzun süreli sıcaklık ve güç ölçümü.</p></div>
+    <div class="test"><header><h5>8.1.3 Kilitlenme</h5><span class="chip ok">Tamamlandı</span></header><p>Eğitim verisi dışındaki videolarda mAP50-95 = <b class="mono">0.6955</b>.</p></div>
+    <div class="test"><header><h5>8.1.4 İtki</h5><span class="chip warn">Planlandı</span></header><p>Tam gazda itki (g), akım (A) ve sıcaklık; T/W doğrulaması.</p></div>
+    <div class="test"><header><h5>8.1.5 Kanat yükleme</h5><span class="chip warn">Planlandı</span></header><p>Statik yükle kırılma noktası ve emniyet katsayısı (n).</p></div>
+    <div class="test"><header><h5>8.1.6 Haberleşme menzili</h5><span class="chip warn">Planlandı</span></header><p>RFD900x ile azami operasyonel mesafe ve paket kaybı oranı.</p></div>
+    <div class="test"><header><h5>8.1.7 Batarya deşarj ve titreşim</h5><span class="chip warn">Planlandı</span></header><p>Uçuş boyunca voltaj düşümü ve otopilota gelen titreşim seviyeleri.</p></div>
+  </div>
+
+  <h4><span class="n">8.1.1</span>Donanım Kaynak ve Bellek Yönetimi Testi</h4>
+  <div class="prose"><p>Jetson Orin NX üzerinde YOLO11s ve alternatif mimariler çalıştırılarak CPU/GPU kullanımı, bellek tüketimi ve çıkarım kararlılığı izlenmiştir. YOLO11s modelinin gerçek zamanlı görev yükünü darboğaz oluşturmadan taşıdığı doğrulanmıştır.</p></div>
+  <div class="lab" id="bench">
+    <div class="lab-head"><span class="lab-tag">Şekil 23</span><h4>Jetson Orin NX çıkarım karşılaştırması</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div class="seg" role="group" aria-label="Metrik"><button type="button" data-metric="fps" aria-pressed="true">FPS</button><button type="button" data-metric="lat" aria-pressed="false">Gecikme</button></div>
+        <div class="seg" role="group" aria-label="Güç modu"><button type="button" data-power="15" aria-pressed="true">15 W</button><button type="button" data-power="25" aria-pressed="false">25 W</button></div>
+      </div>
+    </div>
+    <div class="lab-body">
+      <div class="bars" id="benchBars"></div>
+      <div class="axis" id="benchAxis"></div>
+    </div>
+    <div class="lab-foot">Değerler Şekil 23’teki grafiklerin etiketlerinden alınmıştır (gecikme: ortalama, ms). Turuncu çubuk seçilen modeldir. <button class="btn" type="button" id="benchOrig" style="margin-left:6px">Orijinal grafikleri aç</button></div>
+  </div>
+  <div hidden id="benchImgs">
+    <button class="zoom" data-cap="Şekil 23. FPS karşılaştırması, 15 W"><img src="/img/fps-15w.webp" width="1800" height="900" alt="FPS 15W" loading="lazy"></button>
+    <button class="zoom" data-cap="Şekil 23. FPS karşılaştırması, 25 W"><img src="/img/fps-25w.webp" width="1800" height="900" alt="FPS 25W" loading="lazy"></button>
+    <button class="zoom" data-cap="Şekil 23. Gecikme karşılaştırması, 15 W"><img src="/img/lat-15w.webp" width="1800" height="900" alt="Gecikme 15W" loading="lazy"></button>
+    <button class="zoom" data-cap="Şekil 23. Gecikme karşılaştırması, 25 W"><img src="/img/lat-25w.webp" width="1800" height="900" alt="Gecikme 25W" loading="lazy"></button>
+  </div>
+
+  <h4><span class="n">8.1.2</span>Isıl Kararlılık ve Güç Tüketimi Testi</h4>
+  <div class="prose"><p>Isıl testlerde sistem en yüksek görev yükünde uzun süre çalıştırılmış, sıcaklık ve güç tüketimi grafiklerle izlenmiştir. Ölçümler, seçilen modelin yüksek performansa rağmen güvenli termal aralıkta kaldığını ve ısıl kısıtlamaya bağlı performans düşüşü oluşmadığını göstermiştir.</p></div>
+  <figure class="fig">
+    <div class="fig-grid one-sm" style="--cols:2">
+      <button class="zoom" data-cap="Şekil 24. GPU kullanımı, GPU sıcaklığı ve RAM kullanımı, 15 W"><img src="/img/kaynak-15w.webp" width="1800" height="621" alt="Kaynak kullanımı 15W" loading="lazy"><span class="sub">15 W</span></button>
+      <button class="zoom" data-cap="Şekil 24. GPU kullanımı, GPU sıcaklığı ve RAM kullanımı, 25 W"><img src="/img/kaynak-25w.webp" width="1800" height="621" alt="Kaynak kullanımı 25W" loading="lazy"><span class="sub">25 W</span></button>
+    </div>
+    <figcaption><b>Şekil 24.</b>GPU sıcaklığı, GPU ve RAM kullanımı karşılaştırmaları</figcaption>
+  </figure>
+
+  <h4><span class="n">8.1.3</span>Kilitlenme Testi</h4>
+  <div class="prose"><p>Kilitlenme modelinin tahminlerinin isabetliliğini ölçmek için bir kilitlenme testi uygulanmıştır. Modelin eğitim verisine dahil olmayan İHA takip videoları/görselleri üzerinde <strong>mAP50-95 = 0.6955</strong> değerine ulaştığı gözlemlenmiştir. Bu test modelin yarışma şartlarında kilitlenmeye hazır olduğunu göstermiştir.</p></div>
+  <figure class="fig">
+    <div class="fig-grid" style="--cols:3">
+      <button class="zoom" data-cap="Şekil 25. Kilitlenme testi: iha 0.89"><img src="/img/tespit-1.webp" width="800" height="421" alt="Tespit örneği 1" loading="lazy"></button>
+      <button class="zoom" data-cap="Şekil 25. Kilitlenme testi: iha 0.88"><img src="/img/tespit-2.webp" width="640" height="360" alt="Tespit örneği 2" loading="lazy"></button>
+      <button class="zoom" data-cap="Şekil 25. Kilitlenme testi: iha 0.88"><img src="/img/tespit-3.webp" width="300" height="168" alt="Tespit örneği 3" loading="lazy"></button>
+    </div>
+    <figcaption><b>Şekil 25.</b>Kilitlenme testinden görüntüler</figcaption>
+  </figure>
+
+  <h3 id="s8-2"><span class="n">8.2</span>Uçuş Kontrol Listesi ve Uçuş Planı</h3>
+  <div class="prose"><p>Tablo 6 uçuş öncesi kontrol listesidir. Sahada bu sayfayı açık tutarak maddeleri işaretleyebilirsiniz; işaretler yalnızca bu tarayıcıda saklanır.</p></div>
+  <div class="lab" id="checklist">
+    <div class="lab-head"><span class="lab-tag">Tablo 6</span><h4>Uçuş kontrol listesi</h4>
+      <div style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end;min-width:200px">
+        <div class="meter"><span id="checkMeter"></span></div><span class="mono num" id="checkCount">0/13</span>
+        <button class="btn" type="button" id="checkReset">Sıfırla</button>
+      </div>
+    </div>
+    <div class="check" id="checkList"></div>
+    <div class="lab-foot" id="checkStatus">Uçuşa hazır olmak için tüm maddeler işaretlenmelidir.</div>
+  </div>
+
+  <h4><span class="n">8.2.2</span>Planlanan Uçuş Testleri</h4>
+  <div class="prose"><p>Gerçek uçuş testleri için yarışma tarihine kadar toplam <strong>10 uçuşu</strong> kapsayan 4 aşamalı bir saha programı planlanmıştır. Sistemin çevresel dayanıklılığını ölçmek için sürecin farklı rüzgâr hızları ve yüksek sıcaklık gibi değişken hava koşullarında da denenmesi planlanmaktadır.</p></div>
+  <div class="stages">
+    <div class="stage"><span class="k">Aşama 1 · 2 uçuş</span><b>Aerodinamik kararlılık ve azami uçuş süresi</b><span class="note">PID parametreleri ve batarya tüketiminin sahadaki başarımı.</span><div class="flights"><i></i><i></i></div></div>
+    <div class="stage"><span class="k">Aşama 2 · 2 uçuş</span><b>Sistem entegrasyonu</b><span class="note">RFD900x menzili ve Jetson-Pixhawk MAVLink v2 veri akışı.</span><div class="flights"><i></i><i></i></div></div>
+    <div class="stage"><span class="k">Aşama 3 · 4 uçuş</span><b>Kamikaze ve QR denemesi</b><span class="note">45° dalışta QR çözme başarısı ve otonom pull-up manevrası.</span><div class="flights"><i></i><i></i><i></i><i></i></div></div>
+    <div class="stage"><span class="k">Aşama 4 · 2 uçuş</span><b>Otonom iniş ve acil durum</b><span class="note">Otonom iniş testi ve acil durum senaryoları.</span><div class="flights"><i></i><i></i></div></div>
+  </div>
+
+  <h3 id="s8-3"><span class="n">8.3</span>Görev Testleri</h3>
+  <div class="prose"><p>Yarışma koşullarını gerçekçi biçimde taklit etmek için Gazebo Classic <a class="cite" href="#ref9">[9]</a> ve PX4 <a class="cite" href="#ref10">[10]</a> tabanlı yazılım çevrimli (SITL) test altyapısı kullanılmıştır.</p></div>
+  <h4><span class="n">8.3.1</span>Simülasyon Ortamı ve Altyapı Özellikleri</h4>
+  <div class="prose"><p>Testler Docker tabanlı SITL ortamında yürütülmüştür. ROS Noetic, PX4 ve Gazebo Classic birlikte kullanılmış; şartname boyutlarına uygun QR modeli, yarışma alanına benzerliği sebebiyle Baylands haritası ve çoklu otonom İHA senaryoları ile yarışma ortamı simüle edilmiştir. Sistem QGroundControl <a class="cite" href="#ref11">[11]</a> ile uyumlu çalışmaktadır.</p></div>
+  <h4><span class="n">8.3.2</span>Haberleşme Testi</h4>
+  <div class="prose"><p>Haberleşme testlerinde simülasyon konteynerine ek olarak yarışma sunucusu konteyneri kurulmuş; çoklu İHA girişi, telemetri gönderimi ve YKİ haritasında HSS, QR ve rakip koordinatlarının canlı izlenmesi doğrulanmıştır. Arm/disarm, uçuş modu ve görev modu komutları arayüz üzerinden başarıyla iletilmiştir.</p></div>
+  <figure class="fig">
+    <button class="zoom" data-cap="Şekil 26. Haberleşme Testi - Telemetri Testi"><img src="/img/sitl-haberlesme.webp" width="1800" height="1125" alt="SITL haberleşme testi" loading="lazy"></button>
+    <figcaption><b>Şekil 26.</b>Haberleşme testi, telemetri testi</figcaption>
+  </figure>
+  <h4><span class="n">8.3.3</span>Dalış Testi</h4>
+  <div class="prose"><p>Dalış algoritması, QR modelinin simülasyon dünyasında farklı konumlara yerleştirilmesiyle test edilmiştir. Hedefe karşıdan hizalanma, sabit açıyla dalış, QR okuma ve sonucun <span class="mono">/api/qr_koordinati</span> akışı üzerinden sunucuya iletimi farklı yaklaşma açılarıyla doğrulanmış; en başarılı dalış açısı ve okuma stratejisi seçilmiştir.</p></div>
+  <figure class="fig">
+    <div class="fig-grid" style="--cols:2">
+      <button class="zoom" data-cap="Şekil 27. QR okuma stratejilerinin karşılaştırılması"><img src="/img/sitl-qr.webp" width="827" height="997" alt="QR okuma testi" loading="lazy"></button>
+      <button class="zoom" data-cap="Şekil 27. İdeal dalış açısının bulunması"><img src="/img/sitl-dalis.webp" width="1528" height="900" alt="Dalış testi" loading="lazy"></button>
+    </div>
+    <figcaption><b>Şekil 27.</b>Dalış testi: QR okuma stratejilerinin karşılaştırılması ve ideal dalış açısının bulunması</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 9 ================= -->
+<section class="section" id="s9">
+  <div class="sec-head"><span class="n">9</span><h2>Güvenlik</h2></div>
+  <div class="safety">
+    <div><h5>Saha</h5><p>Operasyon sahasında sivil girişi yasaktır; yangın tüpü, ilk yardım çantası, yedek parça ve tamir kitleri hazır bulundurulur. Pervaneler uçuş onayından sonra takılır ve her operasyon öncesi tüm mekanik bağlantılar uçuş öncesi kontrol listesi ile denetlenir.</p></div>
+    <div><h5>Yapı ve termal</h5><p>Gövde ve kanatlardaki karbon fiber yapı, 3g ivmeli pull-out manevrasının yapısal yüklerini sönümler. Aviyoniğin aşırı ısınmasına karşı tasarım içeride hava akışı olacak şekilde yapılmıştır <a class="cite" href="#ref8">[8]</a>.</p></div>
+    <div><h5>Elektrik</h5><p>Tahrik (6S) ve aviyonik (4S) bataryaları izole edilerek voltaj dalgalanmaları önlenmiş, motor hattına 125 A sigorta ve şalter eklenmiştir. Li-Po bataryalar yanmaz çantalarda muhafaza edilir.</p></div>
+    <div><h5>Otonom uçuş</h5><p>Global shutter kamera yüksek hızda görüntüyü korur; I2C sensörler elektriksel gürültüden etkilenmez. Haberleşme AES-128 ile şifrelenir; sinyal kaybında RTL (Return to Launch) failsafe modu devreye girer.</p></div>
+  </div>
+</section>
+
+<!-- ================= 10 ================= -->
+<section class="section" id="s10">
+  <div class="sec-head"><span class="n">10</span><h2>Referanslar</h2></div>
+  <ol class="refs">
+    <li id="ref1"><span>G. Williams, N. Wagener, B. Goldfain, P. Drews, J. M. Rehg, B. Boots ve E. A. Theodorou, “Information theoretic MPC for model-based reinforcement learning,” <i>2017 IEEE International Conference on Robotics and Automation (ICRA)</i>, Singapore, 2017, ss. 1714–1721, doi: <a href="https://doi.org/10.1109/ICRA.2017.7989202" target="_blank" rel="noopener">10.1109/ICRA.2017.7989202</a>.</span></li>
+    <li id="ref2"><span>O. Khatib, “Real-time obstacle avoidance for manipulators and mobile robots,” <i>The International Journal of Robotics Research</i>, c. 5, no. 1, ss. 90–98, Mart 1986, doi: <a href="https://doi.org/10.1177/027836498600500106" target="_blank" rel="noopener">10.1177/027836498600500106</a>.</span></li>
+    <li id="ref3"><span>P. E. Hart, N. J. Nilsson ve B. Raphael, “A Formal Basis for the Heuristic Determination of Minimum Cost Paths,” <i>IEEE Transactions on Systems Science and Cybernetics</i>, c. 4, no. 2, ss. 100–107, Temmuz 1968, doi: <a href="https://doi.org/10.1109/TSSC.1968.300136" target="_blank" rel="noopener">10.1109/TSSC.1968.300136</a>.</span></li>
+    <li id="ref4"><span>H. A. P. Blom ve Y. Bar-Shalom, “The interacting multiple model algorithm for systems with switching coefficients,” <i>IEEE Transactions on Automatic Control</i>, c. 33, no. 8, ss. 780–783, Ağustos 1988, doi: <a href="https://doi.org/10.1109/9.1299" target="_blank" rel="noopener">10.1109/9.1299</a>.</span></li>
+    <li id="ref5"><span>J. A. Reeds ve L. A. Shepp, “Optimal paths for a car that goes both forwards and backwards,” <i>Pacific Journal of Mathematics</i>, c. 145, no. 2, ss. 367–393, 1990.</span></li>
+    <li id="ref6"><span>Y. Zhang, P. Sun, Y. Jiang, D. Yu, F. Weng, Z. Yuan, P. Luo, W. Liu ve X. Wang, “ByteTrack: Multi-Object Tracking by Associating Every Detection Box,” <i>European Conference on Computer Vision (ECCV)</i>, ss. 1–21, 2022.</span></li>
+    <li id="ref7"><span>T. Chen, S. Kornblith, M. Norouzi ve G. Hinton, “A simple framework for contrastive learning of visual representations,” <i>Proc. 37th Int. Conf. Mach. Learn.</i>, 2020, ss. 1597–1607.</span></li>
+    <li id="ref8"><span>ABRA SİHA Takımı, “Kritik Tasarım Raporu,” TEKNOFEST 2022 Savaşan İHA Yarışması, s. 49, Tablo 17, 2022. [Çevrimiçi]. Erişilebilir: <a href="https://cdn.t3kys.com/media/upload/userFormUpload/qehxldEKVOfpa9IrScerejYnDHxOSKJ4.pdf" target="_blank" rel="noopener">cdn.t3kys.com</a></span></li>
+    <li id="ref9"><span>Open Source Robotics Foundation (OSRF), “Gazebo Classic Documentation,” 2026. [Çevrimiçi]. Erişilebilir: <a href="https://classic.gazebosim.org/" target="_blank" rel="noopener">classic.gazebosim.org</a></span></li>
+    <li id="ref10"><span>PX4 Autopilot Dev Team, “PX4 Autopilot User Guide and Documentation,” 2026. [Çevrimiçi]. Erişilebilir: <a href="https://docs.px4.io/main/en/frames_plane/" target="_blank" rel="noopener">docs.px4.io</a></span></li>
+    <li id="ref11"><span>Dronecode Foundation, “QGroundControl User Guide,” 2026. [Çevrimiçi]. Erişilebilir: <a href="https://docs.qgroundcontrol.com" target="_blank" rel="noopener">docs.qgroundcontrol.com</a></span></li>
+  </ol>
+</section>
+
+  </main>
+</div>
+
+<footer class="site">İKARUS · TEKNOFEST 2026 Savaşan İHA Yarışması Kritik Tasarım Raporu · Takım ID 942168</footer>
+
+<dialog class="lb" id="lightbox" aria-label="Görsel görüntüleyici">
+  <div class="lb-inner">
+    <div class="lb-bar"><span id="lbCount"></span><div style="display:flex;gap:6px"><button type="button" id="lbPrev" aria-label="Önceki">←</button><button type="button" id="lbNext" aria-label="Sonraki">→</button><button type="button" id="lbClose" aria-label="Kapat">Kapat ✕</button></div></div>
+    <div class="lb-stage"><img id="lbImg" alt=""></div>
+    <p class="lb-cap" id="lbCap"></p>
+  </div>
+</dialog>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
