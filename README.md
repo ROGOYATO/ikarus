@@ -33,7 +33,9 @@ TOBB ETÜ öğrencilerinden oluşan İKARUS otonom İHA takımının web sitesi:
 - Logo ve uçak çizimi, tanıtım PDF'inden (logo 1. sayfa, çizim 9. sayfa) çıkarılmış satır içi SVG'lerdir; renkleri temaya göre değişir. Tasarım değişirse PDF'ten yeniden çıkarılmalıdır (`pdftocairo -svg`).
 - Renkler dokümandaki krem, lacivert ve turuncudur. Dokümanın yazı tipleri (Agency FB, Century Gothic) ücretli olduğundan yerine Google Fonts'tan Saira Extra Condensed ve Jost kullanılır.
 - Açık/koyu tema seçimi tarayıcıda `ikarus-theme` anahtarıyla saklanır ve iki sayfada ortaktır.
-- Henüz eklenmeyenler: yeni uçağın tasarım görselleri ve güncel malzeme listesi.
+- **Teknik resim** bölümü (`#teknik-resim`): 4+1 VTOL ön tasarımının (Rev. 0) üst, ön ve yan görünüşleri, ölçüleri açıp kapatma, açılır boyut tablosu ve kuyruk seçenekleri karşılaştırması. Çizimler satır içi SVG'dir; çizgi sınıfları (`.o`, `.d`, `.c` …) `src/home.css` içinde temaya bağlanır, `.blade` sınıflı pervaneler döner.
+- Hareketler `src/home.js` içindedir: bölümler kaydırdıkça belirir, rakamlar sayarak gelir, giriş çizimindeki uçak kaydırdıkça yükselir. Sistemde "hareketi azalt" seçiliyse hiçbiri çalışmaz.
+- Henüz eklenmeyenler: güncel malzeme listesi.
 
 ## Geliştirme
 
