@@ -3,788 +3,336 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>İKARUS Savaşan İHA</title>
-<meta name="description" content="İKARUS: kalkıştan inişe tam otonom, görüntü işleme ile rakip tespiti, otonom kilitlenme, kamikaze dalış ve hava savunma kaçınması yapan sabit kanatlı savaşan İHA.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230e1a2b%27/%3E%3Cpath d=%27M5 17h22M16 9v15M11 25h10%27 stroke=%27%23f05a1a%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<title>İKARUS · Otonom İHA Takımı</title>
+<meta name="description" content="İKARUS: TOBB ETÜ öğrencilerinin tam otonom hedeflenen, kamerasıyla çevresini tanıyan ve kendi kararını veren uçağı. Hedef: SUAS 2027, ABD.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e3a6b'/%3E%3Csvg x='7' y='3' width='18' height='26' viewBox='168 101 200 347' fill='%23e8792b'%3E%3Cpath d='M 363.5 124.1 C 363.5 134.7 354.9 143.3 344.3 143.3 C 333.7 143.3 325.1 134.7 325.1 124.1 C 325.1 113.5 333.7 104.9 344.3 104.9 C 354.9 104.9 363.5 113.5 363.5 124.1 '/%3E%3Cpath d='M 357.3 443.9 C 343 443.9 331.4 432.3 331.4 418 L 331.4 152.3 C 345.7 152.3 357.3 163.9 357.3 178.2 ZM 357.3 443.9 '/%3E%3Cpath d='M 317.3 260.5 C 308.4 260.5 301.2 253.2 301.2 244.3 L 301.2 189.6 L 317.3 189.6 ZM 317.3 260.5 '/%3E%3Cpath d='M 285 242.3 C 276.1 242.3 268.9 235 268.9 226.1 L 268.9 189.6 L 285 189.6 ZM 285 242.3 '/%3E%3Cpath d='M 252.8 224.1 C 243.9 224.1 236.7 216.8 236.7 207.9 L 236.7 189.6 L 252.8 189.6 ZM 252.8 224.1 '/%3E%3Cpath d='M 220.5 205.9 C 211.6 205.9 204.4 198.6 204.4 189.7 L 204.4 189.6 L 220.5 189.6 ZM 220.5 205.9 '/%3E%3Cpath d='M 357.3 152.3 L 357.3 178.2 L 196.7 178.2 C 183.1 178.2 172.1 167.2 172.1 153.6 L 172.1 152.3 ZM 357.3 152.3 '/%3E%3C/svg%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Saira+Condensed:wght@600;700&display=swap">
-<script>try{var t=localStorage.getItem('ikarus-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Saira+Extra+Condensed:wght@600;700&display=swap">
+<script>if(/^#(s\d|ref\d)/.test(location.hash))location.replace('ilk-ucak.html'+location.hash);try{var t=localStorage.getItem('ikarus-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 </head>
 <body>
 
 <header class="topbar">
-  <a class="brand" href="#top"><b>İKARUS</b><span>OTONOM SABİT KANAT İHA</span></a>
+  <a class="brand" href="#top" aria-label="İKARUS"><svg class="logo" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="168 101 985 347" fill="currentColor"><path d="M 527.6 443.9 L 499.1 443.9 L 431.8 303.8 L 431.8 443.9 L 405.9 443.9 L 405.9 152.3 L 431.8 152.3 L 431.8 283.3 L 492.9 152.3 L 521 152.3 L 521 154 L 455.1 292.8 ZM 527.6 443.9 "/><path d="M 631 356.1 L 605.5 198.1 L 579.7 356.1 ZM 670.3 443.9 L 644.6 443.9 L 634.3 379 L 576.4 379 L 566.1 443.9 L 541.2 443.9 L 541.2 443.1 L 593.2 151.5 L 618.7 151.5 ZM 670.3 443.9 "/><path d="M 829.4 443.9 L 802.2 443.9 L 748 287.7 L 751.5 282.5 L 797.7 282.5 L 797.7 175.2 L 731.2 175.2 L 731.2 443.9 L 705.3 443.9 L 705.3 152.3 L 803 152.3 C 809 152.3 814 154.2 817.9 158.1 C 821.7 161.9 823.6 166.9 823.6 173 L 823.6 283.6 C 823.6 297.7 814.2 304.7 795.3 304.7 C 793.5 304.7 790.7 304.6 787.1 304.4 C 783.5 304.2 780.9 304.1 779.3 304.1 C 796.1 350.6 812.8 397.2 829.4 443.9 "/><path d="M 989.1 423.2 C 989.1 429.3 987.1 434.3 983.2 438.1 C 979.3 442 974.3 443.9 968.2 443.9 L 888.9 443.9 C 882.8 443.9 877.8 442 873.9 438.1 C 870.1 434.3 868.2 429.3 868.2 423.2 L 868.2 152.3 L 894.1 152.3 L 894.1 421 L 963.2 421 L 963.2 152.3 L 989.1 152.3 ZM 989.1 423.2 "/><path d="M 1149.3 423.2 C 1149.3 429.3 1147.4 434.3 1143.7 438.1 C 1139.9 442 1134.9 443.9 1128.8 443.9 L 1055.4 443.9 C 1049.3 443.9 1044.3 442 1040.4 438.1 C 1036.5 434.3 1034.6 429.3 1034.6 423.2 L 1034.6 349.2 L 1060.5 349.2 L 1060.5 421 L 1123.4 421 L 1123.4 351.5 L 1042.9 254.2 C 1037.4 247.5 1034.6 240.1 1034.6 232 L 1034.6 173 C 1034.6 166.9 1036.5 161.9 1040.4 158.1 C 1044.3 154.2 1049.3 152.3 1055.4 152.3 L 1128.8 152.3 C 1134.9 152.3 1139.9 154.2 1143.7 158.1 C 1147.4 161.9 1149.3 166.9 1149.3 173 L 1149.3 240.8 L 1123.4 240.8 L 1123.4 175.2 L 1060.5 175.2 L 1060.5 236.7 L 1141.3 333.9 C 1146.7 340.4 1149.3 347.7 1149.3 355.7 ZM 1149.3 423.2 "/><path class="o" d="M 363.5 124.1 C 363.5 134.7 354.9 143.3 344.3 143.3 C 333.7 143.3 325.1 134.7 325.1 124.1 C 325.1 113.5 333.7 104.9 344.3 104.9 C 354.9 104.9 363.5 113.5 363.5 124.1 "/><path class="o" d="M 357.3 443.9 C 343 443.9 331.4 432.3 331.4 418 L 331.4 152.3 C 345.7 152.3 357.3 163.9 357.3 178.2 ZM 357.3 443.9 "/><path class="o" d="M 317.3 260.5 C 308.4 260.5 301.2 253.2 301.2 244.3 L 301.2 189.6 L 317.3 189.6 ZM 317.3 260.5 "/><path class="o" d="M 285 242.3 C 276.1 242.3 268.9 235 268.9 226.1 L 268.9 189.6 L 285 189.6 ZM 285 242.3 "/><path class="o" d="M 252.8 224.1 C 243.9 224.1 236.7 216.8 236.7 207.9 L 236.7 189.6 L 252.8 189.6 ZM 252.8 224.1 "/><path class="o" d="M 220.5 205.9 C 211.6 205.9 204.4 198.6 204.4 189.7 L 204.4 189.6 L 220.5 189.6 ZM 220.5 205.9 "/><path class="o" d="M 357.3 152.3 L 357.3 178.2 L 196.7 178.2 C 183.1 178.2 172.1 167.2 172.1 153.6 L 172.1 152.3 ZM 357.3 152.3 "/></svg></a>
+  <div class="planes">
+    <button class="iconbtn" id="planesBtn" aria-expanded="false" aria-controls="planesMenu">Uçaklarımız<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+    <div class="planes-menu" id="planesMenu" hidden>
+      <a href="./" aria-current="page"><b>Yeni uçağımız</b><span>Güncel · SUAS 2027</span></a>
+      <a href="ilk-ucak.html"><b>İlk uçağımız</b><span>Sabit kanatlı savaşan İHA · 2026</span></a>
+    </div>
+  </div>
   <div class="spacer"></div>
-  <button class="iconbtn" id="tocBtn" aria-expanded="false" aria-controls="toc">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>İçindekiler
-  </button>
+  <a class="iconbtn cta" href="#iletisim">İletişim</a>
   <button class="iconbtn" id="themeBtn" aria-label="Tema değiştir" title="Tema değiştir">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
   </button>
-  <div class="progress" id="progress"></div>
 </header>
 
-<section class="hero" id="top">
-  <div class="hero-inner">
-    <div>
-      <ul class="eyebrow tags" aria-label="Anahtar kelimeler"><li>Sabit Kanat</li><li>Tam Otonom</li><li>Görüntü İşleme</li><li>Otonom Kilitlenme</li><li>Kamikaze Dalış</li><li>Hava Savunma Kaçınma</li></ul>
-      <h1>İKARUS</h1>
-      <p class="lede">Kalkıştan inişe tam otonom çalışan, YOLO tabanlı rakip tespiti, kamikaze görevi ve hava savunma kaçınmasını tek platformda birleştiren sabit kanatlı savaşan İHA.</p>
-      <p class="ids"><span>TAKIM ID <b>942168</b></span><span>BAŞVURU ID <b>5017231</b></span><span>YIL <b>2026</b></span></p>
-    </div>
-    <figure class="hero-figure">
-      <img src="/img/kaplamali.webp" width="1219" height="666" alt="Hava aracının kaplamalı üç boyutlu tasarımı">
-      <span class="dim span">2000 mm</span>
-    </figure>
-  </div>
-  <dl class="specs" aria-label="Temel performans değerleri">
-    <div class="spec"><dt>Kanat açıklığı</dt><dd>2000<small>mm</small></dd></div>
-    <div class="spec"><dt>MTOW</dt><dd>6500<small>g</small></dd></div>
-    <div class="spec"><dt>Seyir hızı</dt><dd>20<small>m/s</small></dd></div>
-    <div class="spec"><dt>Stall hızı</dt><dd>10.45<small>m/s</small></dd></div>
-    <div class="spec"><dt>Uçuş süresi</dt><dd>~29<small>dk</small></dd></div>
-    <div class="spec"><dt>İtki / Ağırlık</dt><dd>~1.3</dd></div>
-  </dl>
-</section>
-
-<div class="shell">
-  <nav class="toc" id="toc" aria-label="İçindekiler">
-    <div class="toc-title">İçindekiler</div>
-    <ol>
-      <li><a href="#s1"><span class="n">1</span>Temel Sistem Özeti</a>
-        <ol><li><a href="#s1-1"><span class="n">1.1</span>Sistem Tanımı</a></li><li><a href="#s1-2"><span class="n">1.2</span>Nihai Performans</a></li></ol></li>
-      <li><a href="#s2"><span class="n">2</span>Organizasyon Özeti</a>
-        <ol><li><a href="#s2-1"><span class="n">2.1</span>Takım Organizasyonu</a></li><li><a href="#s2-2"><span class="n">2.2</span>Zaman Akışı ve Bütçe</a></li></ol></li>
-      <li><a href="#s3"><span class="n">3</span>Detaylı Tasarım Özeti</a>
-        <ol><li><a href="#s3-1"><span class="n">3.1</span>Üç Boyutlu Tasarım</a></li><li><a href="#s3-2"><span class="n">3.2</span>Performans Özeti</a></li><li><a href="#s3-3"><span class="n">3.3</span>Sistem Mimarisi</a></li><li><a href="#s3-4"><span class="n">3.4</span>Ağırlık Dağılımı</a></li></ol></li>
-      <li><a href="#s4"><span class="n">4</span>Otonom Görevler</a>
-        <ol><li><a href="#s4-1"><span class="n">4.1</span>Otonom Kilitlenme</a></li><li><a href="#s4-2"><span class="n">4.2</span>Kamikaze Görevi</a></li></ol></li>
-      <li><a href="#s5"><span class="n">5</span>Hava Savunma Sistemi</a></li>
-      <li><a href="#s6"><span class="n">6</span>YKİ, Haberleşme ve Arayüz</a>
-        <ol><li><a href="#s6-1"><span class="n">6.1</span>Haberleşme Mimarisi</a></li><li><a href="#s6-2"><span class="n">6.2</span>Donanımlar</a></li><li><a href="#s6-3"><span class="n">6.3</span>YKİ Tasarımı</a></li></ol></li>
-      <li><a href="#s7"><span class="n">7</span>Hava Aracı Entegrasyonu</a>
-        <ol><li><a href="#s7-1"><span class="n">7.1</span>Yapısal ve Mekanik</a></li><li><a href="#s7-2"><span class="n">7.2</span>Elektronik</a></li></ol></li>
-      <li><a href="#s8"><span class="n">8</span>Test ve Simülasyon</a>
-        <ol><li><a href="#s8-1"><span class="n">8.1</span>Alt Sistem Testleri</a></li><li><a href="#s8-2"><span class="n">8.2</span>Uçuş Kontrol Listesi</a></li><li><a href="#s8-3"><span class="n">8.3</span>Görev Testleri</a></li></ol></li>
-      <li><a href="#s9"><span class="n">9</span>Güvenlik</a></li>
-      <li><a href="#s10"><span class="n">10</span>Referanslar</a></li>
-    </ol>
-  </nav>
-
-  <main id="main">
-
-<!-- ================= 1 ================= -->
-<section class="section" id="s1">
-  <div class="sec-head"><span class="n">1</span><h2>Temel Sistem Özeti</h2></div>
-  <h3 id="s1-1"><span class="n">1.1</span>Sistem Tanımı</h3>
-  <div class="prose">
-    <p>TEKNOFEST Savaşan İHA Yarışması için geliştirilen platform; kalkıştan inişe tam otonom operasyon, YOLO tabanlı rakip tespiti, kamikaze görevi ve stratejik kaçınma algoritmalarını bütünleşik sunan hava savunma ve taarruz sistemidir.</p>
-    <p>Görev bilgisayarı <strong>Jetson Orin NX</strong> yüksek seviyeli otonom kararları (hedef tespiti, rota planlama, angajman) üstlenirken; <strong>Orange Cube/Pixhawk</strong> otopilot katmanlı PID döngüleriyle düşük seviyeli kararlılığı yürütür. İkisi arasındaki haberleşme UART üzerinden MAVLink v2 ile sağlanır. YKİ görev parametrelerini yükler ve uçuşu izler; RFD900x 868 MHz FHSS üzerinden kesintisiz telemetri sağlar. Yarışma sunucusu modülü konum, kilitlenme ve görev verilerini JSON/REST üzerinden yönetim merkezine iletir.</p>
-  </div>
-
-  <h3 id="s1-2"><span class="n">1.2</span>Sistem Nihai Performans Özellikleri</h3>
-  <div class="table-wrap">
-    <table>
-      <caption>Tablo 1 · Nihai Performans Tablosu</caption>
-      <thead><tr><th>Parametre</th><th>Birim</th><th class="num">Değer</th></tr></thead>
-      <tbody>
-        <tr><td>Kanat Açıklığı</td><td class="mono">mm</td><td class="num">2000</td></tr>
-        <tr><td>Kanat Alanı</td><td class="mono">m²</td><td class="num">0.7</td></tr>
-        <tr><td>Gövde Uzunluğu</td><td class="mono">mm</td><td class="num">1350</td></tr>
-        <tr><td>MTOW (Kalkış Ağırlığı)</td><td class="mono">g</td><td class="num">6500</td></tr>
-        <tr><td>Seyir Hızı</td><td class="mono">m/s</td><td class="num">20</td></tr>
-        <tr><td>Stall Hızı</td><td class="mono">m/s</td><td class="num">10.45</td></tr>
-        <tr><td>Kanat Yüklemesi</td><td class="mono">N/m²</td><td class="num">43.52</td></tr>
-        <tr><td>Açıklık Oranı (AR)</td><td class="mono">–</td><td class="num">5.71</td></tr>
-        <tr><td>Motor &amp; Pervane</td><td class="mono">–</td><td class="num">T-Motor AT4125 &amp; Gemfan 16×8</td></tr>
-        <tr><td>Batarya Kapasitesi</td><td class="mono">mAh</td><td class="num">30000 (6S)</td></tr>
-        <tr><td>İtki / Ağırlık Oranı</td><td class="mono">–</td><td class="num">~1.3</td></tr>
-        <tr><td>Ön Kamera</td><td class="mono">–</td><td class="num">Arducam AR0234 (60° lens)</td></tr>
-        <tr><td>Tahmini Uçuş Süresi</td><td class="mono">dk</td><td class="num">29</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ================= 2 ================= -->
-<section class="section" id="s2">
-  <div class="sec-head"><span class="n">2</span><h2>Organizasyon Özeti</h2></div>
-  <h3 id="s2-1"><span class="n">2.1</span>Takım Organizasyonu</h3>
-  <div class="org" role="figure" aria-label="Şekil 1. Takım Organizasyon Şeması">
-    <div class="org-top"><div class="org-card"><h5>Takım Kaptanı</h5>Genel koordinasyon, ekipler arası iletişim, görev dağılımı ve takımın resmî temsilini yürütmek.</div></div>
-    <div class="org-link"></div>
-    <div class="org-row">
-      <div class="org-card"><h5>Yazılım Birimi</h5>Görüntü işleme, otonom hareket ve uçuş algoritmalarının geliştirilmesi, simülasyon ortamlarının (ROS, PX4, Gazebo) kurulması ve sistem entegrasyonu.</div>
-      <div class="org-card"><h5>Donanım Birimi</h5>Güç dağıtımı, itki kontrolü, elektronik bağlantılar, yer istasyonu haberleşme protokolleri ve uçuş kontrol kartı tasarım/doğrulama çalışmaları.</div>
-      <div class="org-card"><h5>Mekanik Birimi</h5>İHA aerodinamik tasarımı, kanat profili seçimi, yapısal analizler (FEA/CFD), üretim planlaması ve malzeme araştırması.</div>
-      <div class="org-card"><h5>Sponsorluk ve İletişim</h5>Sponsorluk süreçleri, zaman/süreç planlaması, birimler arası görev takibi ve dış iletişim faaliyetleri.</div>
-    </div>
-  </div>
-  <p class="note">Şekil 1. Takım Organizasyon Şeması</p>
-
-  <h3 id="s2-2"><span class="n">2.2</span>Zaman Akış Çizelgesi ve Bütçe</h3>
-  <figure class="fig">
-    <button class="zoom" data-cap="Şekil 2. Proje Zaman Akış Çizelgesi"><img src="/img/gantt.webp" width="945" height="549" alt="Proje iş paketleri Gantt çizelgesi" loading="lazy"></button>
-    <figcaption><b>Şekil 2.</b>Proje Zaman Akış Çizelgesi</figcaption>
-  </figure>
-  <div class="prose">
-    <p>Projenin tahmini bütçesi ile gerçekleşen bütçesi arasında, dışsal faktörlere ve malzeme temininde yaşanan zorluklara bağlı olarak bazı farklar oluşmuştur. Eski malzeme listesinin toplam maliyeti <strong class="mono">317.283,03 TL</strong> olarak hesaplanmıştır. Aşağıdaki güncel malzemelerle değiştirilerek toplam yeni proje maliyeti <strong class="mono">288.566,00 TL</strong> olarak belirlenmiştir.</p>
-  </div>
-  <div class="lab" id="budget">
-    <div class="lab-head"><span class="lab-tag">Bütçe</span><h4>Güncellenen malzemeler</h4></div>
-    <div class="lab-body">
-      <div class="readouts">
-        <div class="readout"><div class="k">Eski toplam</div><div class="v num">317.283<small>TL</small></div></div>
-        <div class="readout"><div class="k">Yeni toplam</div><div class="v num">288.566<small>TL</small></div></div>
-        <div class="readout"><div class="k">Fark</div><div class="v num" style="color:var(--ok)">−28.717<small>TL</small></div><div class="d">%9,1 daha düşük</div></div>
-        <div class="readout"><div class="k">Listelenen kalemler</div><div class="v num" id="budgetSum">–</div></div>
-      </div>
-      <div class="bars" id="budgetBars"></div>
-    </div>
-    <div class="lab-foot">Kalemler raporda verilen fiyatlardır; servo satırı 5 adet × 4.199,90 TL toplamıdır.</div>
-  </div>
-</section>
-
-<!-- ================= 3 ================= -->
-<section class="section" id="s3">
-  <div class="sec-head"><span class="n">3</span><h2>Detaylı Tasarım Özeti</h2></div>
-  <h3 id="s3-1"><span class="n">3.1</span>Hava Aracının Üç Boyutlu Tasarımı</h3>
-  <div class="prose"><p>Aracın kanat iç yapısının da gösterildiği üç boyutlu tasarımı aşağıdaki şekillerdedir.</p></div>
-  <figure class="fig">
-    <div class="fig-grid" style="--cols:2">
-      <button class="zoom" data-cap="Şekil 3. İskelet Tasarımı"><img src="/img/iskelet.webp" width="1315" height="848" alt="İskelet tasarımı" loading="lazy"><span class="sub">Şekil 3 · İskelet</span></button>
-      <button class="zoom" data-cap="Şekil 4. Kaplamalı Tasarım"><img src="/img/kaplamali.webp" width="1219" height="666" alt="Kaplamalı tasarım" loading="lazy"><span class="sub">Şekil 4 · Kaplamalı</span></button>
-      <button class="zoom" data-cap="Şekil 5. Üstten Görünüm"><img src="/img/ustten.webp" width="1289" height="851" alt="Üstten görünüm" loading="lazy"><span class="sub">Şekil 5 · Üstten</span></button>
-      <button class="zoom" data-cap="Şekil 6. Gövde İçi Yerleşim Planı"><img src="/img/yerlesim.webp" width="1109" height="910" alt="Gövde içi yerleşim planı" loading="lazy"><span class="sub">Şekil 6 · Yerleşim</span></button>
-    </div>
-    <figcaption><b>Şekil 3–6.</b>İskelet tasarımı, kaplamalı tasarım, üstten görünüm ve gövde içi yerleşim planı. Görsele tıklayarak büyütün.</figcaption>
-  </figure>
-  <div class="prose">
-    <p>Sigorta yerleşimi, bataryadan gelen ana hat gerilimi ile ana motora giden 90A ESC arasındadır. Alt sistem yerleşimleri Şekil 6’dadır.</p>
-    <p>Perspektif karışıklıklarını önlemek amacıyla belirtmek gerekir: telemetri modülü aracın gövdesinin üst kısmında, arka tarafta ve antenleri dışa dönük olacak şekilde konumlandırılmıştır.</p>
-  </div>
-
-  <h3 id="s3-2"><span class="n">3.2</span>Hava Aracı Performans Özeti</h3>
-  <h4><span class="n">3.2.1</span>Uçuş Süresi Hesaplamaları</h4>
-  <div class="prose">
-    <p>Uçuş süresi, sistemin bataryadan çektiği toplam akımla <span class="tex">t = \dfrac{C_{\text{batarya}}}{\bar I}\cdot 60</span> bağıntısıyla hesaplanır. Bileşenlerin ortalama akımları: otopilot 0.3 A, yapay zekâ bilgisayarı 1.25 A, telemetri 0.8 A, Herelink 0.33 A, UBEC 0.28 A, ana motor ~60 A. Stabil uçuşta toplam akım 62.96 A olup uçuş süresi <strong>28.59 dakika</strong>; pik değerlerde toplam akım 84.7 A için süre <strong>21.33 dakika</strong> olarak hesaplanmıştır.</p>
-  </div>
-  <div class="lab" id="flight">
-    <div class="lab-head"><span class="lab-tag">Hesap</span><h4>Uçuş süresi hesaplayıcı</h4>
-      <div class="seg" role="group" aria-label="Senaryo"><button type="button" data-preset="cruise" aria-pressed="true">Stabil seyir</button><button type="button" data-preset="peak" aria-pressed="false">Pik</button></div>
-    </div>
-    <div class="lab-body lab-cols">
-      <div class="controls">
-        <div class="comp" id="flightComps"></div>
-        <div class="ctrl"><label for="motorA"><span>Ana motor akımı</span> <output id="motorAOut">60 A</output></label><input type="range" id="motorA" min="20" max="90" step="0.01" value="60"></div>
-        <div class="ctrl"><label for="capMah"><span>Batarya kapasitesi</span> <output id="capOut">30000 mAh</output></label><input type="range" id="capMah" min="10000" max="40000" step="500" value="30000"></div>
-      </div>
-      <div style="display:grid;gap:14px">
-        <div class="readouts">
-          <div class="readout"><div class="k">Toplam akım</div><div class="v" id="ftI">–</div></div>
-          <div class="readout"><div class="k">Uçuş süresi</div><div class="v" id="ftT" style="color:var(--accent-ink)">–</div></div>
-        </div>
-        <div>
-          <div class="note" style="margin-bottom:6px">Akım dağılımı</div>
-          <div class="stackbar" id="ftBar"></div>
-          <div class="legend" id="ftLegend" style="margin-top:8px"></div>
+<main>
+<section class="slide hero" id="top">
+  <div class="wrap">
+    <p class="kicker">Yeni uçağımız · TOBB ETÜ</p>
+    <div class="hero-grid">
+      <div>
+        <h1><span class="vh">İKARUS</span><svg class="logo" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="168 101 985 347" fill="currentColor"><path d="M 527.6 443.9 L 499.1 443.9 L 431.8 303.8 L 431.8 443.9 L 405.9 443.9 L 405.9 152.3 L 431.8 152.3 L 431.8 283.3 L 492.9 152.3 L 521 152.3 L 521 154 L 455.1 292.8 ZM 527.6 443.9 "/><path d="M 631 356.1 L 605.5 198.1 L 579.7 356.1 ZM 670.3 443.9 L 644.6 443.9 L 634.3 379 L 576.4 379 L 566.1 443.9 L 541.2 443.9 L 541.2 443.1 L 593.2 151.5 L 618.7 151.5 ZM 670.3 443.9 "/><path d="M 829.4 443.9 L 802.2 443.9 L 748 287.7 L 751.5 282.5 L 797.7 282.5 L 797.7 175.2 L 731.2 175.2 L 731.2 443.9 L 705.3 443.9 L 705.3 152.3 L 803 152.3 C 809 152.3 814 154.2 817.9 158.1 C 821.7 161.9 823.6 166.9 823.6 173 L 823.6 283.6 C 823.6 297.7 814.2 304.7 795.3 304.7 C 793.5 304.7 790.7 304.6 787.1 304.4 C 783.5 304.2 780.9 304.1 779.3 304.1 C 796.1 350.6 812.8 397.2 829.4 443.9 "/><path d="M 989.1 423.2 C 989.1 429.3 987.1 434.3 983.2 438.1 C 979.3 442 974.3 443.9 968.2 443.9 L 888.9 443.9 C 882.8 443.9 877.8 442 873.9 438.1 C 870.1 434.3 868.2 429.3 868.2 423.2 L 868.2 152.3 L 894.1 152.3 L 894.1 421 L 963.2 421 L 963.2 152.3 L 989.1 152.3 ZM 989.1 423.2 "/><path d="M 1149.3 423.2 C 1149.3 429.3 1147.4 434.3 1143.7 438.1 C 1139.9 442 1134.9 443.9 1128.8 443.9 L 1055.4 443.9 C 1049.3 443.9 1044.3 442 1040.4 438.1 C 1036.5 434.3 1034.6 429.3 1034.6 423.2 L 1034.6 349.2 L 1060.5 349.2 L 1060.5 421 L 1123.4 421 L 1123.4 351.5 L 1042.9 254.2 C 1037.4 247.5 1034.6 240.1 1034.6 232 L 1034.6 173 C 1034.6 166.9 1036.5 161.9 1040.4 158.1 C 1044.3 154.2 1049.3 152.3 1055.4 152.3 L 1128.8 152.3 C 1134.9 152.3 1139.9 154.2 1143.7 158.1 C 1147.4 161.9 1149.3 166.9 1149.3 173 L 1149.3 240.8 L 1123.4 240.8 L 1123.4 175.2 L 1060.5 175.2 L 1060.5 236.7 L 1141.3 333.9 C 1146.7 340.4 1149.3 347.7 1149.3 355.7 ZM 1149.3 423.2 "/><path class="o" d="M 363.5 124.1 C 363.5 134.7 354.9 143.3 344.3 143.3 C 333.7 143.3 325.1 134.7 325.1 124.1 C 325.1 113.5 333.7 104.9 344.3 104.9 C 354.9 104.9 363.5 113.5 363.5 124.1 "/><path class="o" d="M 357.3 443.9 C 343 443.9 331.4 432.3 331.4 418 L 331.4 152.3 C 345.7 152.3 357.3 163.9 357.3 178.2 ZM 357.3 443.9 "/><path class="o" d="M 317.3 260.5 C 308.4 260.5 301.2 253.2 301.2 244.3 L 301.2 189.6 L 317.3 189.6 ZM 317.3 260.5 "/><path class="o" d="M 285 242.3 C 276.1 242.3 268.9 235 268.9 226.1 L 268.9 189.6 L 285 189.6 ZM 285 242.3 "/><path class="o" d="M 252.8 224.1 C 243.9 224.1 236.7 216.8 236.7 207.9 L 236.7 189.6 L 252.8 189.6 ZM 252.8 224.1 "/><path class="o" d="M 220.5 205.9 C 211.6 205.9 204.4 198.6 204.4 189.7 L 204.4 189.6 L 220.5 189.6 ZM 220.5 205.9 "/><path class="o" d="M 357.3 152.3 L 357.3 178.2 L 196.7 178.2 C 183.1 178.2 172.1 167.2 172.1 153.6 L 172.1 152.3 ZM 357.3 152.3 "/></svg></h1>
+        <p class="lead">Geleceğin hava teknolojilerini yalnızca <strong>hayal etmekle kalmıyor</strong>, bilgi birikimimizi, mühendislik becerilerimizi ve üretim tutkumuzu bir araya getirerek onları <strong>gerçeğe dönüştürüyoruz.</strong></p>
+        <div class="actions">
+          <a class="btn solid" href="#teknik">Teknik özet</a>
+          <a class="btn" href="#ekip">Ekibimiz</a>
         </div>
       </div>
+      <figure class="plane-art">
+        <svg role="img" aria-label="Yeni uçağımızın çizgi çizimi: dört dikey pervaneli, çift kuyruk kirişli uçak" xmlns="http://www.w3.org/2000/svg" viewBox="914.21 247.88 960.4 611.82" fill="none">
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 87.76 70.53 210.24 177.3 298 247.83 C 300.81 250.98 300.94 255.72 298.34 258.98 C 295.68 262.31 290.9 263.19 287.19 261.01 C 194.16 190.34 66.43 83.42 -26.6 12.75 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1569.67, 683.88)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C -4.21 2.9 -4.65 8.95 -0.9 12.42 C 8.03 20.71 19.95 30.13 35.12 38.58 C 54.65 49.45 72.78 54.92 86.1 57.81 C 87.59 58.14 89.13 58.03 90.55 57.5 L 382.79 -49.83 C 357.56 -65 330.01 -83.5 301.46 -105.97 C 276.89 -125.32 255.42 -144.6 236.83 -162.85 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 922.86, 512.85)"/>
+<path class="bg" d="M 919.4 506.67 L 920.05 516.85 L 1149.73 685.37 L 1159.69 675.71 L 922.86 512.86 C 922.3 512.47 921.55 511.85 920.88 510.91 C 919.68 509.22 919.45 507.49 919.4 506.67 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 0.65 -10.18 L 230.33 -178.7 L 240.29 -169.03 L 3.46 -6.18 C 2.9 -5.8 2.15 -5.17 1.48 -4.24 C 0.27 -2.55 0.05 -0.82 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 919.4, 506.67)"/>
+<path class="bg" d="M 1104.18 738.19 C 1110.89 722.96 1119.11 712.78 1119.8 711.93 C 1141.96 684.86 1165.05 665.29 1165.05 665.29 C 1183.15 649.93 1196.73 638.42 1206.73 630 C 1215.58 622.56 1220.91 618.2 1227.02 613.27 C 1241.31 601.73 1248.46 595.96 1258.68 588.73 C 1261.65 586.64 1269.46 581.47 1285.08 571.12 C 1290.32 567.66 1295.04 564.55 1302.8 559.44 C 1314.43 551.77 1320.25 547.94 1322.82 546.27 C 1342.37 533.52 1352.27 527.42 1365 521.24 C 1380.6 513.66 1394.46 508.68 1410.27 510.61 C 1421.31 511.95 1426.52 515.83 1428.52 517.51 C 1437.97 525.45 1439.05 537.25 1439.22 540.21 C 1439.58 546.49 1438.11 552.52 1430.88 565.72 C 1425.87 574.86 1418.04 587.53 1406.25 601.53 C 1381.23 633.31 1357.8 658.17 1339.31 676.36 C 1321.48 693.89 1302.91 712.01 1274.91 732.11 C 1269.28 736.16 1249.63 750.07 1222.06 764.76 C 1206.31 773.16 1196.16 778.5 1181.6 783.1 C 1164.14 788.61 1148.48 790.47 1136.48 790.96 C 1127.46 791.33 1118.5 788.55 1111.63 782.69 C 1109.6 780.95 1107.62 778.86 1105.84 776.34 C 1104.29 774.14 1099.46 766.77 1099.34 756.5 C 1099.3 752.74 1099.88 747.94 1104.18 738.19 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 6.71 15.23 14.93 25.41 15.63 26.27 C 37.78 53.33 60.87 72.91 60.87 72.91 C 78.97 88.26 92.55 99.77 102.56 108.19 C 111.4 115.63 116.74 119.99 122.84 124.92 C 137.13 136.46 144.28 142.23 154.5 149.46 C 157.47 151.55 165.28 156.72 180.9 167.07 C 186.14 170.53 190.87 173.64 198.62 178.75 C 210.26 186.42 216.07 190.25 218.64 191.92 C 238.19 204.67 248.1 210.77 260.82 216.95 C 276.42 224.53 290.28 229.52 306.09 227.59 C 317.13 226.24 322.34 222.36 324.34 220.68 C 333.79 212.74 334.87 200.94 335.04 197.98 C 335.4 191.7 333.94 185.67 326.7 172.47 C 321.69 163.33 313.86 150.66 302.08 136.66 C 277.06 104.88 253.62 80.02 235.13 61.84 C 217.31 44.3 198.73 26.18 170.73 6.08 C 165.1 2.03 145.45 -11.88 117.88 -26.57 C 102.13 -34.97 91.98 -40.31 77.42 -44.91 C 59.97 -50.41 44.3 -52.28 32.3 -52.77 C 23.28 -53.14 14.32 -50.36 7.46 -44.5 C 5.42 -42.75 3.44 -40.66 1.67 -38.15 C 0.11 -35.95 -4.72 -28.58 -4.83 -18.31 C -4.88 -14.55 -4.29 -9.75 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1104.18, 738.19)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C -0.34 -1.49 -0.89 -4.83 0.41 -8.69 C 2.2 -13.99 6.25 -16.63 7.43 -17.34 L 420.34 -131.84 C 433.45 -125.01 448.23 -116.22 463.67 -104.9 C 477.63 -94.67 489.43 -84.35 499.22 -74.83 L 499.22 -61.71 " transform="matrix(1, 0, 0, -1, 1233.83, 703.67)"/>
+<path class="bg" d="M 1379.47 592.79 L 1730.14 760.72 C 1733.24 762.21 1733.8 766.4 1731.18 768.63 C 1721.7 776.72 1711.41 784.98 1700.31 793.25 C 1684.23 805.23 1668.64 815.59 1653.96 824.54 L 1233.62 703.67 C 1252.01 683.36 1275.23 660.65 1303.91 638.12 C 1327.32 619.73 1349.92 604.96 1370.35 593.14 C 1373.14 591.52 1376.55 591.39 1379.47 592.79 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 350.67 -167.93 C 353.77 -169.42 354.33 -173.61 351.72 -175.84 C 342.23 -183.93 331.95 -192.19 320.84 -200.46 C 304.76 -212.44 289.17 -222.8 274.49 -231.75 L -145.84 -110.88 C -127.46 -90.57 -104.24 -67.86 -75.56 -45.34 C -52.14 -26.94 -29.55 -12.17 -9.12 -0.35 C -6.32 1.26 -2.91 1.39 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1379.47, 592.79)"/>
+<path fill="none" stroke-width="0.99" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 0 -10.97 " transform="matrix(1, 0, 0, -1, 1653.96, 824.54)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 105.36 63.86 L 124.87 49.54 L 17.11 -21.46 " transform="matrix(1, 0, 0, -1, 932.7, 667.42)"/>
+<path class="bg" d="M 1000.24 546.91 C 1000.24 553.73 993.02 559.26 984.11 559.26 C 975.2 559.26 967.98 553.73 967.98 546.91 C 967.98 540.1 975.2 534.57 984.11 534.57 C 993.02 534.57 1000.24 540.1 1000.24 546.91 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C -0 -6.82 -7.22 -12.34 -16.13 -12.34 C -25.04 -12.34 -32.26 -6.82 -32.26 -0 C -32.26 6.82 -25.04 12.34 -16.13 12.34 C -7.22 12.34 -0 6.82 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1000.24, 546.91)"/>
+<path class="bg" d="M 967.98 549.35 L 967.98 557.93 C 969.4 559.38 974.43 564.15 982.52 565.01 C 989.13 565.71 994.17 563.41 996.11 562.39 L 996.11 555.16 C 995.16 555.94 989.69 560.24 982.05 559.26 C 972.76 558.07 968.39 550.12 967.98 549.35 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L -0 -8.58 C 1.42 -10.02 6.45 -14.8 14.53 -15.66 C 21.15 -16.36 26.19 -14.06 28.13 -13.04 L 28.13 -5.81 C 27.17 -6.59 21.71 -10.89 14.07 -9.91 C 4.78 -8.72 0.41 -0.77 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 967.98, 549.35)"/>
+<path class="bg" d="M 991.91 557.72 L 1013.15 576.95 C 1013.72 577.46 1014.4 577.86 1015.13 578.11 L 1087.61 602.7 C 1088.21 602.9 1088.84 603 1089.47 603 L 1095.74 603 C 1099.82 603 1102.57 598.91 1100.96 595.23 L 1099.36 591.59 C 1098.86 590.46 1098 589.53 1096.91 588.93 L 1037.23 556.23 C 1036.73 555.96 1036.2 555.76 1035.64 555.64 L 1000.24 548.23 C 1000.11 549.41 999.42 551.47 997.51 553.59 C 995.32 556.02 993.01 557.19 991.91 557.72 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 L 21.24 -19.23 C 21.81 -19.74 22.49 -20.14 23.22 -20.39 L 95.69 -44.98 C 96.3 -45.18 96.93 -45.28 97.56 -45.28 L 103.83 -45.28 C 107.91 -45.28 110.66 -41.18 109.05 -37.51 L 107.44 -33.86 C 106.95 -32.74 106.09 -31.8 105 -31.21 L 45.32 1.49 C 44.82 1.77 44.28 1.96 43.73 2.08 L 8.33 9.5 C 8.2 8.31 7.51 6.25 5.6 4.13 C 3.41 1.7 1.1 0.53 -0 0 Z M -0 0 " transform="matrix(1, 0, 0, -1, 991.91, 557.72)"/>
+<path class="bg" d="M 954.09 678.63 C 954.09 686.36 948.08 692.63 940.66 692.63 C 933.25 692.63 927.23 686.36 927.23 678.63 C 927.23 670.9 933.25 664.63 940.66 664.63 C 948.08 664.63 954.09 670.9 954.09 678.63 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C -0 -7.73 -6.01 -14 -13.43 -14 C -20.85 -14 -26.86 -7.73 -26.86 0 C -26.86 7.73 -20.85 14 -13.43 14 C -6.01 14 -0 7.73 -0 0 Z M -0 0 " transform="matrix(1, 0, 0, -1, 954.09, 678.63)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C 0.64 0.38 1.66 0.97 2.21 1.46 C 4.72 3.68 5.99 7.36 5.99 11.06 C 5.99 17.77 0.77 23.2 -5.66 23.2 C -7.83 23.2 -9.85 22.71 -11.59 21.63 C -11.93 21.42 -12.32 21.23 -12.63 20.99 L -12.78 20.9 " transform="matrix(1, 0, 0, -1, 1005.04, 652.49)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C -0.65 -1.96 -1.6 -4.29 -3 -6.77 C -4.89 -10.07 -6.99 -12.59 -8.74 -14.38 C -7.41 -14.29 -3.12 -14.13 1.02 -16.97 C 4.09 -19.08 5.57 -21.81 6.16 -23.11 L 36.39 -3.65 C 35.69 -3.7 34.28 -3.72 32.29 -2.42 C 30.66 -1.36 29.36 -0.57 28.8 0.07 C 27.9 -1.19 26.4 -2.96 24.09 -4.46 C 20.13 -7.04 16.18 -7.31 14.4 -7.32 " transform="matrix(1, 0, 0, -1, 970.44, 635.72)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C -0.14 -1.72 -0.51 -3.92 -1.44 -6.33 C -3.29 -11.18 -6.38 -14.25 -8.2 -15.8 " transform="matrix(1, 0, 0, -1, 984.8, 643.03)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 0 -45.56 C 0 -45.82 0.09 -46.07 0.27 -46.27 C 1.54 -47.76 6.45 -52.87 14.36 -52.88 C 22.34 -52.88 27.28 -47.69 28.54 -46.19 C 28.71 -46 28.8 -45.75 28.8 -45.49 L 28.8 3.33 " transform="matrix(1, 0, 0, -1, 970.44, 590.16)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 0 -49.2 " transform="matrix(1, 0, 0, -1, 985.05, 593.28)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 0.28 -4.38 C 0.3 -4.7 0.44 -5 0.67 -5.23 C 1.84 -6.35 3.11 -7.78 4.31 -9.53 C 4.78 -10.21 5.19 -10.87 5.56 -11.52 C 5.81 -11.98 6.26 -12.28 6.78 -12.35 C 8.8 -12.6 10.94 -12.92 13.18 -13.35 C 15.54 -13.8 17.77 -14.32 19.84 -14.86 C 20.13 -14.94 20.43 -14.93 20.71 -14.85 L 32.38 -11.37 C 32.9 -10.52 33.65 -9.5 34.68 -8.46 C 35.61 -7.52 36.53 -6.82 37.31 -6.3 C 37.27 -5.15 37.22 -4 37.17 -2.85 " transform="matrix(1, 0, 0, -1, 964.57, 578.37)"/>
+<path class="bg" d="M 967.31 557.25 L 963.68 562.79 L 963.68 577.04 C 964.23 577.96 965.11 579.22 966.38 580.51 C 971.28 585.45 977.59 586.21 980.83 586.61 C 984 586.99 990.22 587.24 996.94 584.12 C 1000.34 582.55 1002.8 580.61 1004.38 579.18 C 1004.48 575.89 1004.59 572.6 1004.71 569.3 C 1003.46 568.16 1002.2 567.02 1000.9 565.86 C 999.57 564.68 998.25 563.52 996.94 562.39 C 995.08 563.41 989.45 566.17 982.05 565.14 C 973.63 563.98 968.62 558.71 967.31 557.25 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L -3.63 -5.54 L -3.63 -19.8 C -3.08 -20.71 -2.21 -21.97 -0.93 -23.26 C 3.97 -28.2 10.28 -28.97 13.52 -29.36 C 16.68 -29.75 22.91 -29.99 29.63 -26.88 C 33.03 -25.3 35.49 -23.36 37.06 -21.94 C 37.17 -18.64 37.28 -15.35 37.39 -12.06 C 36.15 -10.92 34.88 -9.77 33.59 -8.61 C 32.26 -7.43 30.94 -6.28 29.63 -5.14 C 27.77 -6.16 22.14 -8.92 14.73 -7.9 C 6.32 -6.73 1.3 -1.46 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 967.31, 557.25)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 18.02 -9.39 22.73 -9.26 24.84 -9.1 C 31.66 -8.58 36.67 -5.95 39.2 -4.37 " transform="matrix(1, 0, 0, -1, 963.68, 562.98)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 14.48 -8.23 19 -9.69 24.83 -9.1 C 33.27 -8.25 39 -3.66 41.26 -1.62 " transform="matrix(1, 0, 0, -1, 963.45, 571.56)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 319.42 169.33 C 320.33 169.06 325.02 167.55 327.71 162.6 C 330.33 157.79 329.17 153.17 328.92 152.21 L 29.46 -10.82 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1181.77, 517.19)"/>
+<path class="bg" d="M 1242.12 369.55 L 1223.36 352.36 C 1222.84 351.88 1222.21 351.51 1221.54 351.27 L 1154.69 328.12 C 1154.14 327.93 1153.56 327.83 1152.98 327.83 L 1147.19 327.83 C 1143.43 327.83 1140.89 331.69 1142.38 335.15 L 1143.86 338.58 C 1144.32 339.64 1145.11 340.52 1146.11 341.09 L 1201.16 371.87 C 1201.62 372.12 1202.11 372.31 1202.62 372.42 L 1234.74 379.29 C 1234.85 378.18 1235.57 376.05 1237.05 373.79 C 1238.73 371.24 1241.11 370.05 1242.12 369.55 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L -18.76 17.19 C -19.29 17.68 -19.91 18.05 -20.59 18.28 L -87.43 41.43 C -87.98 41.62 -88.56 41.72 -89.15 41.72 L -94.93 41.72 C -98.7 41.72 -101.23 37.86 -99.74 34.4 L -98.26 30.97 C -97.81 29.91 -97.02 29.03 -96.01 28.47 L -40.96 -2.32 C -40.5 -2.57 -40.01 -2.76 -39.5 -2.87 L -7.38 -9.74 C -7.27 -8.62 -6.56 -6.49 -5.07 -4.24 C -3.4 -1.69 -1.02 -0.5 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1242.12, 369.55)"/>
+<path class="bg" d="M 1267 380.16 C 1267 386.98 1259.78 392.51 1250.87 392.51 C 1241.96 392.51 1234.74 386.98 1234.74 380.16 C 1234.74 373.34 1241.96 367.82 1250.87 367.82 C 1259.78 367.82 1267 373.34 1267 380.16 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C -0 -6.82 -7.22 -12.35 -16.13 -12.35 C -25.04 -12.35 -32.26 -6.82 -32.26 -0 C -32.26 6.82 -25.04 12.35 -16.13 12.35 C -7.22 12.35 -0 6.82 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1267, 380.16)"/>
+<path class="bg" d="M 1234.74 382.6 L 1234.74 391.18 C 1236.16 392.62 1241.19 397.4 1249.27 398.26 C 1255.89 398.96 1260.93 396.66 1262.87 395.64 L 1262.87 388.41 C 1261.91 389.19 1256.45 393.49 1248.8 392.51 C 1239.52 391.32 1235.15 383.38 1234.74 382.6 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 0 -8.58 C 1.42 -10.03 6.45 -14.8 14.54 -15.66 C 21.15 -16.37 26.19 -14.06 28.13 -13.04 L 28.13 -5.81 C 27.17 -6.59 21.71 -10.89 14.07 -9.91 C 4.78 -8.72 0.41 -0.78 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 1234.74, 382.6)"/>
+<path class="bg" d="M 1258.67 390.97 L 1279.91 410.2 C 1280.48 410.71 1281.15 411.11 1281.89 411.36 L 1354.36 435.95 C 1354.96 436.15 1355.59 436.25 1356.22 436.25 L 1362.5 436.25 C 1366.58 436.25 1369.33 432.16 1367.71 428.48 L 1366.11 424.83 C 1365.62 423.71 1364.76 422.77 1363.66 422.18 L 1303.98 389.48 C 1303.48 389.21 1302.95 389.01 1302.39 388.89 L 1266.99 381.48 C 1266.87 382.66 1266.18 384.72 1264.27 386.84 C 1262.08 389.27 1259.77 390.44 1258.67 390.97 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 21.24 -19.23 C 21.81 -19.74 22.49 -20.14 23.22 -20.38 L 95.7 -44.97 C 96.29 -45.18 96.92 -45.28 97.56 -45.28 L 103.83 -45.28 C 107.91 -45.28 110.67 -41.18 109.05 -37.51 L 107.44 -33.86 C 106.95 -32.74 106.09 -31.8 105 -31.2 L 45.31 1.49 C 44.82 1.76 44.28 1.96 43.73 2.08 L 8.33 9.49 C 8.2 8.31 7.51 6.25 5.6 4.13 C 3.42 1.7 1.1 0.53 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1258.67, 390.97)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 C 0.24 -2.31 0.38 -6.68 -1.53 -11.61 C -3.28 -16.1 -6.03 -19.21 -8.23 -21.17 C -9.08 -21.92 -8.66 -23.31 -7.53 -23.48 C -5.24 -23.82 -2.28 -24.68 0.55 -26.77 C 6.32 -31.04 7.63 -37.56 7.9 -40.93 C 7.98 -41.89 9.04 -42.44 9.88 -41.96 L 44.01 -22.53 C 44.21 -21.34 45.52 -12.82 39.53 -6.03 C 35.58 -1.55 30.61 -0.29 28.8 0.07 " transform="matrix(1, 0, 0, -1, 1237.19, 468.97)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 C 0.5 -1.99 1.08 -5.55 0 -9.65 C -2.26 -18.24 -9.9 -22.08 -11.19 -22.71 C 1.24 -15.39 13.67 -8.07 26.1 -0.75 " transform="matrix(1, 0, 0, -1, 1251.81, 475.73)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 0 -45.56 C 0 -45.82 0.1 -46.07 0.26 -46.27 C 1.54 -47.75 6.45 -52.87 14.36 -52.88 C 22.34 -52.88 27.28 -47.68 28.54 -46.19 C 28.71 -46 28.8 -45.75 28.8 -45.49 L 28.8 3.33 " transform="matrix(1, 0, 0, -1, 1237.19, 423.41)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L -0 -49.2 " transform="matrix(1, 0, 0, -1, 1251.81, 426.53)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L 0.28 -4.38 C 0.3 -4.7 0.44 -5 0.67 -5.23 C 1.84 -6.36 3.11 -7.77 4.31 -9.53 C 4.78 -10.21 5.19 -10.88 5.55 -11.52 C 5.82 -11.98 6.26 -12.28 6.78 -12.35 C 8.8 -12.6 10.94 -12.93 13.18 -13.35 C 15.55 -13.8 17.77 -14.32 19.84 -14.86 C 20.13 -14.94 20.42 -14.93 20.71 -14.84 L 32.38 -11.36 C 32.91 -10.52 33.65 -9.5 34.67 -8.46 C 35.61 -7.52 36.53 -6.81 37.32 -6.3 C 37.26 -5.15 37.22 -4 37.17 -2.85 " transform="matrix(1, 0, 0, -1, 1231.32, 411.62)"/>
+<path class="bg" d="M 1234.07 390.5 L 1230.44 396.04 L 1230.44 410.29 C 1230.99 411.21 1231.86 412.46 1233.14 413.76 C 1238.03 418.7 1244.34 419.46 1247.58 419.86 C 1250.75 420.24 1256.98 420.48 1263.7 417.37 C 1267.09 415.8 1269.56 413.86 1271.13 412.43 C 1271.24 409.14 1271.35 405.85 1271.46 402.55 C 1270.22 401.41 1268.95 400.26 1267.66 399.11 C 1266.33 397.93 1265.01 396.77 1263.7 395.64 C 1261.84 396.66 1256.21 399.42 1248.8 398.39 C 1240.39 397.23 1235.38 391.96 1234.07 390.5 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L -3.63 -5.54 L -3.63 -19.8 C -3.08 -20.71 -2.21 -21.97 -0.93 -23.26 C 3.96 -28.2 10.28 -28.97 13.51 -29.36 C 16.69 -29.75 22.91 -29.99 29.63 -26.88 C 33.03 -25.31 35.49 -23.36 37.06 -21.93 C 37.17 -18.64 37.28 -15.35 37.39 -12.06 C 36.15 -10.92 34.88 -9.77 33.59 -8.61 C 32.26 -7.43 30.94 -6.27 29.63 -5.15 C 27.77 -6.16 22.14 -8.92 14.74 -7.9 C 6.32 -6.73 1.31 -1.47 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1234.07, 390.5)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 18.02 -9.39 22.73 -9.27 24.83 -9.1 C 31.66 -8.58 36.67 -5.95 39.2 -4.37 " transform="matrix(1, 0, 0, -1, 1230.44, 396.23)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 14.48 -8.24 19 -9.7 24.83 -9.1 C 33.28 -8.25 39 -3.66 41.26 -1.62 " transform="matrix(1, 0, 0, -1, 1230.2, 404.8)"/>
+<path fill="none" stroke-width="1.29" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 4.96 3.07 11.14 2.82 14.05 -1.15 C 16.25 -4.15 16.38 -8.43 14.43 -12.04 C 16.9 -10.14 19.38 -8.24 21.85 -6.33 C 21.98 -5.77 23.03 -0.61 19.36 3.69 C 15.7 7.98 10.46 7.76 9.88 7.73 C 6.59 5.46 3.29 2.26 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1806.12, 462.19)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C -55.38 54.86 -110.76 109.73 -166.13 164.6 C -167.02 165.75 -170.36 169.83 -176.37 171.15 C -181.4 172.24 -185.44 170.79 -186.91 170.17 L -354.25 76.14 C -353.96 76.16 -351.62 76.57 -347.34 71.89 C -342.69 66.81 -343.93 59.83 -344.52 59.15 L -210.55 136.56 C -209.89 135.79 -208.09 133.88 -205.04 132.99 C -202.06 132.12 -199.57 132.7 -198.59 132.99 L -38.55 -29.8 Z M -0 0 " transform="matrix(1, 0, 0, -1, 1855.2, 424.13)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 159.78 93.62 " transform="matrix(1, 0, 0, -1, 1510.58, 356.81)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L -0.2 1.95 C -0.43 4.29 0.61 6.58 2.53 7.94 L 38.15 33.19 " transform="matrix(1, 0, 0, -1, 1644.65, 287.56)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 0 2.25 1.07 4.37 2.87 5.71 L 34.7 29.33 " transform="matrix(1, 0, 0, -1, 1656.62, 291.14)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 162.47 -163.72 " transform="matrix(1, 0, 0, -1, 1678.34, 271.43)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 163.26 -164.52 " transform="matrix(1, 0, 0, -1, 1659.29, 284.84)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 13.19 11.01 " transform="matrix(1, 0, 0, -1, 1736.91, 331)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 5.08 -0.29 20.94 -1.63 32.22 -9.08 C 45.19 -17.66 50.81 -29.28 52.76 -33.91 C 15.38 -54.38 -10.6 -75.34 -27.36 -90.62 C -57.76 -118.33 -82.13 -144.6 -82.13 -144.6 C -87.68 -150.58 -103.55 -167.86 -127.18 -186.67 C -136.3 -193.93 -148.97 -203.33 -166.74 -205.52 C -173.55 -206.36 -182.69 -207.35 -190.28 -201.43 C -198.93 -194.68 -199.73 -183.48 -199.85 -180.85 " transform="matrix(1, 0, 0, -1, 1302.99, 560.03)"/>
+<path class="bg" d="M 1458.79 498.44 C 1452.15 493.3 1445.51 488.17 1438.87 483.04 C 1438.36 482.64 1437.94 482.13 1437.66 481.54 L 1418.73 441.49 C 1418.41 440.81 1418.28 440.05 1418.36 439.3 L 1419.16 431.99 C 1419.47 429.17 1422.5 427.52 1425.04 428.78 L 1431.88 432.19 C 1432.38 432.44 1432.83 432.79 1433.2 433.23 L 1461.79 467.53 C 1462.23 468.06 1462.53 468.7 1462.66 469.37 L 1467.33 492.52 C 1467.29 492.55 1462.64 495.77 1462.6 495.8 C 1462.57 495.82 1458.81 498.42 1458.79 498.44 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C -6.64 5.14 -13.27 10.27 -19.92 15.4 C -20.43 15.8 -20.85 16.31 -21.12 16.9 L -40.06 56.95 C -40.38 57.63 -40.51 58.39 -40.43 59.14 L -39.62 66.45 C -39.31 69.27 -36.29 70.92 -33.75 69.66 L -26.91 66.25 C -26.4 66 -25.95 65.65 -25.59 65.21 L 3 30.91 C 3.44 30.38 3.74 29.74 3.87 29.07 L 8.54 5.92 C 8.5 5.89 3.85 2.67 3.82 2.64 C 3.79 2.62 0.03 0.02 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1458.79, 498.44)"/>
+<path class="bg" d="M 1481.25 515.05 C 1488.75 518.25 1496.23 521.46 1503.73 524.67 C 1504.33 524.92 1504.86 525.31 1505.28 525.8 L 1533.88 559.64 C 1534.36 560.21 1534.68 560.91 1534.79 561.66 L 1535.9 568.93 C 1536.32 571.74 1533.82 574.11 1531.05 573.54 L 1523.56 572.01 C 1523 571.9 1522.48 571.67 1522.02 571.34 L 1485.57 545.54 C 1485.01 545.14 1484.55 544.61 1484.25 543.99 C 1480.68 536.47 1477.1 528.96 1473.52 521.44 C 1473.53 521.43 1477.54 518.12 1477.55 518.11 C 1477.56 518.1 1481.25 515.05 1481.25 515.05 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 7.49 -3.21 14.98 -6.41 22.47 -9.62 C 23.07 -9.87 23.6 -10.26 24.02 -10.76 L 52.62 -44.59 C 53.11 -45.17 53.42 -45.87 53.54 -46.61 L 54.64 -53.88 C 55.07 -56.69 52.57 -59.06 49.79 -58.49 L 42.3 -56.97 C 41.75 -56.85 41.23 -56.62 40.76 -56.3 L 4.31 -30.5 C 3.75 -30.1 3.3 -29.56 3 -28.94 C -0.58 -21.43 -4.16 -13.91 -7.74 -6.39 C -7.72 -6.38 -3.72 -3.07 -3.71 -3.06 C -3.7 -3.05 -0.01 -0.01 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1481.26, 515.05)"/>
+<path class="bg" d="M 1454.95 501.1 L 1470.92 490.03 C 1472.29 490.19 1478.25 491 1482.79 496.24 C 1487.86 502.11 1487.26 509.02 1487.14 510.19 L 1469.81 524.5 C 1469.91 522.39 1469.93 515.99 1465.62 509.72 C 1461.89 504.3 1456.98 501.94 1454.95 501.1 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 15.97 11.07 C 17.35 10.92 23.31 10.1 27.85 4.86 C 32.92 -1 32.31 -7.91 32.19 -9.08 L 14.87 -23.39 C 14.97 -21.29 14.98 -14.89 10.67 -8.62 C 6.95 -3.19 2.03 -0.84 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 1454.94, 501.1)"/>
+<path fill="none" stroke-width="0.83" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 1.85 -0.7 7.19 -3 11.03 -8.83 C 15.05 -14.94 14.87 -21.06 14.73 -23 " transform="matrix(1, 0, 0, -1, 1458.79, 498.44)"/>
+<path fill="none" stroke-width="0.83" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C 1.86 -0.7 7.19 -3 11.03 -8.82 C 15.05 -14.93 14.92 -20.41 14.78 -22.34 " transform="matrix(1, 0, 0, -1, 1460.79, 497.39)"/>
+<path class="bg" d="M 1456.56 502.29 C 1455.98 502.71 1455.39 503.13 1454.81 503.55 C 1456.76 504.59 1460.99 507.2 1464.13 512.36 C 1466.98 517.04 1467.51 521.5 1467.62 523.7 C 1468.35 523.14 1469.07 522.58 1469.79 522.02 C 1469.71 519.96 1469.24 515.34 1466.18 510.6 C 1462.87 505.48 1458.43 503.14 1456.56 502.29 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C -0.59 -0.42 -1.17 -0.84 -1.75 -1.26 C 0.2 -2.31 4.43 -4.91 7.57 -10.07 C 10.41 -14.75 10.95 -19.22 11.06 -21.41 C 11.79 -20.85 12.51 -20.29 13.23 -19.73 C 13.15 -17.67 12.68 -13.06 9.62 -8.31 C 6.31 -3.2 1.86 -0.85 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1456.56, 502.29)"/>
+<path class="bg" d="M 1445.09 500.42 L 1428.82 509.79 C 1428.41 510.04 1428.54 510.66 1429.02 510.71 C 1432.61 511.08 1440.9 512.72 1446.8 520.19 C 1453.68 528.89 1452.16 538.98 1451.23 542.8 C 1451.12 543.27 1451.67 543.6 1452.03 543.29 L 1467.33 530.31 C 1467.71 528.28 1468.96 520.27 1464.13 512.36 C 1457.84 502.09 1446.53 500.59 1445.09 500.42 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L -16.27 -9.37 C -16.69 -9.61 -16.55 -10.24 -16.08 -10.29 C -12.48 -10.66 -4.19 -12.3 1.71 -19.76 C 8.58 -28.46 7.07 -38.55 6.14 -42.38 C 6.03 -42.85 6.58 -43.18 6.94 -42.87 L 22.24 -29.89 C 22.61 -27.85 23.87 -19.84 19.04 -11.93 C 12.75 -1.66 1.44 -0.17 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 1445.09, 500.42)"/>
+<path class="bg" d="M 1429.53 510.93 L 1423.87 514.17 C 1426.52 515.68 1432.49 519.95 1436.25 527.79 C 1442.26 540.29 1437.45 552.05 1436.62 553.94 C 1441.49 549.64 1446.36 545.34 1451.23 541.04 C 1451.63 539.37 1453.53 530.77 1448.34 522.38 C 1442.07 512.26 1430.81 511.05 1429.53 510.93 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L -5.66 -3.24 C -3.01 -4.75 2.96 -9.02 6.72 -16.86 C 12.73 -29.35 7.92 -41.12 7.09 -43.01 C 11.96 -38.71 16.83 -34.41 21.7 -30.11 C 22.1 -28.44 24 -19.84 18.81 -11.45 C 12.54 -1.33 1.28 -0.12 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 1429.53, 510.93)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 L 1.48 1.06 L 1.49 1.07 L 1.56 1.11 L 27.52 19.78 L 27.53 19.78 L 38.86 27.93 L 49.1 35.28 L 63.29 45.49 L 91.32 64.21 L 122.08 55.63 L 70.85 17.79 L 70.8 17.76 L 68.93 16.38 L 17.1 -21.46 " transform="matrix(1, 0, 0, -1, 1313.03, 830.5)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 C -0.65 -1.96 -1.6 -4.29 -3.01 -6.77 C -4.89 -10.07 -6.99 -12.59 -8.74 -14.38 C -7.41 -14.28 -3.12 -14.13 1.01 -16.97 C 4.1 -19.08 5.57 -21.81 6.17 -23.11 L 37.51 -2.93 C 36.65 -3.09 34.6 -3.36 32.28 -2.42 C 30.49 -1.69 29.36 -0.57 28.8 0.07 C 27.9 -1.19 26.4 -2.96 24.09 -4.46 C 20.13 -7.03 16.18 -7.3 14.4 -7.32 " transform="matrix(1, 0, 0, -1, 1347.51, 798.29)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C 0.69 0.41 1.32 0.88 1.92 1.41 C 4.62 3.8 6.32 7.37 6.32 11.35 C 6.32 18.57 0.71 24.42 -6.2 24.42 C -8.54 24.42 -10.74 23.75 -12.6 22.58 C -12.97 22.36 -13.32 22.11 -13.66 21.85 L -13.7 21.83 " transform="matrix(1, 0, 0, -1, 1381.95, 814.11)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 0 -45.56 C 0 -45.82 0.1 -46.07 0.26 -46.27 C 1.54 -47.76 6.45 -52.87 14.36 -52.88 C 22.34 -52.88 27.28 -47.69 28.54 -46.19 C 28.71 -45.99 28.8 -45.75 28.8 -45.49 L 28.8 3.33 " transform="matrix(1, 0, 0, -1, 1347.51, 752.73)"/>
+<path class="bg" d="M 1352.44 698.88 L 1333.68 681.69 C 1333.15 681.2 1332.53 680.83 1331.85 680.6 L 1265.01 657.45 C 1264.46 657.26 1263.88 657.16 1263.29 657.16 L 1257.51 657.16 C 1253.74 657.16 1251.2 661.02 1252.7 664.48 L 1254.18 667.91 C 1254.63 668.97 1255.42 669.85 1256.43 670.41 L 1311.48 701.2 C 1311.93 701.45 1312.43 701.64 1312.94 701.75 L 1345.05 708.62 C 1345.17 707.5 1345.88 705.38 1347.36 703.12 C 1349.04 700.57 1351.42 699.38 1352.44 698.88 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 L -18.76 17.19 C -19.29 17.68 -19.91 18.05 -20.59 18.28 L -87.43 41.43 C -87.98 41.62 -88.56 41.72 -89.15 41.72 L -94.93 41.72 C -98.7 41.72 -101.23 37.86 -99.74 34.4 L -98.26 30.97 C -97.81 29.91 -97.02 29.03 -96.01 28.47 L -40.96 -2.32 C -40.5 -2.57 -40.01 -2.76 -39.5 -2.87 L -7.38 -9.74 C -7.27 -8.62 -6.56 -6.5 -5.07 -4.24 C -3.4 -1.69 -1.02 -0.5 -0 0 Z M -0 0 " transform="matrix(1, 0, 0, -1, 1352.44, 698.88)"/>
+<path class="bg" d="M 1377.32 709.49 C 1377.32 716.31 1370.09 721.84 1361.19 721.84 C 1352.28 721.84 1345.05 716.31 1345.05 709.49 C 1345.05 702.67 1352.28 697.14 1361.19 697.14 C 1370.09 697.14 1377.32 702.67 1377.32 709.49 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C -0 -6.82 -7.22 -12.35 -16.13 -12.35 C -25.04 -12.35 -32.26 -6.82 -32.26 0 C -32.26 6.82 -25.04 12.34 -16.13 12.34 C -7.22 12.34 -0 6.82 -0 0 Z M -0 0 " transform="matrix(1, 0, 0, -1, 1377.32, 709.49)"/>
+<path class="bg" d="M 1345.05 711.93 L 1345.05 720.51 C 1346.47 721.95 1351.51 726.73 1359.59 727.59 C 1366.21 728.29 1371.24 725.99 1373.19 724.97 L 1373.19 717.74 C 1372.23 718.52 1366.76 722.82 1359.12 721.83 C 1349.84 720.64 1345.46 712.7 1345.05 711.93 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 0 -8.58 C 1.42 -10.02 6.45 -14.8 14.54 -15.66 C 21.15 -16.37 26.19 -14.06 28.13 -13.04 L 28.13 -5.81 C 27.18 -6.59 21.71 -10.89 14.07 -9.91 C 4.78 -8.72 0.41 -0.77 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1345.05, 711.93)"/>
+<path class="bg" d="M 1368.98 720.3 L 1390.22 739.53 C 1390.8 740.04 1391.47 740.43 1392.2 740.68 L 1464.68 765.27 C 1465.28 765.48 1465.91 765.58 1466.54 765.58 L 1472.81 765.58 C 1476.89 765.58 1479.65 761.48 1478.03 757.81 L 1476.43 754.16 C 1475.93 753.04 1475.07 752.1 1473.98 751.5 L 1414.3 718.8 C 1413.8 718.53 1413.27 718.34 1412.71 718.22 L 1377.31 710.8 C 1377.19 711.99 1376.49 714.05 1374.58 716.17 C 1372.4 718.6 1370.09 719.77 1368.98 720.3 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 21.24 -19.23 C 21.81 -19.74 22.49 -20.14 23.22 -20.39 L 95.7 -44.98 C 96.29 -45.18 96.92 -45.28 97.56 -45.28 L 103.83 -45.28 C 107.91 -45.28 110.67 -41.19 109.05 -37.51 L 107.44 -33.86 C 106.95 -32.74 106.09 -31.8 105 -31.21 L 45.31 1.49 C 44.82 1.77 44.28 1.96 43.73 2.08 L 8.33 9.49 C 8.2 8.31 7.51 6.25 5.6 4.13 C 3.42 1.7 1.1 0.53 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 1368.98, 720.3)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 L 0.28 -4.38 C 0.3 -4.7 0.44 -5 0.67 -5.23 C 1.84 -6.36 3.11 -7.78 4.31 -9.53 C 4.78 -10.21 5.19 -10.88 5.55 -11.52 C 5.82 -11.97 6.26 -12.28 6.78 -12.35 C 8.8 -12.6 10.94 -12.92 13.18 -13.35 C 15.55 -13.8 17.77 -14.31 19.84 -14.86 C 20.13 -14.94 20.42 -14.93 20.71 -14.85 L 32.38 -11.37 C 32.91 -10.52 33.65 -9.5 34.67 -8.46 C 35.61 -7.52 36.53 -6.81 37.32 -6.3 C 37.26 -5.15 37.22 -4 37.17 -2.85 " transform="matrix(1, 0, 0, -1, 1341.64, 740.94)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 0 -49.2 " transform="matrix(1, 0, 0, -1, 1362.12, 755.86)"/>
+<path class="bg" d="M 1334.42 841.7 C 1334.42 849.43 1328.41 855.7 1320.99 855.7 C 1313.57 855.7 1307.55 849.43 1307.55 841.7 C 1307.55 833.96 1313.57 827.7 1320.99 827.7 C 1328.41 827.7 1334.42 833.96 1334.42 841.7 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 0 -7.73 -6.01 -14 -13.43 -14 C -20.85 -14 -26.86 -7.73 -26.86 -0 C -26.86 7.73 -20.85 14 -13.43 14 C -6.01 14 0 7.73 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1334.42, 841.7)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C -0.14 -1.72 -0.51 -3.93 -1.44 -6.34 C -3.29 -11.18 -6.38 -14.25 -8.19 -15.8 " transform="matrix(1, 0, 0, -1, 1361.87, 805.61)"/>
+<path class="bg" d="M 1344.39 719.82 L 1340.75 725.36 L 1340.75 739.62 C 1341.31 740.53 1342.18 741.79 1343.46 743.08 C 1348.35 748.02 1354.66 748.79 1357.9 749.18 C 1361.07 749.57 1367.29 749.81 1374.02 746.7 C 1377.41 745.12 1379.88 743.19 1381.45 741.76 C 1381.56 738.46 1381.67 735.17 1381.78 731.88 C 1380.54 730.74 1379.27 729.59 1377.97 728.44 C 1376.64 727.25 1375.32 726.1 1374.02 724.97 C 1372.15 725.98 1366.53 728.74 1359.12 727.72 C 1350.7 726.55 1345.69 721.29 1344.39 719.82 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L -3.63 -5.54 L -3.63 -19.8 C -3.08 -20.71 -2.21 -21.97 -0.93 -23.26 C 3.97 -28.2 10.28 -28.97 13.51 -29.36 C 16.69 -29.75 22.91 -29.99 29.63 -26.88 C 33.03 -25.3 35.49 -23.37 37.06 -21.94 C 37.17 -18.64 37.28 -15.35 37.39 -12.06 C 36.15 -10.92 34.88 -9.77 33.59 -8.62 C 32.26 -7.43 30.94 -6.28 29.63 -5.15 C 27.77 -6.16 22.14 -8.92 14.74 -7.9 C 6.32 -6.73 1.31 -1.46 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 1344.38, 719.82)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 18.02 -9.39 22.73 -9.26 24.83 -9.1 C 31.66 -8.58 36.67 -5.95 39.2 -4.37 " transform="matrix(1, 0, 0, -1, 1340.75, 725.55)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 14.48 -8.23 19 -9.69 24.83 -9.1 C 33.28 -8.24 39 -3.66 41.26 -1.62 " transform="matrix(1, 0, 0, -1, 1340.52, 734.13)"/>
+<path class="bg" d="M 1617.3 504.43 L 1598.54 487.24 C 1598.02 486.76 1597.39 486.39 1596.72 486.15 L 1529.88 463 C 1529.32 462.81 1528.74 462.71 1528.16 462.71 L 1522.38 462.71 C 1518.61 462.71 1516.07 466.57 1517.56 470.03 L 1519.04 473.46 C 1519.5 474.52 1520.29 475.4 1521.3 475.96 L 1576.34 506.75 C 1576.8 507 1577.29 507.19 1577.8 507.3 L 1609.92 514.17 C 1610.04 513.05 1610.75 510.93 1612.23 508.67 C 1613.91 506.12 1616.29 504.93 1617.3 504.43 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L -18.76 17.19 C -19.29 17.67 -19.91 18.05 -20.58 18.28 L -87.43 41.43 C -87.98 41.62 -88.56 41.72 -89.14 41.72 L -94.93 41.72 C -98.7 41.72 -101.23 37.86 -99.74 34.4 L -98.26 30.97 C -97.81 29.91 -97.01 29.03 -96.01 28.47 L -40.96 -2.32 C -40.51 -2.57 -40.01 -2.76 -39.5 -2.87 L -7.39 -9.74 C -7.27 -8.62 -6.56 -6.49 -5.07 -4.24 C -3.39 -1.69 -1.01 -0.5 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1617.3, 504.43)"/>
+<path class="bg" d="M 1642.18 515.04 C 1642.18 521.86 1634.96 527.39 1626.05 527.39 C 1617.14 527.39 1609.92 521.86 1609.92 515.04 C 1609.92 508.22 1617.14 502.7 1626.05 502.7 C 1634.96 502.7 1642.18 508.22 1642.18 515.04 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 0 -6.82 -7.22 -12.35 -16.13 -12.35 C -25.04 -12.35 -32.26 -6.82 -32.26 -0 C -32.26 6.82 -25.04 12.35 -16.13 12.35 C -7.22 12.35 0 6.82 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1642.18, 515.04)"/>
+<path class="bg" d="M 1633.85 525.85 L 1655.09 545.08 C 1655.66 545.59 1656.34 545.99 1657.07 546.24 L 1729.55 570.82 C 1730.14 571.03 1730.77 571.13 1731.41 571.13 L 1737.68 571.13 C 1741.76 571.13 1744.52 567.04 1742.9 563.36 L 1741.29 559.71 C 1740.8 558.59 1739.94 557.66 1738.85 557.06 L 1679.16 524.36 C 1678.67 524.09 1678.13 523.89 1677.58 523.77 L 1642.18 516.36 C 1642.05 517.54 1641.36 519.6 1639.45 521.72 C 1637.26 524.15 1634.95 525.32 1633.85 525.85 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L 21.24 -19.23 C 21.81 -19.74 22.49 -20.14 23.22 -20.39 L 95.7 -44.97 C 96.3 -45.18 96.92 -45.28 97.56 -45.28 L 103.83 -45.28 C 107.91 -45.28 110.67 -41.18 109.05 -37.51 L 107.44 -33.86 C 106.95 -32.74 106.09 -31.81 105 -31.21 L 45.32 1.5 C 44.82 1.76 44.28 1.96 43.73 2.08 L 8.33 9.5 C 8.2 8.31 7.51 6.25 5.6 4.13 C 3.41 1.7 1.1 0.53 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1633.85, 525.85)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 0.28 -2.15 0.55 -6.62 -1.53 -11.61 C -4.48 -18.65 -10.25 -21.4 -11.93 -22.9 C -10.65 -22.79 -4.64 -22.44 0.55 -26.77 C 5.23 -30.68 6.36 -35.99 6.59 -39.08 C 6.67 -40.07 7.83 -40.56 8.6 -39.94 L 41.21 -13.78 C 41.34 -12.51 41.48 -9.26 39.53 -6.03 C 36.13 -0.4 29.43 0.04 28.8 0.07 " transform="matrix(1, 0, 0, -1, 1612.38, 603.85)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 C 0.5 -2.17 1 -5.7 -0 -9.65 C -2.2 -18.34 -10.22 -23.26 -10.19 -23.3 C -10.16 -23.33 -4.76 -18.94 22.16 3.29 " transform="matrix(1, 0, 0, -1, 1626.99, 610.61)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L -0 -45.56 C -0 -45.82 0.09 -46.07 0.27 -46.27 C 1.53 -47.75 6.45 -52.87 14.36 -52.88 C 22.34 -52.88 27.28 -47.68 28.54 -46.19 C 28.71 -45.99 28.8 -45.75 28.8 -45.49 L 28.8 3.33 " transform="matrix(1, 0, 0, -1, 1612.38, 558.28)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 L -0 -49.2 " transform="matrix(1, 0, 0, -1, 1626.99, 561.41)"/>
+<path class="bg" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 L 0.28 -4.38 C 0.3 -4.7 0.44 -5 0.67 -5.23 C 1.84 -6.36 3.11 -7.78 4.31 -9.53 C 4.78 -10.21 5.19 -10.88 5.56 -11.52 C 5.81 -11.98 6.26 -12.29 6.78 -12.35 C 8.81 -12.6 10.94 -12.93 13.18 -13.35 C 15.54 -13.8 17.77 -14.32 19.84 -14.86 C 20.13 -14.94 20.43 -14.93 20.72 -14.85 L 32.38 -11.37 C 32.9 -10.52 33.65 -9.5 34.68 -8.46 C 35.61 -7.52 36.54 -6.81 37.31 -6.3 C 37.27 -5.15 37.22 -4 37.17 -2.85 " transform="matrix(1, 0, 0, -1, 1606.5, 546.5)"/>
+<path class="bg" d="M 1609.92 517.48 L 1609.92 526.06 C 1611.34 527.5 1616.37 532.28 1624.45 533.14 C 1631.07 533.84 1636.11 531.54 1638.05 530.52 L 1638.05 523.29 C 1637.09 524.07 1631.63 528.37 1623.99 527.39 C 1614.7 526.2 1610.33 518.25 1609.92 517.48 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 0 L 0 -8.58 C 1.42 -10.03 6.45 -14.8 14.53 -15.66 C 21.15 -16.37 26.19 -14.06 28.13 -13.04 L 28.13 -5.81 C 27.17 -6.59 21.71 -10.89 14.07 -9.91 C 4.78 -8.72 0.41 -0.78 0 0 Z M 0 0 " transform="matrix(1, 0, 0, -1, 1609.92, 517.48)"/>
+<path class="bg" d="M 1609.25 525.38 L 1605.62 530.92 L 1605.62 545.17 C 1606.18 546.09 1607.04 547.34 1608.32 548.64 C 1613.21 553.58 1619.53 554.34 1622.77 554.74 C 1625.93 555.12 1632.16 555.36 1638.88 552.25 C 1642.28 550.68 1644.74 548.74 1646.31 547.31 C 1646.42 544.02 1646.53 540.73 1646.64 537.43 C 1645.4 536.29 1644.13 535.14 1642.84 533.99 C 1641.51 532.8 1640.19 531.65 1638.88 530.52 C 1637.02 531.54 1631.39 534.3 1623.98 533.27 C 1615.57 532.11 1610.55 526.84 1609.25 525.38 "/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 -0 L -3.63 -5.54 L -3.63 -19.8 C -3.07 -20.71 -2.21 -21.97 -0.93 -23.26 C 3.96 -28.2 10.28 -28.97 13.52 -29.36 C 16.68 -29.75 22.91 -29.99 29.63 -26.88 C 33.03 -25.31 35.49 -23.36 37.06 -21.93 C 37.17 -18.64 37.28 -15.35 37.39 -12.06 C 36.15 -10.92 34.88 -9.77 33.59 -8.61 C 32.26 -7.43 30.94 -6.27 29.63 -5.14 C 27.77 -6.16 22.14 -8.92 14.73 -7.9 C 6.32 -6.73 1.3 -1.47 -0 -0 Z M -0 -0 " transform="matrix(1, 0, 0, -1, 1609.25, 525.37)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 18.02 -9.39 22.73 -9.26 24.84 -9.1 C 31.66 -8.58 36.67 -5.95 39.2 -4.37 " transform="matrix(1, 0, 0, -1, 1605.62, 531.11)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 2.28 -2.21 6.39 -5.59 12.42 -7.56 C 14.48 -8.24 19 -9.7 24.83 -9.1 C 33.28 -8.25 39 -3.66 41.26 -1.62 " transform="matrix(1, 0, 0, -1, 1605.39, 539.68)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M 0 -0 C 1.04 -0.09 5.28 -0.57 8.55 -4.16 C 12.81 -8.84 11.78 -14.82 11.65 -15.51 C 14.27 -14.25 16.9 -12.99 19.52 -11.72 C 19.76 -10.93 21.25 -5.74 18.14 -0.66 C 15.32 3.94 10.72 5.17 9.81 5.4 C 6.54 3.6 3.27 1.8 0 -0 Z M 0 -0 " transform="matrix(1, 0, 0, -1, 1491.17, 353.25)"/>
+<path fill="none" stroke-width="1.65" stroke-linejoin="miter" stroke="currentColor" d="M -0 0 L 26.23 23.97 L 180.74 -20.14 L 155.45 -44.7 " transform="matrix(1, 0, 0, -1, 1478.5, 774.09)"/>
+</svg>
+        <figcaption>Yeni uçağımızın yaklaşık tasarımı</figcaption>
+      </figure>
     </div>
-    <div class="lab-foot">Hesap raporun formülünü kullanır. Pik senaryosu raporda verilen 84.7 A toplam akımı yeniden üretir; bu akımla formül 21.25 dk verir (raporda 21.33 dk).</div>
-  </div>
-
-  <h4><span class="n">3.2.2</span>Yapısal Analiz</h4>
-  <figure class="fig">
-    <div class="fig-grid" style="--cols:2">
-      <button class="zoom" data-cap="Şekil 7 (sol). 67 N lift kuvveti altında kanat yapısı toplam deformasyon analizi"><img src="/img/fea-kanat.webp" width="1126" height="652" alt="Kanat yapısı statik analiz" loading="lazy"><span class="sub">Sol · Kanat</span></button>
-      <button class="zoom" data-cap="Şekil 7 (sağ). Ahşap rib eşdeğer gerilme analizi"><img src="/img/fea-rib.webp" width="1113" height="636" alt="Rib gerilme analizi" loading="lazy"><span class="sub">Sağ · Rib</span></button>
-    </div>
-    <figcaption><b>Şekil 7.</b>Analiz çıktıları (ANSYS Static Structural)</figcaption>
-  </figure>
-  <div class="prose">
-    <p>Şekil 7-Sol, 67 N lift kuvvetine yönelik analizde kanat yapısının stres seviyesinin malzeme akma dayanımının altında kaldığını göstermektedir. Şekil 7-Sağ, kanat birim hücreleri olan ahşap riblerin 15 MPa’ya kadar kalıcı deformasyon olmadan yüklere dayandığını göstermektedir. Güvenlik katsayısının <strong>1.5</strong> olması mekanik altyapının sağlamlığını doğrular.</p>
-  </div>
-
-  <h4><span class="n">3.2.3</span>Akış Analizi ve Kanat Profili Seçimi</h4>
-  <figure class="fig">
-    <div class="fig-grid" style="--cols:2">
-      <button class="zoom" data-cap="Şekil 8. Statik basınç dağılımı"><img src="/img/cfd-basinc.webp" width="1066" height="393" alt="CFD statik basınç" loading="lazy"><span class="sub">Statik basınç</span></button>
-      <button class="zoom" data-cap="Şekil 8. Hız büyüklüğü dağılımı"><img src="/img/cfd-hiz.webp" width="1523" height="546" alt="CFD hız dağılımı" loading="lazy"><span class="sub">Hız büyüklüğü</span></button>
-    </div>
-    <div class="fig-grid" style="--cols:3;margin-top:10px">
-      <button class="zoom" data-cap="Şekil 8. Sürükleme katsayısı yakınsaması"><img src="/img/cfd-cd.webp" width="1400" height="488" alt="Sürükleme katsayısı yakınsaması" loading="lazy"><span class="sub">C<sub>D</sub></span></button>
-      <button class="zoom" data-cap="Şekil 8. Kaldırma katsayısı yakınsaması"><img src="/img/cfd-cl.webp" width="1400" height="486" alt="Kaldırma katsayısı yakınsaması" loading="lazy"><span class="sub">C<sub>L</sub></span></button>
-      <button class="zoom" data-cap="Şekil 8. Kuvvet yakınsaması"><img src="/img/cfd-kuvvet.webp" width="1400" height="499" alt="Kuvvet yakınsaması" loading="lazy"><span class="sub">Kuvvet</span></button>
-    </div>
-    <figcaption><b>Şekil 8.</b>İHA modeline ait CFD analiz sonuçları (ANSYS)</figcaption>
-  </figure>
-  <div class="prose">
-    <p>Kabul edilen 20 m/s seyir hızında gerçekleştirilen HAD analizleri, tasarımın aerodinamik açıdan verimli ve kararlı olduğunu göstermektedir. Hücum kenarlarında beklenen durma noktaları oluşurken kanat üst yüzeylerindeki düşük basınç profili kaldırma kuvveti üretimini destekler; gövde arkasında ciddi akış ayrılması gözlenmemiştir. Çözüm 100. iterasyondan itibaren yakınsamış, sürükleme 0.008 ve toplam sürükleme kuvveti 0.36 N seviyelerinde stabilize olarak modelin düşük dirençli formunu doğrulamıştır.</p>
-    <p>İt dalaşı manevraları ve enerji verimliliği göz önünde bulundurularak üç profil (NACA 2412, NACA 4412, Clark Y) XFLR5 ile incelenmiştir. Analizler 20 m/s seyir hızı ve 0.35 m ortalama veter üzerinden hesaplanan <span class="tex">Re = 470\,000</span> değerinde yürütülmüştür.</p>
-  </div>
-  <figure class="fig" style="max-width:680px">
-    <button class="zoom" data-cap="Şekil 9. XFLR5 Kanat Profili Analizleri (NACA 2412, NACA 4412, Clark Y)"><img src="/img/xflr5.webp" width="750" height="499" alt="XFLR5 kanat profili analizleri" loading="lazy"></button>
-    <figcaption><b>Şekil 9.</b>XFLR5 Kanat Profili Analizleri</figcaption>
-  </figure>
-  <div class="prose">
-    <p>Bu veriler ışığında sert manevralara en iyi tepkiyi verirken batarya tüketimini makul tutan <strong>NACA 2412</strong> profili ana kanat tasarımı olarak belirlenmiştir. Kanat profilinin daha iyi lift sağlayabilmesi için <strong>5°</strong> geliş açısı (angle of incidence) verilmiştir.</p>
-  </div>
-  <figure class="fig" style="max-width:320px">
-    <button class="zoom" data-cap="Şekil 10. Geliş açısının gösterimi"><img src="/img/gelis-acisi.webp" width="900" height="1200" alt="Kanat geliş açısı" loading="lazy"></button>
-    <figcaption><b>Şekil 10.</b>Geliş açısının gösterimi</figcaption>
-  </figure>
-
-  <h3 id="s3-3"><span class="n">3.3</span>Nihai Sistem Mimarisi ve Alt Sistemler Özeti</h3>
-  <h4><span class="n">3.3.1</span>Sistem Mimarisi</h4>
-  <div class="prose"><p>Nihai sistem mimarisi, kullanılan tüm malzemelerin marka-model bilgisi ve tüm veri aktarım yolları gösterilerek aşağıda verilmiştir.</p></div>
-  <figure class="fig" style="max-width:640px">
-    <button class="zoom" data-cap="Şekil 11. Nihai Sistem Mimarisi"><img src="/img/mimari.webp" width="1107" height="1180" alt="Nihai sistem mimarisi bağlantı şeması" loading="lazy"></button>
-    <figcaption><b>Şekil 11.</b>Nihai Sistem Mimarisi</figcaption>
-  </figure>
-  <h4><span class="n">3.3.2</span>Alt Sistemlerin Teknik Özellikleri ve Uyumluluğu</h4>
-  <div class="prose">
-    <p>Alt bileşenler performans ve entegrasyon kriterleri göz önüne alınarak seçilmiştir. Uçuş kontrolü için Pixhawk tabanlı kontrolcü tercih edilmiştir; farklı haberleşme arayüzlerini desteklemesi ve PX4 ile uyumu nedeniyle ana kontrol birimidir.</p>
-    <p>Görüntü işleme ve otonom görevler için Jetson tabanlı bilgisayar kullanılmış; yüksek işlem gücüyle gerçek zamanlı görüntü işleme yürütür. Pixhawk-Jetson iletişimi MAVLink üzerinden sağlanır.</p>
-    <p>Güç dağıtımında kararlılık için Pixhawk power module ile beslenirken servo motorlar harici UBEC ile beslenir; voltaj dalgalanmalarının etkisi azaltılmıştır.</p>
-  </div>
-  <h4><span class="n">3.3.3</span>RF Haberleşme Sistemi ve Frekans Seçimi</h4>
-  <div class="prose">
-    <p>Haberleşme güvenilirliği için iki farklı RF hattı kullanılmıştır. Komuta kontrol ve görüntü aktarımı, düşük gecikmeli video ve kontrol sağlayan <strong>2.4 GHz Herelink</strong> ile yapılır. Telemetri için 868/915 MHz bandında çalışan, uzun menzil ve yüksek kararlılık sağlayan <strong>RFD900</strong> modülü kullanılmıştır. Farklı frekans bantları frekans çakışmasını önler ve iki ayrı hat ile yedeklilik sağlar.</p>
-  </div>
-
-  <h3 id="s3-4"><span class="n">3.4</span>Hava Aracı Ağırlık Dağılımı</h3>
-  <div class="prose"><p>Ağırlık merkezinin hesaplanmasında referans noktası olarak Şekil 3’teki mavi nokta belirlenmiştir. Alt sistemlerin bu referans noktasına göre uzaklıkları aşağıdadır. Grafikteki noktaların alanı bileşen ağırlığıyla orantılıdır; bir noktanın veya satırın üzerine gelerek bileşeni vurgulayın.</p></div>
-  <div class="lab" id="cg">
-    <div class="lab-head"><span class="lab-tag">Yerleşim</span><h4>Alt sistem konumları</h4>
-      <div class="seg" role="group" aria-label="Görünüm"><button type="button" data-view="top" aria-pressed="true">Üstten (X–Z)</button><button type="button" data-view="side" aria-pressed="false">Yandan (X–Y)</button></div>
-    </div>
-    <div class="lab-body">
-      <div id="cgPlot"></div>
-      <div class="readouts">
-        <div class="readout"><div class="k">Listelenen kütle</div><div class="v" id="cgMass">–</div></div>
-        <div class="readout"><div class="k">Bu bileşenlerin ortak AM'si (X, Y, Z)</div><div class="v" id="cgXYZ" style="font-size:1.2rem">–</div><div class="d">referans noktasına göre, mm</div></div>
-        <div class="readout"><div class="k">Uçağın AM'si (sol kanat ucuna göre)</div><div class="v" style="font-size:1.2rem">15.33, −0.66, −997.22</div><div class="d">raporda hesaplanan, mm</div></div>
-      </div>
-    </div>
-    <div class="lab-foot">Ortak AM yalnızca tablodaki alt sistemleri kapsar; gövde, kanat ve kaplama yapısı dahil değildir.</div>
-  </div>
-  <div class="table-wrap">
-    <table id="cgTable">
-      <caption>Tablo 2 · Alt Sistemlerin Ağırlık Merkezine Uzaklık Tablosu (sütun başlığına tıklayarak sıralayın)</caption>
-      <thead><tr>
-        <th aria-sort="none"><button type="button" data-k="name">Parça Adı</button></th>
-        <th class="num" aria-sort="none"><button type="button" data-k="w">Ağırlık (g)</button></th>
-        <th class="num" aria-sort="none"><button type="button" data-k="x">X (mm)</button></th>
-        <th class="num" aria-sort="none"><button type="button" data-k="y">Y (mm)</button></th>
-        <th class="num" aria-sort="none"><button type="button" data-k="z">Z (mm)</button></th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
   </div>
 </section>
 
-<!-- ================= 4 ================= -->
-<section class="section" id="s4">
-  <div class="sec-head"><span class="n">4</span><h2>Otonom Görevler</h2></div>
-  <h3 id="s4-1"><span class="n">4.1</span>Otonom Kilitlenme</h3>
-  <div class="prose"><p>Otonom kilitlenme; rakip İHA'nın algılanması, yasaklı alanlardan kaçınılması, güvenlik ön elemesi, hedef seçimi, rota üretimi, görsel takip ve kilitlenme bilgisinin sunucuya aktarılmasından oluşan bütünleşik bir görev hattıdır. Aşağıdaki aşamalara tıklayarak her birinin özetini görün.</p></div>
+<section class="slide orange" id="tek-cumle">
+  <div class="wrap">
+    <p class="kicker">Tek cümleyle</p>
+    <p class="statement">Tam otonom hedeflenen, kamerasıyla çevresini tanıyan ve kendi kararını veren bir uçak tasarlıyor, kendi ellerimizle üretiyoruz.</p>
+    <p class="lead">Amacımız sınıfta öğrendiklerimizi gerçek bir ürüne dönüştürmek ve uluslararası bir yarışmada üniversitemizi temsil etmek.</p>
+  </div>
+</section>
 
-  <div class="lab" id="pipeline">
-    <div class="lab-head"><span class="lab-tag">Görev hattı</span><h4>Kilitlenme zinciri</h4></div>
-    <div class="lab-body">
-      <div class="pipe" role="tablist" aria-label="Kilitlenme aşamaları"></div>
-      <div class="pipe-detail" role="tabpanel" aria-live="polite"></div>
+<section class="slide" id="ne-yapiyoruz">
+  <div class="wrap">
+    <p class="kicker">Ne yapıyoruz?</p>
+    <h2>Otonom, Akıllı, Yerli Bir Uçak</h2>
+    <dl class="stats">
+      <div class="stat"><dt>2 m</dt><dd>Kanat genişliği</dd></div>
+      <div class="stat"><dt>~35 dk</dt><dd>Tek şarjla uçuş</dd></div>
+      <div class="stat"><dt>6 kg</dt><dd>Toplam ağırlık</dd></div>
+    </dl>
+    <div class="feats">
+      <div class="feat"><h3>Kendi Kendine Uçar</h3><p>Kalkıştan inişe kadar otonom şekilde uçar.</p></div>
+      <div class="feat"><h3>Gördüğünü Tanır</h3><p>Kamerası ve yapay zekâsıyla havadaki diğer uçakları ayırt eder.</p></div>
+      <div class="feat"><h3>Riskten Kaçar</h3><p>Yasak bölgeleri bilir, rotasını kendisi değiştirir.</p></div>
     </div>
   </div>
+</section>
 
-  <figure class="fig">
-    <button class="zoom" data-cap="Şekil 12. Otonom Kilitlenme Algoritma Şeması"><img src="/img/kilitlenme-akis.webp" width="1357" height="535" alt="Otonom kilitlenme algoritma akış şeması" loading="lazy"></button>
-    <figcaption><b>Şekil 12.</b>Otonom Kilitlenme Algoritma Şeması</figcaption>
-  </figure>
-
-  <h4 id="s4-1-1"><span class="n">4.1.1</span>Sunucu Veri Akışı ve Veri Parçalama</h4>
-  <div class="prose"><p>Yarışma sunucusu ile haberleşme HTTP/REST üzerinden 1 Hz yürütülür. Her çevrimde rakip durumları, HSS bilgisi ve görev parametreleri JSON’dan ayrıştırılır; WGS84 koordinatları yerel ENU’ya çevrilir, eski/NaN/sınır dışı örnekler IMM-EKF öncesi elenir. 200 ms zaman aşımı aşılırsa son geçerli kestirimle görev sürdürülür.</p></div>
-
-  <h4 id="s4-1-2"><span class="n">4.1.2</span>İdeal Hedef Seçimi</h4>
-  <div class="prose"><p>İdeal hedef seçiminde her rakip için sunucu verisi ve IMM-EKF <a class="cite" href="#ref4">[4]</a> kısa vadeli konum/yönelim/belirsizlik tahmini birlikte kullanılır. Yasaklı alandaki, HSS’ye gireceği öngörülen, son başarıyla kilitlenilen veya belirsizliği eşik üstü adaylar elenir; kalanlarda yaklaşma açısı, tahmini mesafe ve kestirim belirsizliğinden oluşan maliyet en küçüklenir.</p></div>
-  <div class="eq">
-    <span class="tex" data-display>M(x,t)=\frac{\displaystyle\sum_{k=1}^{H}\lambda^{k-1}\left[\omega_{\psi}\,\frac{1-\cos(\Delta\psi_{x,k})}{2}+\omega_{d}\,\log\!\left(1+\frac{d_{x,k}}{d_{0}}\right)+\omega_{u}\,\frac{\sigma_{x,k}}{\sigma_{x,k}+\sigma_{0}}\right]}{\displaystyle\sum_{k=1}^{H}\lambda^{k-1}}</span>
-    <dl>
-      <dt><span class="tex">H</span></dt><dd>İleri bakılan tahmin ufku</dd>
-      <dt><span class="tex">\lambda</span></dt><dd>Zaman indirgeme katsayısı</dd>
-      <dt><span class="tex">\Delta\psi_{x,k}</span></dt><dd>Açı farkı</dd>
-      <dt><span class="tex">d_{x,k},\ d_0</span></dt><dd>Ego ile hedef arasındaki mesafe ve normalizasyon</dd>
-      <dt><span class="tex">\sigma_{x,k},\ \sigma_0</span></dt><dd>IMM-EKF belirsizlik ölçüsü ve normalizasyon</dd>
+<section class="slide navy" id="hedef">
+  <div class="wrap">
+    <p class="kicker">Hedefimiz</p>
+    <h2>SUAS 2027 · ABD</h2>
+    <p class="lead">SUAS, dünyanın dört bir yanından takımların kendi yaptıkları otonom uçaklarla gerçek görev senaryolarında yarıştığı uluslararası bir yarışmadır.</p>
+    <dl class="stats">
+      <div class="stat"><dt>2002</dt><dd>yılından beri her yıl düzenleniyor</dd></div>
+      <div class="stat"><dt>Dünya</dt><dd>çapında takımlar yarışıyor</dd></div>
+      <div class="stat"><dt>Otonom</dt><dd>uçuş, tespit ve görev becerileri ölçülüyor</dd></div>
     </dl>
   </div>
-
-  <h4 id="s4-1-3"><span class="n">4.1.3</span>Hedefe Yaklaşılması İçin İdeal Rotanın Çıkarılması</h4>
-  <div class="prose"><p>Yarışma alanı; yasaklı bölgeler, rakip tahminleri ve görev hedefi ile ağırlıklandırılmış grid haritaya dönüştürülür. Yasaklı alanlar geçilemez, IMM-EKF rakip tahminleri zaman bağımlı risk maliyetidir; A* <a class="cite" href="#ref3">[3]</a> global yol üretir, MPPI/PX4 bu yolu sabit kanat kısıtlarıyla uygulanabilir komutlara çevirir.</p></div>
-  <figure class="fig" style="max-width:620px">
-    <button class="zoom" data-cap="Şekil 13. Üretilen Sentez Metodun Mimarisi"><img src="/img/sentez-mimari.webp" width="840" height="550" alt="Sentez metodun mimarisi" loading="lazy"></button>
-    <figcaption><b>Şekil 13.</b>Üretilen Sentez Metodun Mimarisi</figcaption>
-  </figure>
-  <div class="prose">
-    <p>APF <a class="cite" href="#ref2">[2]</a> ile grid haritaya dönüşüm iki parametre üzerinden yürütülür (loss ve danger rate); bir hücrenin statik ağırlığı aşağıdaki bağıntıyla hesaplanır. <span class="tex">L(r,c)</span> ve <span class="tex">D(r,c)</span> sırasıyla <span class="tex">(r,c)</span> hücresinin loss ve danger rate değerleridir. Yasaklı alanlar planlayıcının çekirdek maliyetine gömülür: alan içi hücreler geçilemez, çevresi yüksek loss değerli güvenlik tamponu, tampon dışı bölge ise sıfıra sönümlenen maliyet olarak modellenir.</p>
-  </div>
-  <div class="eq eq-stack">
-    <span class="tex" data-display>W_{\text{static}}(r,c)=L(r,c)\times D(r,c)</span>
-    <span class="tex" data-display>d_z(r,c)=\sqrt{(r-r_z)^2+(c-c_z)^2}\qquad L(r,c)\leftarrow\max\big(L(r,c),\,L_{\text{zone}}(r,c)\big)</span>
-    <dl>
-      <dt><span class="tex">R_s</span></dt><dd>Tampon bölgesi yarıçapı</dd>
-      <dt><span class="tex">B</span></dt><dd>Sınır kayıp sabiti</dd>
-    </dl>
-  </div>
-  <div class="prose">
-    <p>Rakiplerden kaçınma ve hedef takibi için zaman bağımlı dinamik bir risk metriği tanımlanmıştır; metrik, rakip İHA'ların tahmin edilen rotalarındaki konum ve açı bilgilerini birlikte değerlendirir. Ego ve rakip hareket vektörleri <span class="tex">h_{\text{ego}}</span> ve <span class="tex">h_j(\tau)</span> ile tanımlanır. Vektör benzerliği için kırpılmış kosinüs benzerliği ve <span class="tex">d^{\infty}_j</span> mesafe ölçüsü kullanılır.</p>
-  </div>
-  <div class="eq eq-stack">
-    <span class="tex" data-display>h_{\text{ego}}=(r_{\text{next}}-r_{\text{cur}},\ c_{\text{next}}-c_{\text{cur}})\qquad \operatorname{cos\_sim}(a,b)=\max\!\left(0,\ \min\!\left(1,\ \frac{a\cdot b}{\lVert a\rVert\,\lVert b\rVert}\right)\right)</span>
-    <span class="tex" data-display>d^{\infty}_j(\tau)=\max\big(\lvert r_{\text{next}}-r_j(\tau)\rvert,\ \lvert c_{\text{next}}-c_j(\tau)\rvert\big)</span>
-  </div>
-  <div class="prose"><p>Buradan zaman bağımlı çarpanlar şu şekilde hesaplanır:</p></div>
-  <div class="eq eq-stack">
-    <span class="tex" data-display>F_{j,\text{danger}}(\tau)=1+\gamma_r\times\operatorname{cos\_sim}\big(h_{\text{ego}},h_j(\tau)\big)\,s_j(\tau)</span>
-    <span class="tex" data-display>F_{j,\text{loss}}(\tau)=1+\gamma_{\omega}\,s_j(\tau)</span>
-    <span class="tex" data-display>F_{f,\text{follow}}(\tau)=1-\gamma_f\times\operatorname{cos\_sim}\big(h_{\text{ego}},h_f(\tau)\big)\,s_f(\tau)</span>
-    <dl>
-      <dt><span class="tex">h_j</span></dt><dd>j. İHA'nın hareket yönü; <span class="tex">h_j(t)</span>: t anındaki değeri</dd>
-      <dt><span class="tex">\gamma_r,\ \gamma_\omega,\ \gamma_f</span></dt><dd>Risk, ağırlık ve takip kazançları</dd>
-    </dl>
-  </div>
-  <div class="prose"><p>Risk terimleri etkin olduğunda (<span class="tex">F_{\text{rival-loss}}(\tau)>1</span> veya <span class="tex">F_{\text{rival-danger}}(\tau)>1</span>) takip terimi devre dışı bırakılır (<span class="tex">F_{\text{follow}}(\tau)\leftarrow 1</span>) ve efektif ağırlık aşağıdaki ifadeyle hesaplanır. Uygulanan alt sınır kırpması sayesinde yasaklı alan ve çarpışma riski terimleri hedef takip etkisi tarafından bastırılamaz.</p></div>
-  <div class="eq eq-stack">
-    <span class="tex" data-display>W_{\text{eff}}(\tau)=W_{\text{static}}\cdot F_{\text{rival-loss}}(\tau)\cdot F_{\text{rival-danger}}(\tau)\cdot F_{\text{follow}}(\tau)</span>
-    <span class="tex" data-display>W_{\text{eff}}(\tau)\leftarrow\max\big(1,\ W_{\text{eff}}(\tau)\big)</span>
-  </div>
-
-  <div class="lab" id="astar">
-    <div class="lab-head"><span class="lab-tag">Simülasyon</span><h4>Grid harita + A* rota</h4>
-      <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn" type="button" id="astarRand">Rastgele HSS</button><button class="btn" type="button" id="astarClear">Temizle</button></div>
-    </div>
-    <div class="lab-body">
-      <canvas id="astarCanvas" aria-label="Grid harita üzerinde A* rota simülasyonu"></canvas>
-      <div class="lab-cols" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-        <div class="ctrl"><label for="astarRs"><span>Tampon yarıçapı R<sub>s</sub></span> <output id="astarRsOut"></output></label><input type="range" id="astarRs" min="0" max="8" step="1" value="4"></div>
-        <div class="ctrl"><label for="astarB"><span>Sınır kayıp sabiti B</span> <output id="astarBOut"></output></label><input type="range" id="astarB" min="0" max="20" step="1" value="8"></div>
-      </div>
-      <div class="readouts">
-        <div class="readout"><div class="k">Rota durumu</div><div class="v" id="astarState" style="font-size:1.1rem">–</div></div>
-        <div class="readout"><div class="k">Rota uzunluğu</div><div class="v" id="astarLen">–</div></div>
-        <div class="readout"><div class="k">HSS'ye en yakın geçiş</div><div class="v" id="astarClr">–</div></div>
-      </div>
-    </div>
-    <div class="lab-foot">Haritaya dokunarak HSS bölgesi ekleyin, bir HSS'nin içine dokunarak kaldırın. Bu, raporun APF + A* yaklaşımının tarayıcıda çalışan basitleştirilmiş bir modelidir; rakip risk terimleri ve MPPI dahil değildir.</div>
-  </div>
-
-  <figure class="fig" style="max-width:560px">
-    <button class="zoom" data-cap="Şekil 14. Geliştirilen Sentez Metod ile Yapılan Deney Sonuçları"><img src="/img/sentez-deney.webp" width="1600" height="1600" alt="Sentez metod deney sonuçları" loading="lazy"></button>
-    <figcaption><b>Şekil 14.</b>Geliştirilen Sentez Metod ile Yapılan Deney Sonuçları</figcaption>
-  </figure>
-
-  <h4 id="s4-1-4"><span class="n">4.1.4</span>İdeal Rotanın Yerel Planlayıcı İle Uygulanması</h4>
-  <div class="prose"><p>Global rota, sabit kanatlı İHA'nın dönüş yarıçapı, yatış, hız ve tırmanma sınırları nedeniyle doğrudan uygulanmaz <a class="cite" href="#ref5">[5]</a>; yerel planlayıcıda kinematik/dinamik olarak uygulanabilir referanslara çevrilir. MPPI <a class="cite" href="#ref1">[1]</a>, doğrusal olmayan dinamiklerle uyumu, rota-HSS-rakip riski-enerji terimlerini aynı maliyette birleştirebilmesi ve GPU paralelliği nedeniyle seçilmiştir.</p></div>
-  <div class="cards3" role="table" aria-label="Tablo 3. Alternatif Yerel Planlayıcıların Karşılaştırması">
-    <div class="pcard pick"><h5>MPPI <span class="chip ok">Seçilen</span></h5><p>Nonlineer sabit kanatlı dinamiklerle iyi çalışır; çok terimli maliyetleri optimize eder; gerektiğinde ideal rotadan sapabilir.</p></div>
-    <div class="pcard"><h5>MPC</h5><p>Model tabanlı ve deterministik; iyi parametre ayarıyla sabit kanat dinamiklerini iyi yansıtır. Çoklu rakip ve değişken parametre sayısı arttıkça çözüm ve hesaplama maliyeti artar.</p></div>
-    <div class="pcard"><h5>TEB</h5><p>Rotayı zaman boyutuyla optimize eder ve yumuşatma uygular. Ancak sabit kanat dinamikleriyle doğrudan uyumlu değildir; çok rakipli ortamlara MPPI kadar uygun değildir.</p></div>
-  </div>
-  <p class="note">Tablo 3. Alternatif Yerel Planlayıcıların Karşılaştırması</p>
-
-  <h4 id="s4-1-5"><span class="n">4.1.5</span>Düşük Seviyeli Kontrol ve PID Döngüleri</h4>
-  <div class="prose"><p>MPPI'nin ürettiği hız, yönelim ve irtifa referansları Pixhawk üzerindeki PX4 sabit kanat yığınına aktarılır. Dış kademe açı hatasını açısal hız referansına, iç kademe açısal hız hatasını PWM çıkışına dönüştürerek rotaya sadakat, bozucu bastırma ve uçuş zarfı limitleri korunur.</p></div>
-
-  <h4 id="s4-1-6"><span class="n">4.1.6</span>Görüntü İşleme ve Otonom Rakibe Kilitlenme</h4>
-  <div class="prose"><p>Otonom kilitlenmede kamera görüntüleri kullanılarak rakip İHA'nın tespit ve takibi amaçlanır. Nesne tespiti için derin öğrenme modelleri doğruluk, çıkarım gecikmesi, bellek ve gerçek zamanlı çalışma açısından karşılaştırılmış; doğruluk-hız dengesi nedeniyle Contrastive Learning ailesinde SimCLR <a class="cite" href="#ref7">[7]</a> ile eğitilen <strong>YOLO11s</strong> seçilmiştir. Açık kaynaklardan derlenen, farklı görünüm, mesafe, bakış açısı ve arka planı kapsayan ~10.000 görüntülük veri seti hazırlanıp eğitim/doğrulama/test alt kümelerine bölünerek model boyutları mAP50, mAP50-95, FPS ve bellek kullanımı üzerinden karşılaştırılmıştır.</p></div>
-  <figure class="fig">
-    <button class="zoom" data-cap="Şekil 15. Eğitilen Modellerin Performans Metrikleri"><img src="/img/model-metrik.webp" width="1800" height="1215" alt="Eğitilen modellerin performans metrikleri" loading="lazy"></button>
-    <figcaption><b>Şekil 15.</b>Eğitilen Modellerin Performans Metrikleri</figcaption>
-  </figure>
-  <div class="prose"><p>Tek kare tespitleri hedef sürekliliği için yetersiz olduğundan takip katmanında ByteTrack <a class="cite" href="#ref6">[6]</a> kullanılır. Düşük güven skorlu tespitleri eşleştirmeye dahil ederek kopmaları azaltır; Re-ID tabanlı yöntemlerin uzak/küçük hedeflerdeki ek maliyetini oluşturmadan gerçek zamanlı ID sürekliliği sağlar.</p></div>
-
-  <h4 id="s4-1-7"><span class="n">4.1.7</span>Visual Servoing ve Görüntü Tabanlı Kontrol</h4>
-  <div class="prose">
-    <p>Son fazda, sınırlayıcı kutu merkez konumu, sabit kanatlı uçuşa uyarlanmış image-based visual servoing (IBVS) ile tutum referanslarına dönüştürülerek iç döngü kontrolcülerine beslenir. Tespit edilen merkez koordinatı <span class="tex">(u,v)</span>, imge merkezi <span class="tex">(u_c,v_c)</span> ve imge çözünürlüğü <span class="tex">(W,H)</span> olmak üzere normalize piksel hatası tanımlanır.</p>
-    <p>Sabit kanatlı bir hava aracı saf yan kayma (sideslip) ile yatay manevra yapamadığından, yatay piksel hatası “bank-to-turn” prensibiyle yaw eksenine değil yatış (roll) komutuna eşlenir. Mesafe kontrolü, sınırlayıcı kutu alanı <span class="tex">A_{\text{bbox}}</span> ile yürütülür: alan büyüyorsa hedefe yaklaşılıyor, küçülüyorsa uzaklaşılıyordur. Hedef alan eşiği <span class="tex">A_{\text{ref}}</span> olmak üzere itki referansı aşağıdaki bağıntıyla belirlenir; bu sayede kilitlenme dörtgeni içinde kararlı bir takip mesafesi korunur.</p>
-  </div>
-  <div class="eq eq-stack">
-    <span class="tex" data-display>e_x=\frac{u-u_c}{W/2}\qquad e_y=\frac{v-v_c}{H/2}</span>
-    <span class="tex" data-display>\phi_{\text{cmd}}=-\lambda_x e_x-k_{d,x}\dot e_x\qquad \theta_{\text{cmd}}=\theta_{\text{trim}}-\lambda_y e_y-k_{d,y}\dot e_y</span>
-    <span class="tex" data-display>T_{\text{cmd}}=T_{\text{trim}}+k_T\,(A_{\text{ref}}-A_{\text{bbox}})</span>
-  </div>
-  <div class="prose"><p>Hedef kısa süreliğine imge düzleminden çıkarsa dış döngü son piksel hatası türeviyle yaklaşık 1 saniyelik ileri-besleme üretir. Bu pencere ByteTrack yeniden eşleştirmesi için ayrılır; eşleştirme sağlanamazsa sistem serbest uçuşa dönerek arama döngüsünü başlatır.</p></div>
-
-  <div class="lab" id="ibvs">
-    <div class="lab-head"><span class="lab-tag">Simülasyon</span><h4>IBVS ve kilitlenme dörtgeni</h4></div>
-    <div class="lab-body">
-      <canvas id="ibvsCanvas" aria-label="Kamera görüntüsü üzerinde sürüklenebilir hedef kutusu"></canvas>
-      <div class="ctrl" style="max-width:420px"><label for="ibvsSize"><span>Hedef kutu genişliği</span> <output id="ibvsSizeOut"></output></label><input type="range" id="ibvsSize" min="2" max="30" step="0.5" value="9"></div>
-      <div class="readouts">
-        <div class="readout"><div class="k">e<sub>x</sub> / e<sub>y</sub></div><div class="v" id="ibE">–</div></div>
-        <div class="readout"><div class="k">φ<sub>cmd</sub> (yatış)</div><div class="v" id="ibPhi">–</div></div>
-        <div class="readout"><div class="k">θ<sub>cmd</sub> (yunuslama)</div><div class="v" id="ibTheta">–</div></div>
-        <div class="readout"><div class="k">T<sub>cmd</sub> (itki)</div><div class="v" id="ibT">–</div></div>
-        <div class="readout"><div class="k">Kilitlenme</div><div class="v" id="ibLock" style="font-size:1.1rem">–</div></div>
-      </div>
-    </div>
-    <div class="lab-foot">Hedef kutusunu sürükleyin. 1280×720 görüntüde kutu kilitlenme bölgesinin içinde ve en az %5 boyutundayken 4 saniyelik sayaç işler. Kazançlar raporda verilmediği için örnek değerlerdir (λ<sub>x</sub>=35°, λ<sub>y</sub>=15°, θ<sub>trim</sub>=2°, T<sub>trim</sub>=%55); kilitlenme bölgesi gösterim amaçlıdır.</div>
-  </div>
-
-  <h3 id="s4-2"><span class="n">4.2</span>Kamikaze Görevi</h3>
-  <div class="prose"><p>Bu görevde sabit kanatlı İHA, hedef koordinatına otonom olarak intikal etmekte, uygun geometrik koşullar sağlandığında dalışa geçmekte ve QR kod tespitini gerçekleştirerek güvenli şekilde pas geçmektedir. Sistem, sabit eşiklere dayalı bir yapı yerine tamamen gerçek zamanlı (dinamik) parametrelerle çalışan bir mimari üzerine kurulmuştur. QR kod tespitinde Jetson’un sınırlı işlem gücünden dolayı önce kareleri yakalayıp sonra değerlendiren bir yaklaşım tercih edilmiştir.</p></div>
-
-  <div class="lab" id="kamikaze">
-    <div class="lab-head"><span class="lab-tag">Profil</span><h4>Kamikaze görev profili</h4></div>
-    <div class="lab-body">
-      <div id="kkPlot" style="overflow-x:auto"></div>
-      <div class="lab-cols" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-        <div class="ctrl"><label for="kkH"><span>Yaklaşma irtifası h</span> <output id="kkHOut"></output></label><input type="range" id="kkH" min="60" max="150" step="5" value="120"></div>
-        <div class="ctrl"><label for="kkTh"><span>Dalış açısı θ<sub>act</sub></span> <output id="kkThOut"></output></label><input type="range" id="kkTh" min="25" max="70" step="1" value="45"></div>
-        <div class="ctrl"><label for="kkV"><span>Hava hızı v</span> <output id="kkVOut"></output></label><input type="range" id="kkV" min="14" max="30" step="1" value="20"></div>
-        <div class="ctrl"><label for="kkLag"><span>Tutum gecikmesi t<sub>lag</sub></span> <output id="kkLagOut"></output></label><input type="range" id="kkLag" min="0" max="2" step="0.1" value="0.5"></div>
-      </div>
-      <div class="readouts">
-        <div class="readout"><div class="k">Tetik mesafesi d<sub>trigger</sub></div><div class="v" id="kkD">–</div></div>
-        <div class="readout"><div class="k">Teorik dalış sonu hızı v<sub>t</sub></div><div class="v" id="kkVt">–</div><div class="d">sürüklemesiz</div></div>
-        <div class="readout"><div class="k">Pull-up G yükü</div><div class="v" id="kkG">–</div><div class="d" id="kkGd"></div></div>
-        <div class="readout"><div class="k">Emniyet katsayısı (5G)</div><div class="v" id="kkSF">–</div></div>
-      </div>
-    </div>
-    <div class="lab-foot">Dikey eksen yatay eksene göre büyütülmüştür. t<sub>lag</sub> raporda sayısal olarak verilmediğinden 0.5 s örnek değeriyle başlar. G yükü, raporda belirtilen hava direnci dahil dalış sonu hızı (≈35 m/s) ile hesaplanır.</div>
-  </div>
-
-  <figure class="fig" style="max-width:720px">
-    <button class="zoom" data-cap="Şekil 16. Kamikaze Görevi Akış Şeması"><img src="/img/kamikaze-akis.webp" width="1370" height="1174" alt="Kamikaze görevi akış şeması" loading="lazy"></button>
-    <figcaption><b>Şekil 16.</b>Kamikaze Görevi Akış Şeması</figcaption>
-  </figure>
-
-  <h4 id="s4-2-1"><span class="n">4.2.1</span>Hedefe Yaklaşma (İntikal Fazı)</h4>
-  <div class="prose">
-    <p>İHA, vuruş hassasiyetini artırmak için doğrudan hedefe yönelmek yerine hedefin <strong>600 m</strong> gerisindeki dinamik hazırlık noktası (IP) üzerinden stratejik rota izler. Bu koridor; GPS yatay sapmalarının yönelme kontrolcüsünde yarattığı açısal gürültüyü minimize etmek ve kontrolcünün hedef hat üzerine oturması için gerekli yerleşme süresini (settling time) sağlamak amacıyla seçilmiştir.</p>
-    <p>İntikal süreci Seyir ve Yaklaşma olmak üzere iki aşamadan oluşur. Seyir aşamasında <strong>150 m</strong> yükseklikte, uçağın anlık konumuna göre güncellenen dinamik yön açısı (bearing) hesaplanarak hazırlık noktasına gidilir; bu hesaplama hazırlık noktasını hedefin tam arkasında ve yaklaşma hattıyla aynı hizada tutarak manevra alanını her saniye yeniden optimize eder. Yaklaşma aşamasında <strong>120 m</strong> yükseklikte hedefe son yaklaşma safhasına geçilir. Rüzgâr kaynaklı rota sapmaları, anlık yönelme verileriyle sürekli güncellenen açı hesaplamaları sayesinde dengelenir. Böylece İHA, dalış öncesinde hedefle doğrusal hatta hizalanarak yüksek vuruş kararlılığı sağlar.</p>
-  </div>
-  <h4 id="s4-2-2"><span class="n">4.2.2</span>Dalış Fazı</h4>
-  <div class="prose"><p>İHA’nın dalışa geçiş kararı sabit bir mesafe eşiğine bağlı olarak değil, uçuş sırasında anlık ölçülen parametrelere dayanan dinamik bir tetikleme modeli ile belirlenir. Bu model, hava aracının mevcut irtifası, hava hızı ve tutum gecikmesini dikkate alarak dalışın optimum noktada başlatılmasını sağlar.</p></div>
-  <div class="eq">
-    <span class="tex" data-display>d_{\text{trigger}}=\frac{h}{\tan\theta_{\text{act}}}+v\cdot t_{\text{lag}}</span>
-    <dl>
-      <dt><span class="tex">h</span></dt><dd>Anlık irtifa (AGL)</dd>
-      <dt><span class="tex">\theta_{\text{act}}</span></dt><dd>Gerçek dalış açısı</dd>
-      <dt><span class="tex">v</span></dt><dd>Hava hızı</dd>
-      <dt><span class="tex">t_{\text{lag}}</span></dt><dd>Tutum değişimine bağlı gecikme süresi</dd>
-    </dl>
-  </div>
-  <div class="prose">
-    <p>Bu formül iki temel fiziksel bileşeni modeller: (i) belirli bir dalış açısı ile hedefe ulaşmak için gereken yatay mesafe ve (ii) dalış komutunun uygulanması sırasında oluşan gecikmeden kaynaklı ek yatay ilerleme.</p>
-    <p>Dalış fazı, <strong>45°</strong> sabit dikilme açısı ve tam itki ile gerçekleştirilir. Hedefe kilitlenme sürecinde rüzgâr kaynaklı yanal sürüklenmeler, her kontrol döngüsünde güncellenen yaw komutlarıyla telafi edilir. Hedefe olan mesafe <strong>30 metreye</strong> düştüğünde, veri gürültüsünden doğabilecek açısal sapmaları azaltmak için kilitli yaw değerine yumuşak geçiş uygulanır. Bu adaptif kontrol yapısı, kritik safhada yönelim kararlılığı ve vuruş hassasiyetini artırarak uçuş güvenliğini destekler.</p>
-  </div>
-  <h4 id="s4-2-3"><span class="n">4.2.3</span>Pas Geçme (Pull-up Fazı)</h4>
-  <div class="prose"><p>Pas geçme (pull-up) safhası, İHA'nın <strong>15 metre</strong> güvenlik tabanının altına düşmesi veya görevin tamamlanması durumunda tetiklenir. Uçak %100 itki ve 25° nose-up komutlarıyla hızlı tırmanışa geçer; <strong>60 m</strong> yüksekliğe ulaşıldığında manevra tamamlanmış sayılır. Operasyonel döngüyü sürdürmek için İHA otonom olarak intikal hazırlık noktasına (IP, 600 m geride) yönelir ve yeniden dalış rotasına oturur.</p></div>
-  <h4 id="s4-2-4"><span class="n">4.2.4</span>QR Kod Takibi ve Görüntü İşleme</h4>
-  <div class="prose"><p>QR tanımlama mekanizması, işlemci yükünü minimize edip FPS'i maksimize etmek için hiyerarşik bir mimariyle yapılandırılmıştır. Piksel bütünlüğünü korumak adına ağır filtreler yerine ham veri katmanlarına odaklanılmış; hesaplama maliyeti yüksek olan CLAHE filtresi yalnızca <strong>30–70 metre</strong> irtifa aralığında koşullu olarak devreye alınmıştır. Karelerin doğruluğu, her okumayı oy kabul eden dinamik oylama sistemiyle denetlenerek kodun en az iki farklı karede onaylanması şartı getirilmiştir. Bu yaklaşım, anlık gürültüleri filtreleyerek terminal safhada hatasız ve yüksek hızlı bir veri akışı sağlar.</p></div>
-
-  <h4 id="s4-2-5"><span class="n">4.2.5</span>Mühendislik Analizi ve Sistem Limitleri</h4>
-  <div class="prose"><p>İHA'nın görev döngüsünde maruz kaldığı fiziksel etkiler ve donanım limitleri analitik formüllerle incelenmiştir.</p></div>
-  <h4><span class="n">4.2.5.1</span>Aerodinamik ve Azami Hız Analizi</h4>
-  <div class="prose"><p>Dalış fazı boyunca 45° dalış açısı ve tam itki kombinasyonuyla İHA, yerçekimi ivmesinin etkisiyle hızlanır. Hava direnci ihmal edildiğinde ulaşılabilecek teorik terminal hız için aşağıdaki denklem kullanılmıştır. Hesaplarda seyir hızı <span class="tex">v_0=20</span> m/s, <span class="tex">g=9.81\ \text{m/s}^2</span>, dalış yüksekliği <span class="tex">dh=105</span> m, dalış açısı <span class="tex">\theta=45^\circ</span> alınmıştır. Hesaplanan teorik hız ~43 m/s olup; hava direnci ve gövde sürüklemesi dahil edildiğinde dalış sonu hızı <strong>35–38 m/s</strong> olarak stabilize olmaktadır.</p></div>
-  <div class="eq"><span class="tex" data-display>v_t=\sqrt{v_0^{2}+2\cdot g\cdot dh\cdot\sin\theta}</span></div>
-  <h4><span class="n">4.2.5.2</span>Yapısal Dayanım ve G-Yükü Analizi</h4>
-  <div class="prose"><p>Dalışın sonlanarak pull-up manevrasına geçildiği safhada İHA dikey düzlemde toplam 70° (1.22 rad) yön değiştirir. Bu manevrada oluşan G yükü aşağıdaki gibi ifade edilir. Manevra yarıçapı, uçağın hızı ve manevra süresine (<span class="tex">dt\approx1.5</span> s) bağlı olarak <span class="tex">R=v\cdot dt/d\alpha</span> ile <strong>43 m</strong> hesaplanmıştır.</p></div>
-  <div class="eq eq-stack">
-    <span class="tex" data-display>G_{\max}=1+\frac{v^{2}}{g\cdot R}=1+\frac{35^{2}}{9.81\cdot 43}\cong 3.9\,G</span>
-    <span class="tex" data-display>\text{Emniyet Katsayısı}=\frac{\text{Yapısal Kapasite}}{\text{Maksimum Yük}}=\frac{5\,G}{3.9\,G}\approx 1.28</span>
-  </div>
-  <div class="prose"><p>Gövde dayanımı ANSYS Statik Yapısal Analiz ile doğrulanarak gövde <strong>+5G / −2G</strong> yüklere dayanacak şekilde üretilmiştir. Operasyonel senaryodaki maksimum yük 3.9G’dir.</p></div>
-  <h4><span class="n">4.2.5.3</span>Optik Tespit Hassasiyeti (PPM Hesabı)</h4>
-  <div class="prose"><p>Yüksek hızlı dalışta görüntü kaymasını önleyen Global Shutter kamera modülü kullanılmaktadır. 2 m × 2 m QR hedefin kaç piksel hassasiyetle görüldüğü, 85° yatay görüş açısı üzerinden aşağıdaki bağıntı ile hesaplanmıştır (hedef boyutu 2 m, yatay çözünürlük 1200 px, FOV 85°).</p></div>
-  <div class="eq"><span class="tex" data-display>\text{Piksel Sayısı}=\frac{\text{Hedef Boyutu}\times\text{Yatay Çözünürlük}}{2\times\text{Mesafe}\times\tan\!\left(\frac{FOV}{2}\right)}</span></div>
-  <div class="lab" id="ppm">
-    <div class="lab-head"><span class="lab-tag">Hesap</span><h4>QR piksel yoğunluğu</h4>
-      <div class="seg" role="group" aria-label="Yatay görüş açısı"><button type="button" data-fov="85" aria-pressed="true">FOV 85°</button><button type="button" data-fov="60" aria-pressed="false">FOV 60°</button></div>
-    </div>
-    <div class="lab-body lab-cols">
-      <div class="controls">
-        <div class="ctrl"><label for="ppmD"><span>Mesafe (irtifa)</span> <output id="ppmDOut"></output></label><input type="range" id="ppmD" min="10" max="150" step="1" value="70"></div>
-        <div style="display:flex;gap:14px;align-items:center"><svg id="ppmSvg" viewBox="0 0 120 120" role="img" aria-label="QR kodun sensördeki piksel görünümü" style="width:132px;flex:none;border:1px solid var(--line);border-radius:4px;background:#fff"></svg><p class="note" id="ppmNote">Sensörün QR koda ayırdığı piksellerle yeniden örneklenmiş görünüm.</p></div>
-      </div>
-      <div class="readouts">
-        <div class="readout"><div class="k">QR genişliği</div><div class="v" id="ppmPx">–</div></div>
-        <div class="readout"><div class="k">Okunabilirlik</div><div class="v" id="ppmOk" style="font-size:1.1rem">–</div><div class="d">≥ ~19 px eşiği, rapordaki 70 m sonucuna göre</div></div>
-        <div class="readout"><div class="k">CLAHE filtresi</div><div class="v" id="ppmClahe" style="font-size:1.1rem">–</div><div class="d">30–70 m aralığında etkin</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="prose"><p>PPM hesapları, hedefin sensör üzerinde yeterli piksel yoğunluğuna (~19 piksel) ulaşmasıyla kameranın 70 m irtifadan itibaren QR kodu hatasız okuyabildiğini doğrular. Böylece yüksek hızlarda optik veri kaybı yaşanmaz ve çözümlenen QR içerikleri yarışma sunucusuna HTTP POST ile JSON formatında aktarılır.</p></div>
 </section>
 
-<!-- ================= 5 ================= -->
-<section class="section" id="s5">
-  <div class="sec-head"><span class="n">5</span><h2>Hava Savunma Sistemi</h2></div>
-  <div class="prose">
-    <p>Hava savunma sistemi, tüm görev modları üzerinde öncelikli çalışan bağımsız güvenlik katmanıdır ve Bölüm <a href="#s4-1-2">4.1.2</a>–<a href="#s4-1-3">4.1.3</a>'teki grid harita ve yerel planlayıcı altyapısını ortak kullanır. HSS alanı geçilemez hücre, çevresi konum hatası, gecikme, rüzgâr ve minimum dönüş yarıçapına göre yüksek maliyetli tampon olarak modellenir.</p>
-    <p>Anlık konumla birlikte IMM-EKF kısa vadeli hareket tahmini de kontrol edilir; rota tamponla kesişirse görev askıya alınır ve kaçınma modu yeni rota üretir. Güvenli rota yoksa İHA HSS dışında <strong>loiter</strong> davranışına geçer ve durum YKİ'ye bildirilir. Bu davranışı <a href="#astar">4.1.3'teki grid harita simülasyonunda</a> HSS bölgeleri ekleyerek deneyebilirsiniz.</p>
+<section class="slide" id="teknik">
+  <div class="wrap">
+    <p class="kicker">Merak edenler için</p>
+    <h2>Teknik Özet</h2>
+    <div class="tables">
+      <div class="tbl"><div class="tbl-scroll">
+        <table>
+          <thead><tr><th scope="col">Özellik</th><th scope="col">Değer</th></tr></thead>
+          <tbody>
+            <tr><td>Kanat açıklığı</td><td>2.000 mm</td></tr>
+            <tr><td>Gövde uzunluğu</td><td>1.350 mm</td></tr>
+            <tr><td>Kalkış ağırlığı</td><td>6 kg</td></tr>
+            <tr><td>Seyir hızı</td><td>17 m/s (72 km/sa)</td></tr>
+            <tr><td>Uçuş süresi</td><td>~35 dakika</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+      <div class="tbl"><div class="tbl-scroll">
+        <table>
+          <thead><tr><th scope="col">Sistem</th><th scope="col">Kullanılan</th></tr></thead>
+          <tbody>
+            <tr><td>Yapay zekâ bilgisayarı</td><td>NVIDIA Jetson Orin NX</td></tr>
+            <tr><td>Otopilot</td><td>Pixhawk Orange Cube</td></tr>
+            <tr><td>Görüntü aktarımı</td><td>YOLO11s ile rakip tespiti; Herelink video</td></tr>
+            <tr><td>Haberleşme</td><td>RFD900x telemetri</td></tr>
+            <tr><td>Batarya</td><td>8.000 mAh (3S Li-Po) × 2</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </div>
+    <p class="fine">Tüm analizler, sistem mimarisi ve görev algoritmaları detaylı teknik raporumuzda yer alıyor.</p>
   </div>
 </section>
 
-<!-- ================= 6 ================= -->
-<section class="section" id="s6">
-  <div class="sec-head"><span class="n">6</span><h2>Yer Kontrol İstasyonu, Haberleşme ve Kullanıcı Arayüzü</h2></div>
-  <h3 id="s6-1"><span class="n">6.1</span>Haberleşme Sistemi Mimarisi</h3>
-  <div class="prose"><p>Sistem telemetri, görüntü aktarımı, otonom yönetim ve manuel kontrol süreçlerini kapsayan hibrit bir mimari üzerine inşa edilmiştir. İHA kontrol hiyerarşisi iki ana birimden oluşur: otonom görevleri (YOLO nesne tespiti, ByteTrack takibi, rota planlama) yürüten Jetson Orin NX ve bu kararları fiziksel uçuş hareketlerine dönüştüren Orange Cube otopilot. İki birim UART üzerinden MAVLink protokolü ile entegre edilmiştir; YKİ bu hiyerarşinin dışında, yalnızca izleme ve komut iletimi rolünü üstlenir.</p></div>
-
-  <div class="lab comms" id="comms">
-    <div class="lab-head"><span class="lab-tag">Ağ</span><h4>Bağlantı haritası</h4>
-      <div class="legend"><span><i style="background:var(--sky)"></i>868/900 MHz</span><span><i style="background:var(--accent)"></i>2.4 GHz</span><span><i style="background:var(--muted)"></i>Kablolu</span></div>
-    </div>
-    <div class="lab-body">
-      <div style="overflow-x:auto"><svg id="commsSvg" viewBox="0 0 760 330" role="group" aria-label="Haberleşme bağlantıları şeması" style="min-width:560px"></svg></div>
-      <div id="commsDetail" class="pipe-detail" aria-live="polite"></div>
-    </div>
-  </div>
-
-  <div class="table-wrap">
-    <table id="commsTable">
-      <caption>Tablo 4 · Haberleşme Sistemi Bağlantı Özeti (satıra tıklayarak şemada vurgulayın)</caption>
-      <thead><tr><th>Bağlantı</th><th>Donanım</th><th>Frekans / Protokol</th><th>Yön</th><th>Amaç</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <h3 id="s6-2"><span class="n">6.2</span>Haberleşme Donanımları ve Teknik Özellikler</h3>
-  <h4><span class="n">6.2.1</span>Ana Telemetri Bağlantısı (RFD900x Plus)</h4>
-  <div class="prose"><p>RFD900x Plus, Türkiye ICTA tescilli, 868 MHz FHSS bandında çalışan uzun menzilli telemetri modemidir (maks. 1 W / 30 dBm, açık alanda ~40 km menzil). FHSS ile 868 MHz bandı içinde otomatik kanal atlama yapan cihaza komisyon tarafından bildirilecek telemetri ID'si yüklenecektir. Video alıcı-verici elektroniği (Herelink Air Unit) müsabaka sırasında çadırda kapalı tutulacak; bu husus uçuş öncesi kontrol listesine eklenmiştir. Telemetri akışı MAVLink v2 üzerinden çift yönlü işler. İHA→YKİ yönünde uçuş verisi sürekli iletilir; YKİ bu akışı pymavlink ile dinleyerek arayüzü gerçek zamanlı günceller. YKİ→İHA yönünde uçuş modu değişikliği, Jetson'da hesaplanan otonom hedef koordinatı ve acil durdurma komutları gönderilir.</p></div>
-  <h4><span class="n">6.2.2</span>Görüntü Aktarımı ve Manuel Yedekleme (Herelink v1.1)</h4>
-  <div class="prose">
-    <p>İHA ile YKİ arasındaki yüksek bant genişliği gerektiren dijital veri aktarımı Herelink v1.1 sistemiyle (2.4 GHz) gerçekleştirilir.</p>
-    <p><strong>Görüntü aktarımı:</strong> Kamera akışı H.264 kodlanarak UDP/RTSP üzerinden iletilir; uçtan uca gecikme &lt;70 ms, çözünürlük 1280×720, kare hızı 30 FPS'dir. Akış, CameraWidget modülü tarafından OpenCV ile yakalanıp PyQt5 arayüzünde doğrudan görüntü olarak yansıtılır. YOLO11s çıkarım sonuçları TCP soket ile entegre edilir; kilitlenme dörtgeni <span class="mono">#FF0000</span> (BGR: 0,0,255) renk kodu ve ≤3 piksel çizgi kalınlığıyla her kareye işlenir, sunucu saati sağ üst köşeye ms hassasiyetinde yazılır.</p>
-    <p><strong>Yedek RC kanalı:</strong> Otonom arıza veya iletişim kaybı durumunda Herelink kumanda kolu girdileri S.Bus protokolüyle doğrudan Orange Cube'un RC girişine iletilerek operatörün manuel devralmasını (override/failsafe) güvence altına alır.</p>
-  </div>
-  <h4><span class="n">6.2.3</span>Yarışma Sunucusu Haberleşmesi (REST API)</h4>
-  <div class="prose"><p>Python asyncio/aiohttp tabanlı asenkron mimari, ağ gecikmelerinin uçuş döngüsünü bloklamasını önler. GET tarafında rakip İHA verileri 1 Hz’de çekilir, &gt;1000 ms gecikmeli kayıtlar filtrelenir ve doğrulanmış veriler TCP soketi üzerinden Jetson’a iletilir. Telemetri, Orange Cube’dan MAVLink <span class="mono">GLOBAL_POSITION_INT</span> ile ham olarak okunur; Jetson üzerinde interpolasyon, ekstrapolasyon veya tamponlama yapılmaz. POST tarafında uçuş verileri ve görev durumu 1–2 Hz’de <span class="mono">/api/telemetri_gonder</span> uç noktasına gönderilir, kilitlenme sonrası <span class="mono">/api/kilitlenme_bilgisi</span> raporlanır. Bağlantı kopmalarında sunucu tarafı son geçerli veriyi, Jetson tarafı ise kuyruğu korur. Gecikme 1 s’yi aşarsa sistem kilitlenme durumuna göre takip veya arama moduna geçer; kritik paketler ≤2 s içinde iletilmek üzere öncelikli kuyruğa alınır.</p></div>
-
-  <h3 id="s6-3"><span class="n">6.3</span>Kullanıcı Arayüzü (YKİ) Tasarımı</h3>
-  <div class="prose"><p>Ekip tarafından Python/PyQt5 ile geliştirilen arayüz, QMainWindow tabanlı çok sekmeli bir mimariye sahiptir. Arayüzün üst kısmındaki sabit <strong>“ACİL MANUEL”</strong> butonu, Jetson'dan bağımsız olarak otopilot kontrolünü anında devralır.</p></div>
-  <div class="lab" id="yki">
-    <div class="lab-head"><span class="lab-tag">Tablo 5</span><h4>Yer Kontrol İstasyonu sekmeleri</h4></div>
-    <div class="lab-body">
-      <div class="tabs" role="tablist" aria-label="YKİ sekmeleri"></div>
-      <div id="ykiPanel" role="tabpanel"></div>
+<section class="slide" id="neredeyiz">
+  <div class="wrap">
+    <p class="kicker">Neredeyiz?</p>
+    <div class="where">
+      <div>
+        <h2>Kâğıttan Atölyeye Geçtik</h2>
+        <ol class="steps">
+          <li class="done">Tasarım analizleri <b>Tamamlandı</b></li>
+          <li class="done">Malzeme seçimi ve bütçe <b>Tamamlandı</b></li>
+          <li class="now">Üretim ve montaj <b>Devam ediyor</b></li>
+          <li class="next">Uçuş testleri <b>Sırada</b></li>
+          <li class="next">Yarışma <b>2027</b></li>
+        </ol>
+      </div>
+      <p class="lead muted">Tasarım analizlerini, malzeme seçimini ve bütçeyi tamamladık; şu anda atölyede üretim ve montaj aşamasındayız. Sırada uçuş testleri, ardından 2027'de yarışma var.</p>
     </div>
   </div>
-  <figure class="fig">
-    <button class="zoom" data-cap="Şekil 17. YKİ Harita Sekmesi"><img src="/img/yki.webp" width="1502" height="1030" alt="YKİ arayüzü harita sekmesi" loading="lazy"></button>
-    <figcaption><b>Şekil 17.</b>YKİ Harita Sekmesi</figcaption>
-  </figure>
 </section>
 
-<!-- ================= 7 ================= -->
-<section class="section" id="s7">
-  <div class="sec-head"><span class="n">7</span><h2>Hava Aracı Entegrasyonu</h2></div>
-  <h3 id="s7-1"><span class="n">7.1</span>Yapısal ve Mekanik Entegrasyon</h3>
-  <div class="prose">
-    <p>Üretilen insansız hava aracı, hafiflik, dayanım ve üretim kolaylığı göz önünde bulundurularak modüler bir yapı yaklaşımı ile tasarlanmıştır. Hava aracı; ana gövde, sağ ve sol kanat olmak üzere temel bileşenlere ayrılmıştır. Tüm yapısal elemanların üretiminde ağırlık optimizasyonu sağlamak amacıyla <strong>balsa</strong> tercih edilmiştir. Gövde ve kanat yapılarında kullanılan balsa parçalar, yüksek hassasiyet ve tekrarlanabilirlik için <strong>lazer kesim</strong> ile üretilmiştir; böylece parçalar arası toleranslar minimize edilmiş, montaj hızlanmış ve yapısal doğruluk artırılmıştır.</p>
-    <p>Kanat yapısında ana taşıyıcı eleman olarak <strong>karbon fiber borular</strong> kullanılmıştır. Bu borular kanat boyunca yük taşıma görevini üstlenir ve yüksek mukavemet/ağırlık oranı sayesinde yapıya rijitlik kazandırır. Kanat profilleri karbon fiber borular üzerine sıkı geçme (interference fit) ile yerleştirilmiş, böylece ek bağlantı elemanına ihtiyaç duyulmadan sağlam bir birleşim elde edilmiştir. Profillerin ileri-geri serbestlik derecesini kısmak için ribler arası destek parçası kullanılmıştır. Aynı şekilde karbon fiber borular gövde içindeki yuvalarına da sıkı geçme ile entegre edilmiştir; kanat-gövde bağlantısı hafif ve titreşime dayanıklıdır. Birleşim bölgelerindeki boşluklar minimize edilerek aerodinamik yüzey sürekliliği korunmuştur.</p>
-    <p>Gövde yapısı, lazer kesim balsa parçaların geçme (interlocking) geometrilerle bir araya getirilmesi ve ardından ahşap tutkalıyla sabitlenmesiyle oluşturulmuştur. Geçme bağlantılar yük aktarımını yüzeysel değil hacimsel olarak gerçekleştirdiğinden gövde rijitliği önemli ölçüde artmıştır.</p>
+<section class="slide orange" id="neden-biz">
+  <div class="wrap">
+    <p class="kicker">Yaklaşımımız</p>
+    <h2>Fikri Projeye, Projeyi Gerçeğe Dönüştüren Bir Takımız.</h2>
+    <p class="lead">İKARUS olarak yalnızca bir yarışmaya katılmayı değil, öğrendiklerimizi gerçek bir mühendislik deneyimine dönüştürmeyi hedefliyoruz. Tasarımdan yazılıma, elektronik sistemlerden üretime kadar tüm süreçleri kendi bünyemizde geliştiriyor; farklı disiplinlerden gelen bilgi ve becerilerimizi ortak bir amaç doğrultusunda birleştiriyoruz.</p>
   </div>
-  <figure class="fig">
-    <div class="fig-grid tall" style="--cols:3">
-      <button class="zoom" data-cap="Şekil 18. Gövde yapısı"><img src="/img/govde-yapi.webp" width="900" height="1200" alt="Gövde yapısı" loading="lazy"><span class="sub">Gövde</span></button>
-      <button class="zoom" data-cap="Şekil 18. Servonun ailerona bağlantısı"><img src="/img/aileron.webp" width="900" height="1200" alt="Servonun ailerona bağlantısı" loading="lazy"><span class="sub">Aileron</span></button>
-      <button class="zoom" data-cap="Şekil 18. İniş takımları"><img src="/img/inis-takimi.webp" width="732" height="619" alt="İniş takımları" loading="lazy"><span class="sub">İniş takımı</span></button>
-    </div>
-    <figcaption><b>Şekil 18.</b>Gövde yapısı, servonun ailerona bağlantısı ve iniş takımları</figcaption>
-  </figure>
-  <div class="prose">
-    <p>İniş takımları, gövde altındaki takviye bölgelerine cıvata-somun bağlantısıyla sabitlenmiştir. Bu bağlantı, iniş darbe yüklerinin gövdeye güvenle aktarılmasını sağlar ve bakım/değişim için sökülebilir bir yapı sunar.</p>
-    <p>Kanat kök bölgesinde eğilme momentleri daha yüksek olduğundan bu bölgede daha sık aralıklı ve daha fazla sayıda rib kullanılmıştır. Kanat ucuna doğru yükler azaldığından profil yoğunluğu kademeli olarak düşürülmüştür; böylece gereksiz ağırlık artışı önlenirken kritik bölgelerde yeterli dayanım korunmuştur.</p>
-    <p>Motor, gövde ön kısmındaki yuvasına titreşim etkileri göz önünde bulundurularak sabitlenmiştir. Elektronik ve itki sistemi elemanları ağırlık merkezi dikkate alınarak gövde içine cıvata-somun ile yerleştirilmiştir. Kablo düzeni sade tutulmuştur. Bakım ve entegrasyonu kolaylaştırmak için üst kısma menteşeli bir kapak eklenmiştir. Servo monte edilip filmin altından boşluk açılarak tel ile ailerona bağlanmıştır.</p>
-  </div>
-  <figure class="fig">
-    <div class="fig-grid tall" style="--cols:3">
-      <button class="zoom" data-cap="Şekil 19. Pervane ve motorun yerleşimi"><img src="/img/motor-1.webp" width="675" height="1200" alt="Pervane ve motorun yerleşimi" loading="lazy"><span class="sub">Motor</span></button>
-      <button class="zoom" data-cap="Şekil 19. Motorun balsa plakaya montajı"><img src="/img/motor-2.webp" width="675" height="1200" alt="Motor montajı" loading="lazy"><span class="sub">Motor yuvası</span></button>
-      <button class="zoom" data-cap="Şekil 19. Kanadın kaplanma hali"><img src="/img/kanat-kaplama.webp" width="970" height="767" alt="Kanat kaplama" loading="lazy"><span class="sub">Kaplama</span></button>
-    </div>
-    <figcaption><b>Şekil 19.</b>Pervane ve motorun yerleşimi ve kanadın kaplanma hali. Motor geçmeli balsa plakaya cıvata ve somunlarla yerleştirilmiş, kablo bağlantısı alttan sağlanmıştır. Kanat ısı duyarlı film ile gerilip ısı uygulanarak kaplanmıştır.</figcaption>
-  </figure>
-
-  <h3 id="s7-2"><span class="n">7.2</span>Elektronik Entegrasyon</h3>
-  <div class="prose">
-    <p>Güç dağıtımını merkezi ve güvenli şekilde sağlamak için bir güç dağıtım kartı (GDB) kullanılmıştır. GDB doğrudan bataryaya bağlanmış, 12 V ve 5 V regüle hatlar bu kart üzerinden elde edilmiştir. Servo beslemesi için kullanılan UBEC aynı güç hattına paralel entegre edilmiştir. Otopilot beslemesinde daha kararlı bir yapı için batarya ile GDB arasında ayrı bir hat oluşturulmuş ve Orange Cube bu hat üzerinden beslenmiştir. Jetson Orin NX, GDB’nin 12 V regüle çıkışından beslenmiştir.</p>
-    <p>Otopilot ile Jetson arasında MAVLink tabanlı UART bağlantısı kurulmuştur. GPS modülü, uydu görüşünün açık olacağı şekilde platformun üst kısmına yerleştirilmiştir. ESC’ye GDB üzerinden güç verilmiş, kontrol sinyalleri otopilottan sağlanmıştır. Servolar UBEC’ten beslenmiş, sinyal bağlantıları otopilot üzerinden yapılmıştır. Uzun menzil telemetri için RFD900x modülü otopilot ile entegre edilmiş ve uygun anten yerleşimi yapılmıştır.</p>
-    <p>Sponsorların KTR başarısına bağlı bütçe desteği taahhüt etmesi üzerine, mevcut görseller takım üyelerinin çevrelerinden temin edilen bileşenlerle hazırlanmıştır. Bu bileşenlerin bir kısmı (yapay zekâ bilgisayarı, otopilot, servolar) nihai uçakta da kullanılacak, diğerleri (GDB, ESC, telemetri, ana motor) KTR sonrasında değiştirilecektir. Nihai sistemin <a href="#s3-3">3.3.1’deki mimariye</a> uygun olması hedeflenmektedir.</p>
-  </div>
-  <figure class="fig">
-    <div class="fig-grid tall" style="--cols:3">
-      <button class="zoom" data-cap="Şekil 20. Donanım entegrasyonu ve servo bağlantıları"><img src="/img/ent-donanim.webp" width="732" height="1300" alt="Donanım entegrasyonu" loading="lazy"><span class="sub">Donanım</span></button>
-      <button class="zoom" data-cap="Şekil 20. Güç dağıtım kartı"><img src="/img/ent-gdb.webp" width="732" height="1300" alt="Güç dağıtım kartı" loading="lazy"><span class="sub">GDB</span></button>
-      <button class="zoom" data-cap="Şekil 20. ESC montajı ve UBEC bağlantıları"><img src="/img/ent-esc.webp" width="732" height="1300" alt="ESC montajı" loading="lazy"><span class="sub">ESC · UBEC</span></button>
-    </div>
-    <figcaption><b>Şekil 20.</b>Donanım entegrasyonu, servo bağlantıları, güç dağıtım kartı, ESC montajı ve UBEC bağlantıları</figcaption>
-  </figure>
-  <figure class="fig">
-    <div class="fig-grid tall" style="--cols:3">
-      <button class="zoom" data-cap="Şekil 21. Bilgisayar ve otopilot arası JST-GH kablosu ile entegrasyon"><img src="/img/ent-jstgh.webp" width="732" height="1300" alt="JST-GH entegrasyonu" loading="lazy"><span class="sub">JST-GH</span></button>
-      <button class="zoom" data-cap="Şekil 21. Telemetri entegrasyonu"><img src="/img/ent-telemetri.webp" width="732" height="1300" alt="Telemetri entegrasyonu" loading="lazy"><span class="sub">Telemetri</span></button>
-      <button class="zoom" data-cap="Şekil 21. GPS yerleşimi ve sisteme entegrasyonu"><img src="/img/ent-gps.webp" width="975" height="1300" alt="GPS yerleşimi" loading="lazy"><span class="sub">GPS</span></button>
-    </div>
-    <figcaption><b>Şekil 21.</b>Bilgisayar ve otopilot arası JST-GH kablosu ile entegrasyon, telemetri entegrasyonu, GPS yerleşimi</figcaption>
-  </figure>
-  <figure class="fig">
-    <div class="fig-grid tall" style="--cols:4">
-      <button class="zoom" data-cap="Şekil 22. Ana motor montajı"><img src="/img/motor-2.webp" width="675" height="1200" alt="Ana motor" loading="lazy"></button>
-      <button class="zoom" data-cap="Şekil 22. Ana motor ve pervane"><img src="/img/motor-1.webp" width="675" height="1200" alt="Ana motor ve pervane" loading="lazy"></button>
-      <button class="zoom" data-cap="Şekil 22. Servo montajı"><img src="/img/servo-1.webp" width="900" height="1200" alt="Servo montajı" loading="lazy"></button>
-      <button class="zoom" data-cap="Şekil 22. Kuyruk servo montajı"><img src="/img/servo-2.webp" width="900" height="1200" alt="Kuyruk servo montajı" loading="lazy"></button>
-    </div>
-    <figcaption><b>Şekil 22.</b>Ana motor ve servoların monte görüntüleri</figcaption>
-  </figure>
 </section>
 
-<!-- ================= 8 ================= -->
-<section class="section" id="s8">
-  <div class="sec-head"><span class="n">8</span><h2>Test ve Simülasyon</h2></div>
-  <h3 id="s8-1"><span class="n">8.1</span>Alt Sistem Testleri</h3>
-  <div class="tests">
-    <div class="test"><header><h5>8.1.1 Kaynak ve bellek</h5><span class="chip ok">Tamamlandı</span></header><p>Jetson Orin NX üzerinde YOLO11s ve alternatifleri; CPU/GPU, bellek, çıkarım kararlılığı.</p></div>
-    <div class="test"><header><h5>8.1.2 Isıl kararlılık ve güç</h5><span class="chip ok">Tamamlandı</span></header><p>En yüksek görev yükünde uzun süreli sıcaklık ve güç ölçümü.</p></div>
-    <div class="test"><header><h5>8.1.3 Kilitlenme</h5><span class="chip ok">Tamamlandı</span></header><p>Eğitim verisi dışındaki videolarda mAP50-95 = <b class="mono">0.6955</b>.</p></div>
-    <div class="test"><header><h5>8.1.4 İtki</h5><span class="chip warn">Planlandı</span></header><p>Tam gazda itki (g), akım (A) ve sıcaklık; T/W doğrulaması.</p></div>
-    <div class="test"><header><h5>8.1.5 Kanat yükleme</h5><span class="chip warn">Planlandı</span></header><p>Statik yükle kırılma noktası ve emniyet katsayısı (n).</p></div>
-    <div class="test"><header><h5>8.1.6 Haberleşme menzili</h5><span class="chip warn">Planlandı</span></header><p>RFD900x ile azami operasyonel mesafe ve paket kaybı oranı.</p></div>
-    <div class="test"><header><h5>8.1.7 Batarya deşarj ve titreşim</h5><span class="chip warn">Planlandı</span></header><p>Uçuş boyunca voltaj düşümü ve otopilota gelen titreşim seviyeleri.</p></div>
+<section class="slide" id="ekip">
+  <div class="wrap">
+    <p class="kicker">Biz kimiz?</p>
+    <h2>Dört Ekip, Tek Uçak</h2>
+    <p class="lead">İKARUS, 2025 Kasım ayında TOBB ETÜ öğrencileri ile kurulan bir takımdır. Multidisipliner bir yapıya sahibiz; her ekip projenin bir parçasından sorumludur.</p>
+    <div class="cards chain" style="--n:4">
+      <div class="card"><h3>Yazılım Birimi</h3><p>Görüntü işleme, otonom hareket ve uçuş algoritmalarının geliştirilmesi, simülasyon ortamlarının kurulması ve sistem entegrasyonu.</p></div>
+      <div class="card"><h3>Donanım Birimi</h3><p>Güç dağıtımı, itki kontrolü, elektronik bağlantılar, yer istasyonu haberleşme protokolleri ve uçuş kontrol kartı tasarım/doğrulama çalışmaları.</p></div>
+      <div class="card"><h3>Mekanik Birimi</h3><p>İHA aerodinamik tasarımı, kanat profili seçimi, yapısal analizler, üretim planlaması ve malzeme araştırması.</p></div>
+      <div class="card"><h3>Sponsorluk ve İletişim</h3><p>Firmalarla ve yarışma jürileriyle iletişim kurma, sosyal medya içerikleri üretimi, bütçe hesabı ve araştırması.</p></div>
+    </div>
   </div>
+</section>
 
-  <h4><span class="n">8.1.1</span>Donanım Kaynak ve Bellek Yönetimi Testi</h4>
-  <div class="prose"><p>Jetson Orin NX üzerinde YOLO11s ve alternatif mimariler çalıştırılarak CPU/GPU kullanımı, bellek tüketimi ve çıkarım kararlılığı izlenmiştir. YOLO11s modelinin gerçek zamanlı görev yükünü darboğaz oluşturmadan taşıdığı doğrulanmıştır.</p></div>
-  <div class="lab" id="bench">
-    <div class="lab-head"><span class="lab-tag">Şekil 23</span><h4>Jetson Orin NX çıkarım karşılaştırması</h4>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <div class="seg" role="group" aria-label="Metrik"><button type="button" data-metric="fps" aria-pressed="true">FPS</button><button type="button" data-metric="lat" aria-pressed="false">Gecikme</button></div>
-        <div class="seg" role="group" aria-label="Güç modu"><button type="button" data-power="15" aria-pressed="true">15 W</button><button type="button" data-power="25" aria-pressed="false">25 W</button></div>
+<section class="slide orange" id="hikaye">
+  <div class="wrap">
+    <p class="kicker">Takım hikâyemiz</p>
+    <h2>Her Uçuş Bir Hayalle Başlar.</h2>
+    <div class="prose">
+      <p>Yunan mitolojisinde İkarus, gökyüzüne ulaşma hayaliyle kanatlarını takıp güneşe doğru uçan bir gençti. Düşüşüne rağmen ardında insanlığın bitmeyen keşfetme arzusunu bıraktı.</p>
+      <p>Biz de bu hikâyeden ilham alarak bir araya geldik. Farklı disiplinlerden gelen, aynı hayali paylaşan bir takım olarak İkarus'un gökyüzüne duyduğu tutkuyu mühendislikle gerçeğe dönüştürüyoruz.</p>
+      <p>İlk çizimlerden üretime kadar öğrendik, denedik ve birlikte geliştirdik.</p>
+      <p><strong>Biz İkarus'un hayalini bugünün teknolojisiyle yeniden yazıyoruz. Kanatlarımızı bilgiyle güçlendiriyor, rotamızı birlikte çiziyoruz.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="ilk-ucak">
+  <div class="wrap">
+    <p class="kicker">İlk uçağımız</p>
+    <div class="first">
+      <figure><img src="/img/kaplamali.webp" width="1219" height="666" alt="İlk uçağımızın kaplamalı üç boyutlu tasarımı" loading="lazy"></figure>
+      <div>
+        <h2>Yolculuğumuz Bu Uçakla Başladı</h2>
+        <p class="lead">Yeni uçağımızdan önce, otonom kilitlenme ve kamikaze görevleri için sabit kanatlı bir savaşan İHA tasarladık. Tasarım, analiz ve test çalışmalarının tamamı ilk uçağımızın sayfasında.</p>
+        <ul class="facts">
+          <li><b>2000</b>mm kanat</li>
+          <li><b>6,5</b>kg kalkış ağırlığı</li>
+          <li><b>~29</b>dk uçuş</li>
+        </ul>
+        <div class="actions"><a class="btn" href="ilk-ucak.html">İlk uçağımızı inceleyin</a></div>
       </div>
     </div>
-    <div class="lab-body">
-      <div class="bars" id="benchBars"></div>
-      <div class="axis" id="benchAxis"></div>
-    </div>
-    <div class="lab-foot">Değerler Şekil 23’teki grafiklerin etiketlerinden alınmıştır (gecikme: ortalama, ms). Turuncu çubuk seçilen modeldir. <button class="btn" type="button" id="benchOrig" style="margin-left:6px">Orijinal grafikleri aç</button></div>
-  </div>
-  <div hidden id="benchImgs">
-    <button class="zoom" data-cap="Şekil 23. FPS karşılaştırması, 15 W"><img src="/img/fps-15w.webp" width="1800" height="900" alt="FPS 15W" loading="lazy"></button>
-    <button class="zoom" data-cap="Şekil 23. FPS karşılaştırması, 25 W"><img src="/img/fps-25w.webp" width="1800" height="900" alt="FPS 25W" loading="lazy"></button>
-    <button class="zoom" data-cap="Şekil 23. Gecikme karşılaştırması, 15 W"><img src="/img/lat-15w.webp" width="1800" height="900" alt="Gecikme 15W" loading="lazy"></button>
-    <button class="zoom" data-cap="Şekil 23. Gecikme karşılaştırması, 25 W"><img src="/img/lat-25w.webp" width="1800" height="900" alt="Gecikme 25W" loading="lazy"></button>
-  </div>
-
-  <h4><span class="n">8.1.2</span>Isıl Kararlılık ve Güç Tüketimi Testi</h4>
-  <div class="prose"><p>Isıl testlerde sistem en yüksek görev yükünde uzun süre çalıştırılmış, sıcaklık ve güç tüketimi grafiklerle izlenmiştir. Ölçümler, seçilen modelin yüksek performansa rağmen güvenli termal aralıkta kaldığını ve ısıl kısıtlamaya bağlı performans düşüşü oluşmadığını göstermiştir.</p></div>
-  <figure class="fig">
-    <div class="fig-grid one-sm" style="--cols:2">
-      <button class="zoom" data-cap="Şekil 24. GPU kullanımı, GPU sıcaklığı ve RAM kullanımı, 15 W"><img src="/img/kaynak-15w.webp" width="1800" height="621" alt="Kaynak kullanımı 15W" loading="lazy"><span class="sub">15 W</span></button>
-      <button class="zoom" data-cap="Şekil 24. GPU kullanımı, GPU sıcaklığı ve RAM kullanımı, 25 W"><img src="/img/kaynak-25w.webp" width="1800" height="621" alt="Kaynak kullanımı 25W" loading="lazy"><span class="sub">25 W</span></button>
-    </div>
-    <figcaption><b>Şekil 24.</b>GPU sıcaklığı, GPU ve RAM kullanımı karşılaştırmaları</figcaption>
-  </figure>
-
-  <h4><span class="n">8.1.3</span>Kilitlenme Testi</h4>
-  <div class="prose"><p>Kilitlenme modelinin tahminlerinin isabetliliğini ölçmek için bir kilitlenme testi uygulanmıştır. Modelin eğitim verisine dahil olmayan İHA takip videoları/görselleri üzerinde <strong>mAP50-95 = 0.6955</strong> değerine ulaştığı gözlemlenmiştir. Bu test modelin yarışma şartlarında kilitlenmeye hazır olduğunu göstermiştir.</p></div>
-  <figure class="fig">
-    <div class="fig-grid" style="--cols:3">
-      <button class="zoom" data-cap="Şekil 25. Kilitlenme testi: iha 0.89"><img src="/img/tespit-1.webp" width="800" height="421" alt="Tespit örneği 1" loading="lazy"></button>
-      <button class="zoom" data-cap="Şekil 25. Kilitlenme testi: iha 0.88"><img src="/img/tespit-2.webp" width="640" height="360" alt="Tespit örneği 2" loading="lazy"></button>
-      <button class="zoom" data-cap="Şekil 25. Kilitlenme testi: iha 0.88"><img src="/img/tespit-3.webp" width="300" height="168" alt="Tespit örneği 3" loading="lazy"></button>
-    </div>
-    <figcaption><b>Şekil 25.</b>Kilitlenme testinden görüntüler</figcaption>
-  </figure>
-
-  <h3 id="s8-2"><span class="n">8.2</span>Uçuş Kontrol Listesi ve Uçuş Planı</h3>
-  <div class="prose"><p>Tablo 6 uçuş öncesi kontrol listesidir. Sahada bu sayfayı açık tutarak maddeleri işaretleyebilirsiniz; işaretler yalnızca bu tarayıcıda saklanır.</p></div>
-  <div class="lab" id="checklist">
-    <div class="lab-head"><span class="lab-tag">Tablo 6</span><h4>Uçuş kontrol listesi</h4>
-      <div style="display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end;min-width:200px">
-        <div class="meter"><span id="checkMeter"></span></div><span class="mono num" id="checkCount">0/13</span>
-        <button class="btn" type="button" id="checkReset">Sıfırla</button>
-      </div>
-    </div>
-    <div class="check" id="checkList"></div>
-    <div class="lab-foot" id="checkStatus">Uçuşa hazır olmak için tüm maddeler işaretlenmelidir.</div>
-  </div>
-
-  <h4><span class="n">8.2.2</span>Planlanan Uçuş Testleri</h4>
-  <div class="prose"><p>Gerçek uçuş testleri için yarışma tarihine kadar toplam <strong>10 uçuşu</strong> kapsayan 4 aşamalı bir saha programı planlanmıştır. Sistemin çevresel dayanıklılığını ölçmek için sürecin farklı rüzgâr hızları ve yüksek sıcaklık gibi değişken hava koşullarında da denenmesi planlanmaktadır.</p></div>
-  <div class="stages">
-    <div class="stage"><span class="k">Aşama 1 · 2 uçuş</span><b>Aerodinamik kararlılık ve azami uçuş süresi</b><span class="note">PID parametreleri ve batarya tüketiminin sahadaki başarımı.</span><div class="flights"><i></i><i></i></div></div>
-    <div class="stage"><span class="k">Aşama 2 · 2 uçuş</span><b>Sistem entegrasyonu</b><span class="note">RFD900x menzili ve Jetson-Pixhawk MAVLink v2 veri akışı.</span><div class="flights"><i></i><i></i></div></div>
-    <div class="stage"><span class="k">Aşama 3 · 4 uçuş</span><b>Kamikaze ve QR denemesi</b><span class="note">45° dalışta QR çözme başarısı ve otonom pull-up manevrası.</span><div class="flights"><i></i><i></i><i></i><i></i></div></div>
-    <div class="stage"><span class="k">Aşama 4 · 2 uçuş</span><b>Otonom iniş ve acil durum</b><span class="note">Otonom iniş testi ve acil durum senaryoları.</span><div class="flights"><i></i><i></i></div></div>
-  </div>
-
-  <h3 id="s8-3"><span class="n">8.3</span>Görev Testleri</h3>
-  <div class="prose"><p>Yarışma koşullarını gerçekçi biçimde taklit etmek için Gazebo Classic <a class="cite" href="#ref9">[9]</a> ve PX4 <a class="cite" href="#ref10">[10]</a> tabanlı yazılım çevrimli (SITL) test altyapısı kullanılmıştır.</p></div>
-  <h4><span class="n">8.3.1</span>Simülasyon Ortamı ve Altyapı Özellikleri</h4>
-  <div class="prose"><p>Testler Docker tabanlı SITL ortamında yürütülmüştür. ROS Noetic, PX4 ve Gazebo Classic birlikte kullanılmış; şartname boyutlarına uygun QR modeli, yarışma alanına benzerliği sebebiyle Baylands haritası ve çoklu otonom İHA senaryoları ile yarışma ortamı simüle edilmiştir. Sistem QGroundControl <a class="cite" href="#ref11">[11]</a> ile uyumlu çalışmaktadır.</p></div>
-  <h4><span class="n">8.3.2</span>Haberleşme Testi</h4>
-  <div class="prose"><p>Haberleşme testlerinde simülasyon konteynerine ek olarak yarışma sunucusu konteyneri kurulmuş; çoklu İHA girişi, telemetri gönderimi ve YKİ haritasında HSS, QR ve rakip koordinatlarının canlı izlenmesi doğrulanmıştır. Arm/disarm, uçuş modu ve görev modu komutları arayüz üzerinden başarıyla iletilmiştir.</p></div>
-  <figure class="fig">
-    <button class="zoom" data-cap="Şekil 26. Haberleşme Testi - Telemetri Testi"><img src="/img/sitl-haberlesme.webp" width="1800" height="1125" alt="SITL haberleşme testi" loading="lazy"></button>
-    <figcaption><b>Şekil 26.</b>Haberleşme testi, telemetri testi</figcaption>
-  </figure>
-  <h4><span class="n">8.3.3</span>Dalış Testi</h4>
-  <div class="prose"><p>Dalış algoritması, QR modelinin simülasyon dünyasında farklı konumlara yerleştirilmesiyle test edilmiştir. Hedefe karşıdan hizalanma, sabit açıyla dalış, QR okuma ve sonucun <span class="mono">/api/qr_koordinati</span> akışı üzerinden sunucuya iletimi farklı yaklaşma açılarıyla doğrulanmış; en başarılı dalış açısı ve okuma stratejisi seçilmiştir.</p></div>
-  <figure class="fig">
-    <div class="fig-grid" style="--cols:2">
-      <button class="zoom" data-cap="Şekil 27. QR okuma stratejilerinin karşılaştırılması"><img src="/img/sitl-qr.webp" width="827" height="997" alt="QR okuma testi" loading="lazy"></button>
-      <button class="zoom" data-cap="Şekil 27. İdeal dalış açısının bulunması"><img src="/img/sitl-dalis.webp" width="1528" height="900" alt="Dalış testi" loading="lazy"></button>
-    </div>
-    <figcaption><b>Şekil 27.</b>Dalış testi: QR okuma stratejilerinin karşılaştırılması ve ideal dalış açısının bulunması</figcaption>
-  </figure>
-</section>
-
-<!-- ================= 9 ================= -->
-<section class="section" id="s9">
-  <div class="sec-head"><span class="n">9</span><h2>Güvenlik</h2></div>
-  <div class="safety">
-    <div><h5>Saha</h5><p>Operasyon sahasında sivil girişi yasaktır; yangın tüpü, ilk yardım çantası, yedek parça ve tamir kitleri hazır bulundurulur. Pervaneler uçuş onayından sonra takılır ve her operasyon öncesi tüm mekanik bağlantılar uçuş öncesi kontrol listesi ile denetlenir.</p></div>
-    <div><h5>Yapı ve termal</h5><p>Gövde ve kanatlardaki karbon fiber yapı, 3g ivmeli pull-out manevrasının yapısal yüklerini sönümler. Aviyoniğin aşırı ısınmasına karşı tasarım içeride hava akışı olacak şekilde yapılmıştır <a class="cite" href="#ref8">[8]</a>.</p></div>
-    <div><h5>Elektrik</h5><p>Tahrik (6S) ve aviyonik (4S) bataryaları izole edilerek voltaj dalgalanmaları önlenmiş, motor hattına 125 A sigorta ve şalter eklenmiştir. Li-Po bataryalar yanmaz çantalarda muhafaza edilir.</p></div>
-    <div><h5>Otonom uçuş</h5><p>Global shutter kamera yüksek hızda görüntüyü korur; I2C sensörler elektriksel gürültüden etkilenmez. Haberleşme AES-128 ile şifrelenir; sinyal kaybında RTL (Return to Launch) failsafe modu devreye girer.</p></div>
   </div>
 </section>
 
-<!-- ================= 10 ================= -->
-<section class="section" id="s10">
-  <div class="sec-head"><span class="n">10</span><h2>Referanslar</h2></div>
-  <ol class="refs">
-    <li id="ref1"><span>G. Williams, N. Wagener, B. Goldfain, P. Drews, J. M. Rehg, B. Boots ve E. A. Theodorou, “Information theoretic MPC for model-based reinforcement learning,” <i>2017 IEEE International Conference on Robotics and Automation (ICRA)</i>, Singapore, 2017, ss. 1714–1721, doi: <a href="https://doi.org/10.1109/ICRA.2017.7989202" target="_blank" rel="noopener">10.1109/ICRA.2017.7989202</a>.</span></li>
-    <li id="ref2"><span>O. Khatib, “Real-time obstacle avoidance for manipulators and mobile robots,” <i>The International Journal of Robotics Research</i>, c. 5, no. 1, ss. 90–98, Mart 1986, doi: <a href="https://doi.org/10.1177/027836498600500106" target="_blank" rel="noopener">10.1177/027836498600500106</a>.</span></li>
-    <li id="ref3"><span>P. E. Hart, N. J. Nilsson ve B. Raphael, “A Formal Basis for the Heuristic Determination of Minimum Cost Paths,” <i>IEEE Transactions on Systems Science and Cybernetics</i>, c. 4, no. 2, ss. 100–107, Temmuz 1968, doi: <a href="https://doi.org/10.1109/TSSC.1968.300136" target="_blank" rel="noopener">10.1109/TSSC.1968.300136</a>.</span></li>
-    <li id="ref4"><span>H. A. P. Blom ve Y. Bar-Shalom, “The interacting multiple model algorithm for systems with switching coefficients,” <i>IEEE Transactions on Automatic Control</i>, c. 33, no. 8, ss. 780–783, Ağustos 1988, doi: <a href="https://doi.org/10.1109/9.1299" target="_blank" rel="noopener">10.1109/9.1299</a>.</span></li>
-    <li id="ref5"><span>J. A. Reeds ve L. A. Shepp, “Optimal paths for a car that goes both forwards and backwards,” <i>Pacific Journal of Mathematics</i>, c. 145, no. 2, ss. 367–393, 1990.</span></li>
-    <li id="ref6"><span>Y. Zhang, P. Sun, Y. Jiang, D. Yu, F. Weng, Z. Yuan, P. Luo, W. Liu ve X. Wang, “ByteTrack: Multi-Object Tracking by Associating Every Detection Box,” <i>European Conference on Computer Vision (ECCV)</i>, ss. 1–21, 2022.</span></li>
-    <li id="ref7"><span>T. Chen, S. Kornblith, M. Norouzi ve G. Hinton, “A simple framework for contrastive learning of visual representations,” <i>Proc. 37th Int. Conf. Mach. Learn.</i>, 2020, ss. 1597–1607.</span></li>
-    <li id="ref8"><span>ABRA SİHA Takımı, “Kritik Tasarım Raporu,” TEKNOFEST 2022 Savaşan İHA Yarışması, s. 49, Tablo 17, 2022. [Çevrimiçi]. Erişilebilir: <a href="https://cdn.t3kys.com/media/upload/userFormUpload/qehxldEKVOfpa9IrScerejYnDHxOSKJ4.pdf" target="_blank" rel="noopener">cdn.t3kys.com</a></span></li>
-    <li id="ref9"><span>Open Source Robotics Foundation (OSRF), “Gazebo Classic Documentation,” 2026. [Çevrimiçi]. Erişilebilir: <a href="https://classic.gazebosim.org/" target="_blank" rel="noopener">classic.gazebosim.org</a></span></li>
-    <li id="ref10"><span>PX4 Autopilot Dev Team, “PX4 Autopilot User Guide and Documentation,” 2026. [Çevrimiçi]. Erişilebilir: <a href="https://docs.px4.io/main/en/frames_plane/" target="_blank" rel="noopener">docs.px4.io</a></span></li>
-    <li id="ref11"><span>Dronecode Foundation, “QGroundControl User Guide,” 2026. [Çevrimiçi]. Erişilebilir: <a href="https://docs.qgroundcontrol.com" target="_blank" rel="noopener">docs.qgroundcontrol.com</a></span></li>
-  </ol>
+<section class="slide orange" id="destek">
+  <div class="wrap">
+    <p class="kicker">Destek olun</p>
+    <p class="statement">Her büyük uçuş, arkasında inananların desteğini taşır.</p>
+    <p class="lead">Malzeme, üretim (lazer kesim, karbon fiber), ulaşım ya da konaklama desteğiyle veya sponsor olarak bu yolculuğun parçası olabilirsiniz. Ayrıntılar için bize yazın.</p>
+    <div class="actions"><a class="btn" href="#iletisim">Bize ulaşın</a></div>
+  </div>
 </section>
 
-  </main>
-</div>
-
-<footer class="site">İKARUS · Otonom sabit kanatlı savaşan İHA · 2026</footer>
-
-<dialog class="lb" id="lightbox" aria-label="Görsel görüntüleyici">
-  <div class="lb-inner">
-    <div class="lb-bar"><span id="lbCount"></span><div style="display:flex;gap:6px"><button type="button" id="lbPrev" aria-label="Önceki">←</button><button type="button" id="lbNext" aria-label="Sonraki">→</button><button type="button" id="lbClose" aria-label="Kapat">Kapat ✕</button></div></div>
-    <div class="lb-stage"><img id="lbImg" alt=""></div>
-    <p class="lb-cap" id="lbCap"></p>
+<section class="slide navy" id="iletisim">
+  <div class="wrap">
+    <p class="kicker">İletişim</p>
+    <h2>Birlikte Uçalım</h2>
+    <p class="lead">Sorularınız ve detaylı teknik raporumuz için bize ulaşın; tanışmak için atölyemize de bekleriz.</p>
+    <ul class="contact">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span>Zeynep Güleniş</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:ihaikarus@gmail.com">ihaikarus@gmail.com</a></li>
+    </ul>
   </div>
-</dialog>
+</section>
+</main>
 
-<script type="module" src="/src/main.js"></script>
+<footer class="site">
+  <em>Gökyüzünde buluşmak dileğiyle.</em>
+  <span>İKARUS · TOBB ETÜ · 2026</span>
+</footer>
+
+<script type="module" src="/src/home.js"></script>
 </body>
 </html>

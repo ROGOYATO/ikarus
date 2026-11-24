@@ -442,6 +442,7 @@ dialog.lb::backdrop { background: rgba(6, 10, 18, 0.92); }
   .check label { grid-template-columns: auto minmax(0, 1fr); }
   .check label span:last-child { grid-column: 2; }
   .brand span { display: none; }
+  #tocBtn .lbl { display: none; }
   .sec-head h2 { font-size: 1.75rem; }
 }
 @media (prefers-reduced-motion: reduce) {
