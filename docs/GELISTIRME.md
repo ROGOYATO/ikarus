@@ -41,7 +41,7 @@ Site: https://rogoyato.github.io/ikarus/
 - **Nasıl uçar?** (`#nasil-ucar`, `src/flight.js`, `src/flight3d.js`): sayfa kaydıkça uçak beş evreden geçer (dikey kalkış, geçiş, seyir, geri geçiş, dikey iniş); çalışan motorlar yanda gösterilir. Sahne sabit kameralı 3B'dir (three.js, bölüm yaklaşınca yüklenir); yüklenene kadar ya da WebGL yoksa aynı akışın 2B SVG sürümü görünür.
 - **3B model** (`#model`, `src/model3d.js`): teknik resim ölçüleriyle kurulmuş, döndürülebilir model. Uçağın geometrisi ve renkleri `src/aircraft3d.js` içindedir; iki 3B sahne de bunu kullanır.
 - **Görev haritası** (`#gorev`, `src/mission.js`): temsili görevde rota, yasak bölgelerden kaçınma ve arama alanı taraması.
-- Sayılar (ağırlık, batarya, hız, uçuş süresi) tanıtım PDF'inden, uçağın geometrisi teknik resimden alınır.
+- Sayılar (ağırlık, batarya, hız, uçuş süresi) tanıtım PDF'inden, uçağın geometrisi teknik resimden alınır; ilk uçağın değerleri yeni uçak için kullanılmaz. Takım kararı (Kasım 2026): seyir hızı 17 m/s, hedef kalkış ağırlığı 6 kg; teknik resimdeki 8 kg ve 20 m/s varsayımdır.
 - Henüz eklenmeyenler: güncel malzeme listesi, atölye fotoğrafları.
 
 ## Geliştirme
