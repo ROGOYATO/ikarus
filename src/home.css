@@ -82,8 +82,6 @@ h1, h2, h3 { text-wrap: balance; }
 }
 .iconbtn:hover { border-color: var(--accent); }
 .iconbtn svg { width: 18px; height: 18px; }
-.iconbtn.cta { background: var(--accent); border-color: var(--accent); color: var(--orange-ink); font-weight: 600; }
-.iconbtn.cta:hover { background: color-mix(in srgb, var(--accent) 88%, #fff); }
 
 /* ---------- slides ---------- */
 .slide { position: relative; overflow: hidden; padding-block: clamp(56px, 8vw, 104px); }
@@ -211,13 +209,6 @@ td:first-child { color: var(--muted); }
 .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 15px; color: var(--muted); }
 .facts b { font: 700 1.35rem/1 var(--f-display); color: var(--ink); margin-right: 4px; }
 
-/* ---------- contact ---------- */
-.contact { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 4px; max-width: 520px; }
-.contact li { display: flex; align-items: center; gap: 14px; padding: 10px 0 10px 4px; border-bottom: 1px solid var(--navy-rule); font-size: 1.08rem; }
-.contact svg { width: 22px; height: 22px; flex: none; color: var(--navy-accent); }
-.contact a { color: var(--navy-ink); }
-.contact small { color: var(--navy-muted); font-size: 14px; }
-
 footer.site { border-top: 1px solid var(--line); padding: 28px 16px 40px; text-align: center; font-size: 14px; color: var(--muted); display: grid; gap: 4px; }
 footer.site em { font-style: normal; font: 600 1.15rem var(--f-display); letter-spacing: 0.03em; color: var(--ink); }
 
@@ -233,7 +224,6 @@ footer.site em { font-style: normal; font: 600 1.15rem var(--f-display); letter-
   .stats, .feats { grid-template-columns: minmax(0, 1fr); }
   .stats { gap: 18px; }
   .cards { --n: 1 !important; }
-  .iconbtn.cta { display: none; }
   body { font-size: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
