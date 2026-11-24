@@ -4,7 +4,7 @@ TOBB ETÜ öğrencilerinden oluşan İKARUS otonom İHA takımının web sitesi:
 
 Üst çubuktaki **Uçaklarımız** menüsü iki sayfa arasında geçiş yapar:
 
-- **Yeni uçağımız** (`index.html`): SUAS 2027 için geliştirilen uçak. Görev, temel rakamlar, teknik özet, ilerleme durumu, ekip, takım hikâyesi, ilk uçağa kısa bir değinme ve destek notu. İletişim bölümü şimdilik kaldırıldı. İçerik ve görsel dil `docs/` altındaki tanıtım dokümanını izler.
+- **Yeni uçağımız** (`index.html`): SUAS 2027 için geliştirilen uçak. Görev, temel rakamlar, teknik özet, ilerleme durumu, ekip, takım hikâyesi, ilk uçağa kısa bir değinme ve destek notu. Ayrı bir iletişim bölümü yok; takım e-postası destek bölümünde ve alt bilgide. İçerik ve görsel dil `docs/` altındaki tanıtım dokümanını izler.
 - **İlk uçağımız** (`ilk-ucak.html`): TEKNOFEST 2026 Savaşan İHA Yarışması Kritik Tasarım Raporu'nun etkileşimli sürümü. Ana sayfaya gelen eski `#s…` / `#ref…` bağlantıları buraya yönlendirilir.
 
 İlk uçağın sayfası rapor metnini, tablolarını, formüllerini ve şekillerini toplar. Ek olarak:
