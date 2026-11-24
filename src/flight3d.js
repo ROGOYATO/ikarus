@@ -6,6 +6,7 @@ import { buildAircraft, createMaterials, light } from './aircraft3d.js';
 const HORIZON = '#0e3a6b'; // fog colour, matches the bottom of the scene's CSS sky
 const CLIMB = 1.2; // scene metres between the ground and cruise altitude (illustrative)
 const TREES = 46;
+const PAD_TOP = 0.05; // pad thickness
 const BAND = 90; // length of the tree band that wraps around
 
 function canvasTexture(size, draw) {
@@ -69,12 +70,12 @@ export function createFlightScene(container) {
     g.textBaseline = 'middle';
     g.fillText('H', n / 2, n / 2 + n * 0.03);
   });
-  const padGeo = new THREE.CylinderGeometry(0.95, 0.95, 0.05, 48);
+  const padGeo = new THREE.CylinderGeometry(0.95, 0.95, PAD_TOP, 48);
   const padMats = [new THREE.MeshStandardMaterial({ color: '#c75f1c' }), new THREE.MeshStandardMaterial({ map: padTop, transparent: true }), new THREE.MeshStandardMaterial({ color: '#c75f1c' })];
   const pads = [new THREE.Mesh(padGeo, padMats), new THREE.Mesh(padGeo, padMats)];
   pads.forEach((p) => {
     p.rotation.y = Math.PI; // "H" upright as seen from the camera
-    p.position.y = 0.025;
+    p.position.y = PAD_TOP / 2;
     scene.add(p);
   });
 
@@ -88,7 +89,7 @@ export function createFlightScene(container) {
   });
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.9), new THREE.MeshBasicMaterial({ map: blob, transparent: true, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = 0.06;
+  shadow.position.y = PAD_TOP + 0.005;
   scene.add(shadow);
 
   const mats = createMaterials();
@@ -121,7 +122,8 @@ export function createFlightScene(container) {
       lastT = t;
       const airborne = s.alt > 0.02;
       const bob = airborne ? Math.sin(t * 2.2) * (s.lift ? 0.035 : 0.015) : 0;
-      craft.position.y = 0.26 + s.alt * CLIMB + bob;
+      // on the ground the gear feet (0.26 m below the axis, 7 mm thick) stand on the pad's top face
+      craft.position.y = 0.26 + PAD_TOP + 0.007 + s.alt * CLIMB + bob;
       craft.rotation.x = THREE.MathUtils.degToRad(s.pitch + (airborne ? Math.sin(t * 1.6) * 0.6 : 0));
 
       // motors spool up and down instead of switching instantly
