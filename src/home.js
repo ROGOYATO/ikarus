@@ -54,6 +54,11 @@ function initTakeoff() {
 // Hero drawing: rotors turn slowly in their own plane (horizontal for the lift rotors, taken from the
 // four hub positions; vertical for the pusher). The rotation is done in that plane and projected back:
 // M = P · R(θ) · P⁻¹, with P mapping the rotor's plane onto the drawing.
+// Viewing direction of the drawing in each rotor plane's axes, from how much the drawing shortens the
+// aircraft's three axes (tail-ward 0.35, starboard 0.449, up ~0.47 px/mm): the viewer sits towards the
+// nose, the starboard side and above. Lift plane axes: (tail-ward, starboard); pusher: (starboard, up).
+const DEPTH = { lift: [-0.717, 0.447], push: [0.447, 0.351] };
+
 function initRotors() {
   const rotors = [...document.querySelectorAll('.plane-art .rotor')].map((g) => {
     const [cx, cy, a, b, c, d] = g.dataset.rotor.split(' ').map(Number); // P = [[a, c], [b, d]]
@@ -101,11 +106,10 @@ function initRotors() {
       const ty = r.cy - (m21 * r.cx + m22 * r.cy);
       r.g.setAttribute('transform', `matrix(${m11} ${m21} ${m12} ${m22} ${tx} ${ty})`);
       // Draw the blade over the motor while it points towards the viewer, under it otherwise.
-      // Lift rotors lie in the horizontal plane, where nearer means lower on screen; the pusher's
-      // disc is vertical, so nearer means further to starboard (its first plane axis).
       const wx = cs * r.w0[0] - sn * r.w0[1];
       const wy = sn * r.w0[0] + cs * r.w0[1];
-      const front = r.kind === 'push' ? wx > 0 : r.b * wx + r.d * wy > 0;
+      const [ka, kb] = DEPTH[r.kind];
+      const front = ka * wx + kb * wy > 0;
       if (front !== r.front) {
         r.front = front;
         if (front) r.set.append(r.node);
