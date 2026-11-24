@@ -154,23 +154,34 @@ h1, h2, h3 { text-wrap: balance; }
 .feat p { color: var(--muted); }
 
 /* ---------- cards ---------- */
-.cards { display: grid; gap: 22px; margin-top: 30px; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); position: relative; }
+.cards { --gap: 22px; display: grid; gap: var(--gap); margin-top: 30px; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); position: relative; }
+.cards.chain { --gap: clamp(30px, 3.6vw, 54px); }
 .card {
   position: relative; z-index: 1; background: var(--surface); border: 2px solid var(--accent); padding: 14px 16px 16px;
 }
-.card h3 { font: 700 1.5rem/1.1 var(--f-display); padding-bottom: 8px; margin-bottom: 10px; border-bottom: 2px solid var(--accent); }
+/* title rule runs edge to edge, as in the deck */
+.card h3 { font: 700 1.5rem/1.1 var(--f-display); margin: 0 -16px 10px; padding: 0 16px 8px; border-bottom: 2px solid var(--accent); }
+/* the deck's cut top-left corner: a page-coloured triangle with an orange diagonal over the border */
+.card h3::before {
+  content: ""; position: absolute; top: -2px; left: -2px; width: 18px; height: 18px;
+  background: linear-gradient(135deg, var(--paper) 0 calc(50% - 1.5px), var(--accent) calc(50% - 1.5px) calc(50% + 1px), transparent calc(50% + 1px));
+}
 .card p { font-size: 15px; line-height: 1.5; color: var(--muted); }
-/* the deck's arrow-and-rule connector */
+/* the deck's connector: a rule from the slide's vertical line, an arrowhead into the first card, a dot in each gap */
 .card::before {
-  content: ""; position: absolute; left: -16px; top: 22px;
-  border: 7px solid transparent; border-left: 9px solid var(--accent); border-right: 0;
+  content: ""; position: absolute; left: -15px; top: 22px;
+  border: 9px solid transparent; border-left: 13px solid var(--accent); border-right: 0;
 }
-.cards.chain::before { content: ""; position: absolute; left: -16px; right: 0; top: 50%; height: 2px; background: var(--accent); }
-.cards.chain .card::before { top: calc(50% - 7px); }
-.cards.chain .card + .card::after {
-  content: ""; position: absolute; left: -16px; top: calc(50% - 5px); width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
+.cards.chain::before {
+  content: ""; position: absolute; top: calc(50% - 1px); right: 0; height: 2px; background: var(--accent);
+  left: calc(clamp(14px, 3vw, 44px) - clamp(36px, 6.5vw, 96px)); /* starts at the slide's vertical rule */
 }
+.cards.chain .card::before { top: calc(50% - 9px); }
 .cards.chain .card + .card::before { display: none; }
+.cards.chain .card + .card::after {
+  content: ""; position: absolute; top: calc(50% - 9px); left: calc(var(--gap) / -2 - 11px);
+  width: 18px; height: 18px; border-radius: 50%; background: var(--accent);
+}
 
 /* ---------- tables ---------- */
 .tables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; margin-top: 30px; }
@@ -399,6 +410,7 @@ footer.site em { font-style: normal; font: 600 1.15rem var(--f-display); letter-
   .fl-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .phases li:not(.on) { display: none; }
   .no-scrolly .phases li { display: block; }
+  .cards.chain { --gap: 22px; }
   .cards.chain::before, .cards.chain .card + .card::after { display: none; }
   .cards.chain .card + .card::before { display: block; }
   .cards.chain .card::before { top: 22px; }
