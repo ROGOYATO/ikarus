@@ -3,7 +3,6 @@ import './planes.css';
 import { initTheme } from './shell.js';
 import { initPlanes } from './planes.js';
 import { initFlight } from './flight.js';
-import { initCalc } from './calc.js';
 import { initMission } from './mission.js';
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -141,7 +140,6 @@ function initModelLazy() {
 initTheme();
 initPlanes();
 initFlight(!reduced);
-initCalc();
 initMission(!reduced);
 initModelLazy();
 if (!reduced) {
