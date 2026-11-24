@@ -2,6 +2,9 @@ import './home.css';
 import './planes.css';
 import { initTheme } from './shell.js';
 import { initPlanes } from './planes.js';
+import { initFlight } from './flight.js';
+import { initCalc } from './calc.js';
+import { initMission } from './mission.js';
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -94,9 +97,30 @@ function initTakeoff() {
   update();
 }
 
+// The 3D model (and three.js) loads only when its section comes near the viewport.
+function initModelLazy() {
+  const box = document.querySelector('[data-model]');
+  if (!box) return;
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    io.disconnect();
+    import('./model3d.js')
+      .then((m) => m.initModel())
+      .catch((err) => {
+        console.error('[model]', err);
+        box.querySelector('.model-hint').textContent = '3B model bu tarayıcıda açılamadı.';
+      });
+  }, { rootMargin: '600px 0px' });
+  io.observe(box);
+}
+
 initTheme();
 initPlanes();
 initDrawing();
+initFlight(!reduced);
+initCalc();
+initMission(!reduced);
+initModelLazy();
 if (!reduced) {
   initReveal();
   initTakeoff();
