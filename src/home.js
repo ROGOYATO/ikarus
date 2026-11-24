@@ -65,8 +65,9 @@ function initRotors() {
     const bx = box.x + box.width / 2 - cx;
     const by = box.y + box.height / 2 - cy;
     const w0 = [inv[0] * bx + inv[2] * by, inv[1] * bx + inv[3] * by];
-    const set = g.parentElement;
-    return { g, set, kind: set.dataset.kind, cx, cy, a, b, c, d, inv, w0, front: null, dir: +g.dataset.dir };
+    const node = g.closest('.rotor-mask') || g; // the pusher's blades sit in an unrotated masking wrapper
+    const set = node.parentElement;
+    return { g, node, set, kind: set.dataset.kind, cx, cy, a, b, c, d, inv, w0, front: null, dir: +g.dataset.dir };
   });
   if (!rotors.length) return;
   const SPEED = (2 * Math.PI) / 3; // one turn every 3 s, slow enough to see the blades
@@ -101,8 +102,8 @@ function initRotors() {
       const front = r.kind === 'push' ? wx > 0 : r.b * wx + r.d * wy > 0;
       if (front !== r.front) {
         r.front = front;
-        if (front) r.set.append(r.g);
-        else r.set.prepend(r.g);
+        if (front) r.set.append(r.node);
+        else r.set.prepend(r.node);
       }
     }
     raf = requestAnimationFrame(frame);
