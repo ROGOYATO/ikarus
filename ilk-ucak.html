@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>İKARUS Savaşan İHA</title>
+<title>İlk Uçağımız · İKARUS</title>
 <meta name="description" content="İKARUS: kalkıştan inişe tam otonom, görüntü işleme ile rakip tespiti, otonom kilitlenme, kamikaze dalış ve hava savunma kaçınması yapan sabit kanatlı savaşan İHA.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230e1a2b%27/%3E%3Cpath d=%27M5 17h22M16 9v15M11 25h10%27 stroke=%27%23f05a1a%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,9 +15,16 @@
 
 <header class="topbar">
   <a class="brand" href="#top"><b>İKARUS</b><span>OTONOM SABİT KANAT İHA</span></a>
+  <div class="planes">
+    <button class="iconbtn" id="planesBtn" aria-expanded="false" aria-controls="planesMenu">Uçaklarımız<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+    <div class="planes-menu" id="planesMenu" hidden>
+      <a href="./"><b>Yeni uçağımız</b><span>Güncel · SUAS 2027</span></a>
+      <a href="ilk-ucak.html" aria-current="page"><b>İlk uçağımız</b><span>Sabit kanatlı savaşan İHA · 2026</span></a>
+    </div>
+  </div>
   <div class="spacer"></div>
-  <button class="iconbtn" id="tocBtn" aria-expanded="false" aria-controls="toc">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>İçindekiler
+  <button class="iconbtn" id="tocBtn" aria-expanded="false" aria-controls="toc" aria-label="İçindekiler">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span class="lbl">İçindekiler</span>
   </button>
   <button class="iconbtn" id="themeBtn" aria-label="Tema değiştir" title="Tema değiştir">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>

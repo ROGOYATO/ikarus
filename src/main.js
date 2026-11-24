@@ -1,5 +1,7 @@
 import './styles.css';
+import './planes.css';
 import { initTheme, initToc, initLightbox } from './shell.js';
+import { initPlanes } from './planes.js';
 import { initBudget, initFlight, initCG } from './widgets/design.js';
 import { initPipeline, initAstar, initIbvs, initKamikaze, initPpm } from './widgets/autonomy.js';
 import { initComms, initYki, initBench, initChecklist } from './widgets/ops.js';
@@ -13,6 +15,7 @@ const safe = (name, fn) => {
 };
 
 initTheme();
+initPlanes();
 safe('toc', initToc);
 const lightbox = initLightbox();
 safe('budget', initBudget);

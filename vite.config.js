@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { fileURLToPath } from 'node:url';
 import katex from 'katex';
 
 const decode = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
@@ -14,9 +15,19 @@ const prerenderMath = () => ({
   },
 });
 
+// Two pages: index.html is the current aircraft, ilk-ucak.html the first aircraft's full report.
 // Relative base so the build works on GitHub Pages project URLs (/<repo>/) and any static host.
 export default defineConfig({
   base: './',
   plugins: [prerenderMath()],
-  build: { outDir: 'dist', assetsInlineLimit: 0 },
+  build: {
+    outDir: 'dist',
+    assetsInlineLimit: 0,
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        ilk: fileURLToPath(new URL('./ilk-ucak.html', import.meta.url)),
+      },
+    },
+  },
 });
