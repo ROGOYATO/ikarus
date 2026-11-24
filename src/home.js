@@ -81,14 +81,46 @@ function initRotors() {
     const [first, second] = rotors.filter((r) => r.set === set);
     if (second) second.phase = angle(first.w0) + Math.PI - angle(second.w0);
   }
-  const SPEED = (2 * Math.PI) / 3; // one turn every 3 s, slow enough to see the blades
+  // Rotors idle very slowly; each one speeds up the closer the pointer comes to its own hub.
+  const SLOW = (2 * Math.PI) / 14; // one turn every 14 s
+  const FAST = 2 * Math.PI * 1.5; // 1.5 turns a second with the pointer on the hub
+  const REACH = 260; // px from a hub at which its rotor is back to idle
+  const art = document.querySelector('.plane-art');
+  const svg = art.querySelector('svg');
+  // one spin state per rotor (both blades of a rotor share it)
+  const spin = new Map([...new Set(rotors.map((r) => r.set))].map((set) => {
+    const r = rotors.find((x) => x.set === set);
+    return [set, { hub: new DOMPoint(r.cx, r.cy), rate: 0, turn: 0 }];
+  }));
+  let pointer = null;
+  const onPointer = (e) => (pointer = { x: e.clientX, y: e.clientY });
+  addEventListener('pointermove', onPointer, { passive: true });
+  addEventListener('pointerdown', onPointer, { passive: true });
+  document.addEventListener('mouseleave', () => (pointer = null));
+  addEventListener('blur', () => (pointer = null));
+  let last = 0;
   let visible = true;
   let raf = 0;
   const frame = (t) => {
     raf = 0;
-    if (!visible) return;
+    if (!visible) {
+      last = 0;
+      return;
+    }
+    const dt = last ? Math.min(0.05, (t - last) / 1000) : 0;
+    last = t;
+    const ctm = svg.getScreenCTM(); // hubs move with scroll and the take-off transform
+    for (const st of spin.values()) {
+      let near = 0;
+      if (pointer && ctm) {
+        const h = st.hub.matrixTransform(ctm);
+        near = Math.max(0, 1 - Math.hypot(pointer.x - h.x, pointer.y - h.y) / REACH);
+      }
+      st.rate += (near - st.rate) * Math.min(1, dt * 3);
+      st.turn += (SLOW + (FAST - SLOW) * st.rate * st.rate) * dt;
+    }
     for (const r of rotors) {
-      const th = r.dir * SPEED * (t / 1000) + r.phase;
+      const th = r.dir * spin.get(r.set).turn + r.phase;
       const cs = Math.cos(th);
       const sn = Math.sin(th);
       // Q = P · R
@@ -121,7 +153,7 @@ function initRotors() {
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
     if (visible && !raf) raf = requestAnimationFrame(frame);
-  }).observe(document.querySelector('.plane-art'));
+  }).observe(art);
 }
 
 // The 3D model (and three.js) loads only when its section comes near the viewport.
