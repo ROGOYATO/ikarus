@@ -48,6 +48,11 @@ export function initFlight(animate) {
   const out = { speed: q('[data-speed]'), alt: q('[data-alt]') };
 
   const S = 0.5; // drawing mm -> scene units
+  // on narrow screens crop the scene to the aircraft's flight band so it is not tiny
+  const svg = root.querySelector('svg');
+  const frame = () => svg.setAttribute('viewBox', innerWidth < 640 ? '350 60 900 800' : '0 0 1600 900');
+  frame();
+  addEventListener('resize', frame);
   const render = (p) => {
     const s = state(p);
     const y = 800 - 260 * S - s.alt * 380;

@@ -8,57 +8,14 @@ import { initMission } from './mission.js';
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Technical drawing: view tabs (arrow keys move between them) and the dimension toggle.
-function initDrawing() {
-  const box = document.querySelector('[data-drawing]');
-  if (!box) return;
-  const tabs = [...box.querySelectorAll('[role="tab"]')];
-  const select = (tab) => {
-    tabs.forEach((t) => {
-      const on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-    });
-  };
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => select(t));
-    t.addEventListener('keydown', (e) => {
-      const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-      if (!d) return;
-      const next = tabs[(i + d + tabs.length) % tabs.length];
-      select(next);
-      next.focus();
-    });
-  });
-  const dims = document.getElementById('dimToggle');
-  dims.addEventListener('change', () => box.classList.toggle('no-dims', !dims.checked));
-}
-
-// Count a stat up from zero the first time it scrolls into view ("~35 dk" keeps its prefix and unit).
-function countUp(el) {
-  const m = el.textContent.match(/^(\D*)(\d+(?:[.,]\d+)?)(.*)$/);
-  if (!m || Number(m[2]) >= 1000) return;
-  const [, pre, num, post] = m;
-  const end = Number(num.replace(',', '.'));
-  const t0 = performance.now();
-  const step = (t) => {
-    const k = Math.min(1, (t - t0) / 1100);
-    el.textContent = `${pre}${Math.round(end * (1 - (1 - k) ** 3))}${post}`;
-    if (k < 1) requestAnimationFrame(step);
-    else el.textContent = `${pre}${num}${post}`;
-  };
-  requestAnimationFrame(step);
-}
-
-// Sections and their blocks rise into place as they enter the viewport.
+// Sections and their blocks rise into place just before they enter the viewport.
 function initReveal() {
   document.documentElement.classList.add('motion');
   const blocks = [];
   document.querySelectorAll('main .slide:not(.hero) > .wrap').forEach((wrap) => {
     [...wrap.children].forEach((el, i) => {
       el.classList.add('rv');
-      el.style.setProperty('--d', `${Math.min(i, 4) * 0.08}s`);
+      el.style.setProperty('--d', `${Math.min(i, 3) * 0.04}s`);
       blocks.push(el);
     });
   });
@@ -67,13 +24,11 @@ function initReveal() {
     for (const e of entries) {
       if (!e.isIntersecting) continue;
       e.target.classList.add('in');
-      e.target.querySelectorAll?.('.stat dt').forEach(countUp);
       e.target.querySelectorAll?.('.steps').forEach((s) => s.classList.add('in'));
       io.unobserve(e.target);
     }
-  }, { rootMargin: '0px 0px -12% 0px' });
+  }, { rootMargin: '0px 0px 15% 0px' });
   blocks.forEach((el) => io.observe(el));
-  document.querySelectorAll('main .slide').forEach((s) => io.observe(s));
 }
 
 // The hero aircraft climbs away to the upper right as the page scrolls past the hero.
@@ -97,6 +52,48 @@ function initTakeoff() {
   update();
 }
 
+// Hero drawing: rotors turn slowly in their own plane. Each rotor's hub cap is an ellipse, so the
+// rotation is done in "unprojected" space: M = P · R(θ) · P⁻¹, with P mapping a circle onto that ellipse.
+function initRotors() {
+  const rotors = [...document.querySelectorAll('.plane-art .rotor')].map((g) => {
+    const [cx, cy, a, b, c, d] = g.dataset.rotor.split(' ').map(Number); // P = [[a, c], [b, d]]
+    const det = a * d - b * c;
+    return { g, cx, cy, a, b, c, d, inv: [d / det, -b / det, -c / det, a / det], dir: +g.dataset.dir };
+  });
+  if (!rotors.length) return;
+  const SPEED = (2 * Math.PI) / 3; // one turn every 3 s, slow enough to see the blades
+  let visible = true;
+  let raf = 0;
+  const frame = (t) => {
+    raf = 0;
+    if (!visible) return;
+    for (const r of rotors) {
+      const th = r.dir * SPEED * (t / 1000);
+      const cs = Math.cos(th);
+      const sn = Math.sin(th);
+      // Q = P · R
+      const q11 = r.a * cs + r.c * sn;
+      const q12 = -r.a * sn + r.c * cs;
+      const q21 = r.b * cs + r.d * sn;
+      const q22 = -r.b * sn + r.d * cs;
+      // M = Q · P⁻¹
+      const [i11, i21, i12, i22] = r.inv;
+      const m11 = q11 * i11 + q12 * i21;
+      const m12 = q11 * i12 + q12 * i22;
+      const m21 = q21 * i11 + q22 * i21;
+      const m22 = q21 * i12 + q22 * i22;
+      const tx = r.cx - (m11 * r.cx + m12 * r.cy);
+      const ty = r.cy - (m21 * r.cx + m22 * r.cy);
+      r.g.setAttribute('transform', `matrix(${m11} ${m21} ${m12} ${m22} ${tx} ${ty})`);
+    }
+    raf = requestAnimationFrame(frame);
+  };
+  new IntersectionObserver(([e]) => {
+    visible = e.isIntersecting;
+    if (visible && !raf) raf = requestAnimationFrame(frame);
+  }).observe(document.querySelector('.plane-art'));
+}
+
 // The 3D model (and three.js) loads only when its section comes near the viewport.
 function initModelLazy() {
   const box = document.querySelector('[data-model]');
@@ -116,7 +113,6 @@ function initModelLazy() {
 
 initTheme();
 initPlanes();
-initDrawing();
 initFlight(!reduced);
 initCalc();
 initMission(!reduced);
@@ -124,4 +120,5 @@ initModelLazy();
 if (!reduced) {
   initReveal();
   initTakeoff();
+  initRotors();
 }

@@ -35,8 +35,9 @@ Site: https://rogoyato.github.io/ikarus/
 - Logo ve uçak çizimi, tanıtım PDF'inden (logo 1. sayfa, çizim 9. sayfa) çıkarılmış satır içi SVG'lerdir; renkleri temaya göre değişir. Tasarım değişirse PDF'ten yeniden çıkarılmalıdır (`pdftocairo -svg`).
 - Renkler dokümandaki krem, lacivert ve turuncudur. Dokümanın yazı tipleri (Agency FB, Century Gothic) ücretli olduğundan yerine Google Fonts'tan Saira Extra Condensed ve Jost kullanılır.
 - Açık/koyu tema seçimi tarayıcıda `ikarus-theme` anahtarıyla saklanır ve iki sayfada ortaktır.
-- **Teknik resim** bölümü (`#teknik-resim`): 4+1 VTOL ön tasarımının (Rev. 0) üst, ön ve yan görünüşleri, ölçüleri açıp kapatma, açılır boyut tablosu ve kuyruk seçenekleri karşılaştırması. Çizimler satır içi SVG'dir; çizgi sınıfları (`.o`, `.d`, `.c` …) `src/home.css` içinde temaya bağlanır, `.blade` sınıflı pervaneler döner.
-- Hareketler `src/home.js` içindedir: bölümler kaydırdıkça belirir, rakamlar sayarak gelir, giriş çizimindeki uçak kaydırdıkça yükselir. Sistemde "hareketi azalt" seçiliyse hiçbiri çalışmaz.
+- Giriş çizimindeki sol kanatçık PDF'te yoktu; sağdakinin simetriği olarak eklendi. Pervaneler (`.rotor` grupları) yavaşça döner: her biri dört motor göbeğinin konumundan hesaplanan yatay düzlemde (itici pervane dikey düzlemde) döndürülür, bkz. `initRotors` (`src/home.js`).
+- **Tasarım** bölümü (`#teknik-resim`): 4+1 VTOL düzeninin kısa anlatımı, açılır boyut tablosu ve kuyruk seçimi (ters V çift bom, gerekçesiyle). Teknik resmin çizim sayfaları siteye konmaz; kuyruk seçeneklerinin küçük çizimleri satır içi SVG'dir.
+- Hareketler `src/home.js` içindedir: bölümler ekrana girmeden hemen önce kısa bir geçişle belirir, giriş çizimindeki uçak kaydırdıkça yükselir. Sistemde "hareketi azalt" seçiliyse hiçbiri çalışmaz.
 - **Nasıl uçar?** (`#nasil-ucar`, `src/flight.js`): sayfa kaydıkça uçak beş evreden geçer (dikey kalkış, geçiş, seyir, geri geçiş, dikey iniş); çalışan motorlar yanda gösterilir.
 - **3B model** (`#model`, `src/model3d.js`): teknik resim ölçüleriyle kurulmuş, döndürülebilir model; parçaların üstüne gelince adı ve ölçüleri görünür. three.js yalnızca bölüm ekrana yaklaşınca yüklenir.
 - **Hesaplayıcı** (`#hesap`, `src/calc.js`): dikey uçuşta motor başına itki, güç, akım ve askıda kalma süresi (momentum teorisi).
