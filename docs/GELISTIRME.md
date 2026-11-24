@@ -38,7 +38,7 @@ Site: https://rogoyato.github.io/ikarus/
 - **Teknik resim** bölümü (`#teknik-resim`): 4+1 VTOL ön tasarımının (Rev. 0) üst, ön ve yan görünüşleri, ölçüleri açıp kapatma, açılır boyut tablosu ve kuyruk seçenekleri karşılaştırması. Çizimler satır içi SVG'dir; çizgi sınıfları (`.o`, `.d`, `.c` …) `src/home.css` içinde temaya bağlanır, `.blade` sınıflı pervaneler döner.
 - Hareketler `src/home.js` içindedir: bölümler kaydırdıkça belirir, rakamlar sayarak gelir, giriş çizimindeki uçak kaydırdıkça yükselir. Sistemde "hareketi azalt" seçiliyse hiçbiri çalışmaz.
 - **Nasıl uçar?** (`#nasil-ucar`, `src/flight.js`): sayfa kaydıkça uçak beş evreden geçer (dikey kalkış, geçiş, seyir, geri geçiş, dikey iniş); çalışan motorlar yanda gösterilir.
-- **3B model** (`#model`, `src/model3d.js`): teknik resim ölçüleriyle kurulmuş, döndürülebilir ve parçalarına ayrılabilir model. three.js yalnızca bölüm ekrana yaklaşınca yüklenir.
+- **3B model** (`#model`, `src/model3d.js`): teknik resim ölçüleriyle kurulmuş, döndürülebilir model; parçaların üstüne gelince adı ve ölçüleri görünür. three.js yalnızca bölüm ekrana yaklaşınca yüklenir.
 - **Hesaplayıcı** (`#hesap`, `src/calc.js`): dikey uçuşta motor başına itki, güç, akım ve askıda kalma süresi (momentum teorisi).
 - **Görev haritası** (`#gorev`, `src/mission.js`): temsili görevde rota, yasak bölgelerden kaçınma ve arama alanı taraması.
 - Sayılar (ağırlık, batarya, hız, uçuş süresi) tanıtım PDF'inden, uçağın geometrisi teknik resimden alınır.

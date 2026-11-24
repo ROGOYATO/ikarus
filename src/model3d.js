@@ -12,13 +12,6 @@ const PARTS = {
   tail: ['Ters V kuyruk', '35° · 2 × 549 mm panel · kök / uç veter 250 / 190 mm · ruddervator'],
   gear: ['İniş takımı', '310 mm yükseklik · itici pervaneyle yer arası 57 mm'],
 };
-// how far each part moves out when the model is taken apart (mm)
-const EXPLODE = {
-  wing: [0, 300, 0], pod: [0, -220, 0], tail: [0, 260, 280], pusher: [0, 0, 340],
-  'booms-l': [-280, 0, 0], 'booms-r': [280, 0, 0], 'lift-l': [-280, 170, 0], 'lift-r': [280, 170, 0],
-  'gear-l': [-280, -240, 0], 'gear-r': [280, -240, 0],
-};
-
 const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 // NACA 4-digit section as a closed loop (upper TE→LE, lower LE→TE), unit chord.
@@ -92,11 +85,9 @@ function panel(corners, mat, t = 5) {
 
 function build(mats) {
   const root = new THREE.Group();
-  const groups = {};
   const add = (key, part) => {
     const g = new THREE.Group();
     g.userData = { part, key };
-    groups[key] = g;
     root.add(g);
     return g;
   };
@@ -166,7 +157,7 @@ function build(mats) {
 
   root.scale.setScalar(0.001);
   root.position.set(0, 0, -0.42); // centre on the target CG (420 mm from the nose)
-  return { root, groups, props };
+  return { root, props };
 }
 
 export function initModel() {
@@ -208,7 +199,7 @@ export function initModel() {
     request();
   };
 
-  const { root, groups, props } = build(mats);
+  const { root, props } = build(mats);
   scene.add(root);
 
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -286,24 +277,13 @@ export function initModel() {
     showTip(part, 12, 12);
   });
 
-  // flight mode and explode
+  // flight mode
   let mode = 'vtol';
   box.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => {
     mode = b.dataset.mode;
     box.querySelectorAll('[data-mode]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     request();
   }));
-  let apart = 0;
-  let apartTarget = 0;
-  const explodeBtn = box.querySelector('[data-explode]');
-  explodeBtn.addEventListener('click', () => {
-    apartTarget = apartTarget ? 0 : 1;
-    explodeBtn.setAttribute('aria-pressed', String(Boolean(apartTarget)));
-    explodeBtn.textContent = apartTarget ? 'Birleştir' : 'Parçalarına ayır';
-    if (reduced) apart = apartTarget;
-    request();
-  });
-
   const resize = () => {
     const w = stage.clientWidth;
     const h = stage.clientHeight;
@@ -327,8 +307,6 @@ export function initModel() {
     raf = 0;
     const dt = last ? Math.min(0.05, (t - last) / 1000) : 0;
     last = t;
-    if (!reduced) apart += (apartTarget - apart) * Math.min(1, dt * 6);
-    for (const [key, off] of Object.entries(EXPLODE)) groups[key].position.set(...off.map((v) => v * apart));
     const spin = reduced ? 0 : dt * 40;
     props.lift.forEach((p) => {
       if (mode === 'vtol') p.rotation.y += spin * p.userData.dir;
