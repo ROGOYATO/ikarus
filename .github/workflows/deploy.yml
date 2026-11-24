@@ -1,9 +1,28 @@
 name: Build and deploy site
 
+# Runs only when something that ends up in the built site changes.
 on:
   push:
     branches: [main]
+    paths:
+      - 'index.html'
+      - 'ilk-ucak.html'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.js'
+      - '.github/workflows/deploy.yml'
   pull_request:
+    paths:
+      - 'index.html'
+      - 'ilk-ucak.html'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.js'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 permissions:
