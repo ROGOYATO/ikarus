@@ -82,7 +82,7 @@ function initRotors() {
     if (second) second.phase = angle(first.w0) + Math.PI - angle(second.w0);
   }
   // Rotors idle very slowly; each one speeds up the closer the pointer comes to its own hub.
-  const SLOW = (2 * Math.PI) / 6; // one turn every 6 s
+  const SLOW = (2 * Math.PI) / 3; // one turn every 3 s
   const FAST = 2 * Math.PI * 1.5; // 1.5 turns a second with the pointer on the hub
   const REACH = 260; // px from a hub at which its rotor is back to idle
   const art = document.querySelector('.plane-art');
