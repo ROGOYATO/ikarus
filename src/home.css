@@ -273,6 +273,7 @@ td:first-child { color: var(--muted); }
 .tables.three td:first-child { width: 48%; }
 caption { text-align: left; font: 700 1.3rem/1.1 var(--f-display); padding: 0 0 8px; color: var(--ink); }
 .tbl:has(caption)::before { top: 4px; }
+.why { display: grid; gap: 10px; max-width: 72ch; padding-left: 14px; border-left: 4px solid var(--accent); }
 .opt-intro { color: var(--muted); font-size: 15px; }
 .opts { display: grid; gap: 18px; }
 .opt { border: 1px solid var(--line); padding: 14px 16px; background: var(--paper); }
