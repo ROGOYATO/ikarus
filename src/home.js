@@ -67,9 +67,16 @@ function initRotors() {
     const w0 = [inv[0] * bx + inv[2] * by, inv[1] * bx + inv[3] * by];
     const node = g.closest('.rotor-mask') || g; // the pusher's blades sit in an unrotated masking wrapper
     const set = node.parentElement;
-    return { g, node, set, kind: set.dataset.kind, cx, cy, a, b, c, d, inv, w0, front: null, dir: +g.dataset.dir };
+    return { g, node, set, kind: set.dataset.kind, cx, cy, a, b, c, d, inv, w0, phase: 0, front: null, dir: +g.dataset.dir };
   });
   if (!rotors.length) return;
+  // The drawn blades of a rotor are not exactly 180° apart; turn the second one so that it stays
+  // directly opposite the first, otherwise the pair stops reading as one propeller while it spins.
+  const angle = ([x, y]) => Math.atan2(y, x);
+  for (const set of new Set(rotors.map((r) => r.set))) {
+    const [first, second] = rotors.filter((r) => r.set === set);
+    if (second) second.phase = angle(first.w0) + Math.PI - angle(second.w0);
+  }
   const SPEED = (2 * Math.PI) / 3; // one turn every 3 s, slow enough to see the blades
   let visible = true;
   let raf = 0;
@@ -77,7 +84,7 @@ function initRotors() {
     raf = 0;
     if (!visible) return;
     for (const r of rotors) {
-      const th = r.dir * SPEED * (t / 1000);
+      const th = r.dir * SPEED * (t / 1000) + r.phase;
       const cs = Math.cos(th);
       const sn = Math.sin(th);
       // Q = P · R
