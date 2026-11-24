@@ -23,7 +23,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsInlineLimit: 0,
-    chunkSizeWarningLimit: 600, // the lazily loaded 3D model chunk (three.js) is ~550 kB
+    chunkSizeWarningLimit: 600, // the lazily loaded three.js chunk shared by the 3D scenes is ~540 kB
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
