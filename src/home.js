@@ -32,42 +32,84 @@ function initReveal() {
 
 // As the hero scrolls away, its aircraft shrinks into the top-right corner, under the top bar, and stays
 // there for the rest of the page (rotors still turning). Clicking it there scrolls back to the top.
+// The drawing is position: fixed throughout (a slot keeps its place in the hero); where the browser
+// supports scroll-driven animations the whole move runs on the compositor in step with scrolling,
+// otherwise a scroll handler drives the same path. Once docked it simply stays fixed.
 function initDock() {
   const art = document.querySelector('.plane-art svg');
-  const fig = art?.parentElement;
   const hero = document.querySelector('.hero');
   const bar = document.querySelector('.topbar');
   if (!art || !hero) return;
-  let ticking = false;
-  const update = () => {
-    ticking = false;
-    const f = fig.getBoundingClientRect(); // the figure keeps the drawing's place in the layout
-    const w = f.width; // SVG elements have no offsetWidth; the drawing fills the figure's width
+  const slot = document.createElement('div');
+  art.before(slot);
+  const scrollTimeline = CSS.supports('animation-timeline: scroll()');
+  const kf = document.head.appendChild(document.createElement('style'));
+  const STOPS = 16;
+  let g = null;
+
+  // where the drawing sits at a given scroll position, as a transform from its place at the top of the page
+  const pose = (s) => {
+    const u = Math.min(1, Math.max(0, s / g.range));
+    const e = u * u * (3 - 2 * u);
+    const x = g.x0 + (g.tx - g.x0) * e;
+    const y = g.y0 - s + (g.ty - (g.y0 - s)) * e;
+    return { e, transform: `translate(${x - g.x0}px, ${y - g.y0}px) scale(${1 + (g.scale - 1) * e})` };
+  };
+  const badge = (e) => ({
+    background: `color-mix(in srgb, var(--paper) ${(e * 94).toFixed(1)}%, transparent)`,
+    shadow: `0 20px 50px rgba(0, 0, 0, ${(e * 0.25).toFixed(3)})`,
+  });
+
+  const measure = () => {
+    art.style.cssText = '';
+    art.classList.remove('docked');
+    slot.style.height = '0px';
+    const r = art.getBoundingClientRect();
     const vw = document.documentElement.clientWidth;
     const W = vw < 640 ? 96 : 176;
-    const tx = vw - 12 - W;
-    const ty = bar.offsetHeight + 10;
-    const k = Math.min(1, Math.max(0, scrollY / (hero.offsetHeight * 0.7)));
-    const e = k * k * (3 - 2 * k);
-    const x = f.left + (tx - f.left) * e;
-    const y = f.top + (ty - f.top) * e;
-    const sc = 1 + (W / w - 1) * e;
-    art.style.transform = `translate(${x - f.left}px, ${y - f.top}px) scale(${sc})`;
-    art.classList.toggle('docked', k >= 1);
-    art.style.setProperty('--dock', e.toFixed(3));
+    g = { x0: r.left, y0: r.top + scrollY, w: r.width, tx: vw - 12 - W, ty: bar.offsetHeight + 10, scale: W / r.width, range: hero.offsetHeight * 0.7 };
+    slot.style.height = `${r.height}px`;
+    Object.assign(art.style, { position: 'fixed', left: `${g.x0}px`, top: `${g.y0}px`, width: `${g.w}px` });
+    if (scrollTimeline) {
+      let frames = '';
+      for (let i = 0; i <= STOPS; i++) {
+        const p = pose((g.range * i) / STOPS);
+        const b = badge(p.e);
+        frames += `${((100 * i) / STOPS).toFixed(2)}% { transform: ${p.transform}; background-color: ${b.background}; box-shadow: ${b.shadow}; }\n`;
+      }
+      kf.textContent = `@keyframes plane-dock {\n${frames}}`;
+      art.style.animation = 'plane-dock 1s linear both';
+      art.style.animationTimeline = 'scroll(root block)';
+      art.style.animationRange = `0px ${g.range}px`;
+    }
+    update();
   };
+  const update = () => {
+    art.classList.toggle('docked', scrollY >= g.range);
+    if (scrollTimeline) return;
+    const p = pose(scrollY);
+    const b = badge(p.e);
+    art.style.transform = p.transform;
+    art.style.backgroundColor = b.background;
+    art.style.boxShadow = b.shadow;
+  };
+
   art.addEventListener('click', () => {
     if (art.classList.contains('docked')) scrollTo({ top: 0, behavior: 'smooth' });
   });
-  const onScroll = () => {
+  let ticking = false;
+  addEventListener('scroll', () => {
     if (!ticking) {
       ticking = true;
-      requestAnimationFrame(update);
+      requestAnimationFrame(() => {
+        ticking = false;
+        update();
+      });
     }
-  };
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
-  update();
+  }, { passive: true });
+  addEventListener('resize', measure);
+  document.fonts?.ready.then(measure);
+  measure();
 }
 
 // Hero drawing: rotors turn slowly in their own plane (horizontal for the lift rotors, taken from the
