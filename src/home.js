@@ -30,24 +30,43 @@ function initReveal() {
   blocks.forEach((el) => io.observe(el));
 }
 
-// The hero aircraft climbs away to the upper right as the page scrolls past the hero.
-function initTakeoff() {
+// As the hero scrolls away, its aircraft shrinks into the top-right corner, under the top bar, and stays
+// there for the rest of the page (rotors still turning). Clicking it there scrolls back to the top.
+function initDock() {
   const art = document.querySelector('.plane-art svg');
+  const fig = art?.parentElement;
   const hero = document.querySelector('.hero');
+  const bar = document.querySelector('.topbar');
   if (!art || !hero) return;
   let ticking = false;
   const update = () => {
     ticking = false;
-    const k = Math.min(1, Math.max(0, scrollY / hero.offsetHeight));
-    const e = k * k;
-    art.style.transform = `translate(${e * 34}%, ${-e * 46}%) rotate(${-e * 9}deg) scale(${1 - e * 0.35})`;
+    const f = fig.getBoundingClientRect(); // the figure keeps the drawing's place in the layout
+    const w = f.width; // SVG elements have no offsetWidth; the drawing fills the figure's width
+    const vw = document.documentElement.clientWidth;
+    const W = vw < 640 ? 96 : 176;
+    const tx = vw - 12 - W;
+    const ty = bar.offsetHeight + 10;
+    const k = Math.min(1, Math.max(0, scrollY / (hero.offsetHeight * 0.7)));
+    const e = k * k * (3 - 2 * k);
+    const x = f.left + (tx - f.left) * e;
+    const y = f.top + (ty - f.top) * e;
+    const sc = 1 + (W / w - 1) * e;
+    art.style.transform = `translate(${x - f.left}px, ${y - f.top}px) scale(${sc})`;
+    art.classList.toggle('docked', k >= 1);
+    art.style.setProperty('--dock', e.toFixed(3));
   };
-  addEventListener('scroll', () => {
+  art.addEventListener('click', () => {
+    if (art.classList.contains('docked')) scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  const onScroll = () => {
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(update);
     }
-  }, { passive: true });
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
   update();
 }
 
@@ -180,6 +199,6 @@ initMission(!reduced);
 initModelLazy();
 if (!reduced) {
   initReveal();
-  initTakeoff();
+  initDock();
   initRotors();
 }
