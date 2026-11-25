@@ -69,6 +69,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+/* opaque, themed selection so highlights of tight display lines merge instead of stacking */
+::selection { background: color-mix(in srgb, var(--accent) 28%, var(--paper)); color: var(--ink); }
 html { scroll-padding-top: calc(var(--top) + 16px); }
 body {
   margin: 0;
@@ -187,7 +189,7 @@ main { min-width: 0; padding-block: 24px 96px; }
 .section + .section { border-top: 1px solid var(--line); margin-top: 48px; }
 .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; }
 .sec-head .n { font: 600 var(--step-2)/1 var(--f-mono); color: var(--accent-ink); }
-.sec-head h2 { font: 700 var(--step-3)/1.05 var(--f-display); letter-spacing: 0.01em; text-transform: uppercase; }
+.sec-head h2 { font: 700 var(--step-3)/1.12 var(--f-display); letter-spacing: 0.01em; text-transform: uppercase; }
 h3 { font: 600 var(--step-1)/1.3 var(--f-body); margin: 40px 0 12px; display: flex; gap: 10px; }
 h3 .n, h4 .n { font-family: var(--f-mono); font-weight: 500; color: var(--muted); font-size: 0.9em; }
 h4 { font: 600 var(--step-0)/1.4 var(--f-body); margin: 28px 0 8px; display: flex; gap: 10px; }
