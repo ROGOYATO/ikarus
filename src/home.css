@@ -23,6 +23,8 @@
   --f-body: 'Jost', 'Century Gothic', 'Avenir Next', system-ui, sans-serif;
   --radius: 4px;
   --top: 60px;
+  --sel-bg: color-mix(in srgb, var(--accent) 32%, var(--paper));
+  --sel-ink: var(--ink);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -35,6 +37,8 @@
     --line: #24497a;
     --accent-ink: #f08a43;
     --navy: #071d38;
+    --sel-bg: var(--accent);
+    --sel-ink: var(--paper);
     color-scheme: dark;
   }
 }
@@ -47,6 +51,8 @@
   --line: #24497a;
   --accent-ink: #f08a43;
   --navy: #071d38;
+  --sel-bg: var(--accent);
+  --sel-ink: var(--paper);
   color-scheme: dark;
 }
 
@@ -59,6 +65,14 @@ a { color: inherit; text-underline-offset: 3px; }
 [hidden] { display: none !important; }
 h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { text-wrap: balance; }
+/* Text selection: opaque and themed, so highlights of tight display lines merge instead of stacking. */
+::selection { background: var(--sel-bg); color: var(--sel-ink); }
+.slide.navy ::selection { background: var(--navy-accent); color: var(--navy); }
+.slide.orange ::selection { background: var(--navy-ink); color: var(--orange-ink); }
+.logo-text::selection { background: color-mix(in srgb, var(--ink) 16%, transparent); } /* keeps the orange İ visible */
+/* decorative drawing labels stay out of selections */
+.plane-art svg, .opt-art svg, .fl-scene, .mission svg, .model-stage { user-select: none; -webkit-user-select: none; }
+.logo-text { fill: transparent; font: 700 400px var(--f-display); user-select: text; -webkit-user-select: text; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .wrap { max-width: 1240px; margin: 0 auto; padding-inline: 16px; }
 
@@ -95,7 +109,7 @@ h1, h2, h3 { text-wrap: balance; }
   font: 600 13px/1.2 var(--f-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink);
 }
 .kicker::after { content: ""; position: absolute; left: -100vw; right: 0; bottom: 0; height: 2px; background: var(--accent); }
-.slide h2 { font: 700 clamp(2.1rem, 4.6vw, 3.4rem)/1.02 var(--f-display); letter-spacing: 0.01em; margin-bottom: 18px; }
+.slide h2 { font: 700 clamp(2.1rem, 4.6vw, 3.4rem)/1.12 var(--f-display); letter-spacing: 0.01em; margin-bottom: 18px; }
 .lead { font-size: 1.12rem; max-width: 62ch; }
 .prose { display: grid; gap: 14px; max-width: 68ch; }
 .muted { color: var(--muted); }
@@ -140,7 +154,7 @@ h1, h2, h3 { text-wrap: balance; }
 .plane-art figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); text-align: right; }
 
 /* ---------- statements ---------- */
-.statement { font: 700 clamp(2rem, 4.4vw, 3.3rem)/1.08 var(--f-display); letter-spacing: 0.01em; max-width: 26ch; margin-bottom: 26px; }
+.statement { font: 700 clamp(2rem, 4.4vw, 3.3rem)/1.16 var(--f-display); letter-spacing: 0.01em; max-width: 26ch; margin-bottom: 26px; }
 
 /* ---------- stats ---------- */
 .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px clamp(20px, 4vw, 48px); margin: 34px 0 0; padding: 0; }
