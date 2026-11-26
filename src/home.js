@@ -47,12 +47,14 @@ function initDock() {
   const STOPS = 16;
   let g = null;
 
-  // where the drawing sits at a given scroll position, as a transform from its place at the top of the page
+  // Where the drawing sits at scroll s, as a transform from its place at the top of the page. It scrolls
+  // with the page at full size until its top meets the top bar (s = start); from there it never leaves
+  // the screen: it stays pinned under the bar while it shrinks and slides into the corner.
   const pose = (s) => {
-    const u = Math.min(1, Math.max(0, s / g.range));
+    const u = Math.min(1, Math.max(0, (s - g.start) / g.range));
     const e = u * u * (3 - 2 * u);
     const x = g.x0 + (g.tx - g.x0) * e;
-    const y = g.y0 - s + (g.ty - (g.y0 - s)) * e;
+    const y = s < g.start ? g.y0 - s : g.ty;
     return { e, transform: `translate(${x - g.x0}px, ${y - g.y0}px) scale(${1 + (g.scale - 1) * e})` };
   };
   const badge = (e) => ({
@@ -67,25 +69,30 @@ function initDock() {
     const r = art.getBoundingClientRect();
     const vw = document.documentElement.clientWidth;
     const W = vw < 640 ? 96 : 176;
-    g = { x0: r.left, y0: r.top + scrollY, w: r.width, tx: vw - 12 - W, ty: bar.offsetHeight + 10, scale: W / r.width, range: hero.offsetHeight * 0.7 };
+    const ty = bar.offsetHeight + 10;
+    const y0 = r.top + scrollY;
+    g = { x0: r.left, y0, w: r.width, tx: vw - 12 - W, ty, scale: W / r.width, start: Math.max(0, y0 - ty), range: Math.max(220, r.height * 0.9) };
+    g.end = g.start + g.range;
     slot.style.height = `${r.height}px`;
     Object.assign(art.style, { position: 'fixed', left: `${g.x0}px`, top: `${g.y0}px`, width: `${g.w}px` });
     if (scrollTimeline) {
+      // one stop where the pinning starts, then enough stops to follow the eased shrink
+      const at = [0, ...Array.from({ length: STOPS + 1 }, (_, i) => g.start + (g.range * i) / STOPS)];
       let frames = '';
-      for (let i = 0; i <= STOPS; i++) {
-        const p = pose((g.range * i) / STOPS);
+      for (const sAt of at) {
+        const p = pose(sAt);
         const b = badge(p.e);
-        frames += `${((100 * i) / STOPS).toFixed(2)}% { transform: ${p.transform}; background-color: ${b.background}; box-shadow: ${b.shadow}; }\n`;
+        frames += `${((100 * sAt) / g.end).toFixed(3)}% { transform: ${p.transform}; background-color: ${b.background}; box-shadow: ${b.shadow}; }\n`;
       }
       kf.textContent = `@keyframes plane-dock {\n${frames}}`;
       art.style.animation = 'plane-dock 1s linear both';
       art.style.animationTimeline = 'scroll(root block)';
-      art.style.animationRange = `0px ${g.range}px`;
+      art.style.animationRange = `0px ${g.end}px`;
     }
     update();
   };
   const update = () => {
-    art.classList.toggle('docked', scrollY >= g.range);
+    art.classList.toggle('docked', scrollY >= g.end);
     if (scrollTimeline) return;
     const p = pose(scrollY);
     const b = badge(p.e);
@@ -214,7 +221,7 @@ function initRotors() {
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
     if (visible && !raf) raf = requestAnimationFrame(frame);
-  }).observe(art);
+  }).observe(art.querySelector('svg')); // the drawing itself: docked, it stays on screen after the hero has gone
 }
 
 // The 3D model (and three.js) loads only when its section comes near the viewport.
